@@ -1,0 +1,113 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #111827; 
+    color: #F3F4F6; 
+    cursor: none; 
+}
+
+.section-title {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    width: 5rem;
+    height: 0.25rem;
+    background-color: #6366F1; 
+    position: absolute;
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+}
+
+/* Custom Cursor */
+.cursor-dot, .cursor-outline {
+    pointer-events: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #818CF8; 
+}
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #818CF8;
+    transition-duration: 0.3s;
+}
+body:hover .cursor-dot, body:hover .cursor-outline {
+    opacity: 1;
+}
+.cursor-outline.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: rgba(99, 102, 241, 0.2);
+}
+
+
+/* 3D Project Card Effect */
+.project-card {
+    background-color: #1F2937; 
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transform: perspective(1000px);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.project-card:hover {
+    transform: scale(1.05) rotateY(5deg) rotateX(5deg);
+    box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+}
+
+/* Animated Skill Badges */
+.skill-badge {
+    background-color: #374151; 
+    color: #A5B4FC; 
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    animation: float 6s ease-in-out infinite;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.skill-badge:hover {
+    transform: translateY(-5px) scale(1.1);
+    background-color: #4F46E5;
+    color: #FFF;
+    animation-play-state: paused;
+}
+/* Assign different delays to make the floating look natural */
+.skill-badge:nth-child(2) { animation-delay: -1s; }
+.skill-badge:nth-child(3) { animation-delay: -4s; }
+.skill-badge:nth-child(4) { animation-delay: -2.5s; }
+.skill-badge:nth-child(5) { animation-delay: -5s; }
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Animate on Scroll */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition-delay: var(--delay, 0s);
+}
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}

@@ -2,6 +2,24 @@ import initThreeScene from './three-scene.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Typing Effect ---
+    const nameElement = document.getElementById('name-heading');
+    if (nameElement) {
+        const text = "Hi, I'm Syed Badrudduja";
+        let i = 0;
+        nameElement.innerHTML = ""; // Clear existing text
+        const typingInterval = setInterval(() => {
+            if (i < text.length) {
+                nameElement.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(typingInterval);
+                // Optionally add a class when done to remove the cursor
+                document.querySelector('.typing-cursor')?.classList.add('typing-done');
+            }
+        }, 100); // Adjust typing speed (milliseconds)
+    }
+
     // Initialize the 3D hero scene
     initThreeScene();
 
@@ -18,12 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             if (this.getAttribute('href').startsWith('#')) {
                 e.preventDefault();
-                if (!mobileMenu.classList.contains('hidden')) {
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
                 }
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
@@ -35,20 +56,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const posX = e.clientX;
         const posY = e.clientY;
 
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 500, fill: 'forwards' });
+        if (cursorDot) {
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+        }
+        if (cursorOutline) {
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: 'forwards' });
+        }
     });
 
     // Add hover effect to cursor for links and buttons
     const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-badge');
     interactiveElements.forEach(el => {
-        el.addEventListener('mouseover', () => cursorOutline.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
+        el.addEventListener('mouseover', () => cursorOutline?.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorOutline?.classList.remove('hover'));
     });
 
     // Animate on scroll logic

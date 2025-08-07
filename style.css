@@ -111,3 +111,23 @@ body:hover .cursor-dot, body:hover .cursor-outline {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Typing Effect */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: #A5B4FC;
+    animation: blink 0.7s infinite;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.typing-cursor.typing-done {
+    display: none;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

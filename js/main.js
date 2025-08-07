@@ -1,71 +1,82 @@
-import { unzoom, isZoomed } from './three-scene.js';
+import { unzoom, isZoomed, focusOnProjects } from './three-scene.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Mobile menu toggle
+    // --- Typing Effect ---
+    const text = "Hi, I'm Syed Badrudduja";
+    const headingElement = document.getElementById('typing-heading');
+    if (headingElement) {
+        let i = 0;
+        headingElement.innerHTML = "";
+        const typingInterval = setInterval(() => {
+            if (i < text.length) {
+                headingElement.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(typingInterval);
+                headingElement.classList.add('typing-done');
+            }
+        }, 100);
+    }
+
+    // --- Mobile Menu ---
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     mobileMenuButton.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
     });
 
-    // Smooth scroll for all navigation links
+    // --- Navigation Link Logic ---
     const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            
-            // Special handling for the Projects link
-            if (this.id === 'nav-projects') {
-                 if (isZoomed()) unzoom();
-                 return;
-            }
-            
-            // Function to scroll to the target section
+            const targetId = link.getAttribute('href');
+            const isProjectNavLink = link.id.includes('nav-projects');
+            const isViewWorkButton = link.id.includes('view-work-button');
+
             const scrollToTarget = () => {
-                 if (targetId && targetId.startsWith('#')) {
-                    document.querySelector(targetId).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                if (targetId && targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
             };
-            
-            // If we are zoomed in, unzoom first, then scroll
-            if (isZoomed()) {
-                unzoom().then(scrollToTarget); // .then() waits for the animation to finish
+
+            // FIXED: Added specific logic for the "View My Work" button
+            if (isViewWorkButton) {
+                focusOnProjects();
+            } else if (isProjectNavLink) {
+                if (isZoomed()) unzoom();
             } else {
-                scrollToTarget();
+                unzoom().then(scrollToTarget);
             }
 
-            // Hide mobile menu on click
             if (!mobileMenu.classList.contains('hidden')) {
                 mobileMenu.classList.add('hidden');
             }
         });
     });
 
-    // Custom cursor logic
+    // --- Custom Cursor ---
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
     window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
         cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
+            left: `${e.clientX}px`,
+            top: `${e.clientY}px`
         }, { duration: 500, fill: 'forwards' });
     });
-
-    const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-badge');
+    const interactiveElements = document.querySelectorAll('a, button');
     interactiveElements.forEach(el => {
         el.addEventListener('mouseover', () => cursorOutline.classList.add('hover'));
         el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
     });
 
-    // Animate on scroll logic
+    // --- Animate on Scroll ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -73,7 +84,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, { threshold: 0.1 });
-
-    const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-    elementsToAnimate.forEach(el => observer.observe(el));
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 });

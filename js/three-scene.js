@@ -1,22 +1,34 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
 
-// --- State Variable ---
-let _isZoomed = false;
+// --- State Variables ---
+let _isZoomed = false; // Is the camera zoomed into a specific project?
+let _isFocused = false; // Is the camera in the project-browsing view?
 
 // --- Exportable Functions ---
 export function isZoomed() {
     return _isZoomed;
 }
 
+// FIXED: New function to move camera closer to projects
+export function focusOnProjects() {
+    if (_isFocused) return;
+    _isFocused = true;
+    document.body.classList.add('zoomed-in'); // This class hides the hero text
+
+    return gsap.to(camera.position, {
+        duration: 1.5,
+        z: 750, // Move camera closer
+        ease: 'power3.inOut',
+    });
+}
+
 export function unzoom() {
-    // Return a promise that resolves when the animation is complete
     return new Promise((resolve) => {
-        if (!_isZoomed) {
+        if (!_isZoomed && !_isFocused) {
             resolve();
             return;
         }
         overlay.classList.remove('visible');
-        
         gsap.to(camera.position, {
             duration: 1.5,
             x: 0,
@@ -25,13 +37,13 @@ export function unzoom() {
             ease: 'power3.inOut',
             onComplete: () => {
                 _isZoomed = false;
+                _isFocused = false;
                 document.body.classList.remove('zoomed-in');
-                resolve(); // Resolve the promise here
+                resolve();
             }
         });
     });
 }
-
 
 // --- Project Data ---
 const projects = [
@@ -53,7 +65,7 @@ const projects = [
         title: 'Enrollment Forecasting App',
         description: 'A full-stack web app to forecast student enrollment data for public schools using Python (Flask, Prophet) and Chart.js for dynamic, interactive visualizations.',
         image: 'https://storage.googleapis.com/astromoflow-public-images/enrollment-forecast-demo.gif',
-        link: null, // Private Repo
+        link: null,
         position: new THREE.Vector3(0, 150, 500)
     },
      {
@@ -104,7 +116,6 @@ projects.forEach(project => {
     scene.add(projectPoint);
 });
 
-
 // --- Interactivity & Overlay ---
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -118,8 +129,8 @@ const linkContainerEl = document.getElementById('project-link-container');
 function zoomToProject(project) {
     if (_isZoomed) return;
     _isZoomed = true;
+    _isFocused = true; // Zooming also implies focusing
     document.body.classList.add('zoomed-in');
-
     gsap.to(camera.position, {
         duration: 1.5,
         x: project.position.x,
@@ -155,13 +166,12 @@ window.addEventListener('mousemove', (event) => {
 });
 
 window.addEventListener('click', () => {
-    if (currentIntersect) {
+    if (currentIntersect && !_isZoomed) {
         zoomToProject(currentIntersect.userData);
     } else if (_isZoomed) {
         unzoom();
     }
 });
-
 
 // --- Animation Loop ---
 function animate() {
@@ -179,11 +189,9 @@ function animate() {
         currentIntersect = null;
         document.body.style.cursor = 'default';
     }
-
     stars.rotation.y += 0.0001;
     renderer.render(scene, camera);
 }
-
 animate();
 
 window.addEventListener('resize', () => {

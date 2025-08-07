@@ -111,3 +111,19 @@ body:hover .cursor-dot, body:hover .cursor-outline {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Hide hero text when zoomed */
+body.zoomed-in #home .relative.z-10 {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Overlay styles */
+#project-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#project-overlay.visible #project-card-large {
+    transform: scale(1);
+}

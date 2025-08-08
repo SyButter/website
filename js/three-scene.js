@@ -40,7 +40,6 @@ export default function initThreeScene(onProjectClick) {
     const particlesMaterial = new THREE.PointsMaterial({ color: 0x818CF8, size: 2, transparent: true, blending: THREE.AdditiveBlending });
     particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
-
     const lineGeometry = new THREE.BufferGeometry();
     const lineMaterial = new THREE.LineBasicMaterial({ color: 0x818CF8, transparent: true, opacity: 0.05 });
     const linePositions = [];
@@ -63,15 +62,39 @@ export default function initThreeScene(onProjectClick) {
     scene.add(lines);
 
     // --- Create Project Stars ---
-    projectsData.forEach(proj => {
-        const starGeometry = new THREE.CircleGeometry(50, 3);
-        const starMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0, side: THREE.DoubleSide, depthTest: false });
+    const labelsContainer = document.getElementById('project-labels');
+    
+    const colors = [
+        0x4F46E5, 
+        0xEC4899, 
+        0xF59E0B, 
+        0x14B8A6, 
+        0x10B981 
+    ];
+
+    projectsData.forEach((proj, index) => {
+        const starGeometry = new THREE.CircleGeometry(50, 4);
+        
+        const starMaterial = new THREE.MeshBasicMaterial({
+            color: colors[index % colors.length],
+            transparent: true,
+            opacity: 0,
+            side: THREE.DoubleSide,
+            depthTest: false
+        });
+
         const star = new THREE.Mesh(starGeometry, starMaterial);
         star.position.copy(proj.position);
         star.renderOrder = 1;
         star.name = proj.name;
         scene.add(star);
-        projectObjects.push(star);
+
+        const labelDiv = document.createElement('div');
+        labelDiv.className = 'project-label';
+        labelDiv.textContent = proj.name;
+        labelsContainer.appendChild(labelDiv);
+
+        projectObjects.push({ mesh: star, label: labelDiv });
     });
 
     // --- Animation & Control Functions ---
@@ -81,14 +104,15 @@ export default function initThreeScene(onProjectClick) {
         const aspect = window.innerWidth / window.innerHeight;
         const targetZ = aspect > 1.2 ? 700 : 900;
         gsap.to(camera.position, { z: targetZ, duration: 2.5, ease: "power3.inOut" });
-        gsap.to([particles.material, lines.material], { opacity: 0.15, duration: 2, ease: "power2.out" });
+        gsap.to(particles.material, { opacity: 0.15, duration: 2, ease: "power2.out" });
+        gsap.to(lines.material, { opacity: 0.15, duration: 2, ease: "power2.out" });
 
-        projectObjects.forEach(star => {
-            gsap.to(star.material, { opacity: 0.6, duration: 2, delay: 1, ease: "power2.inOut" });
+        projectObjects.forEach(p => {
+            gsap.to(p.mesh.material, { opacity: 0.7, duration: 2, delay: 1, ease: "power2.inOut" });
+            gsap.to(p.label, { opacity: 1, duration: 2, delay: 1, ease: "power2.inOut" });
         });
     }
 
-    // Reverses the animations to return to the home screen state.
     function resetView() {
         if (!isZoomed) return;
         isZoomed = false;
@@ -96,10 +120,12 @@ export default function initThreeScene(onProjectClick) {
         gsap.to(particles.material, { opacity: 1.0, duration: 2, ease: "power2.out" });
         gsap.to(lines.material, { opacity: 0.05, duration: 2, ease: "power2.out" });
 
-        projectObjects.forEach(star => {
-            gsap.to(star.material, { opacity: 0, duration: 1.5, ease: "power2.inOut" });
+        projectObjects.forEach(p => {
+            gsap.to(p.mesh.material, { opacity: 0, duration: 1.5, ease: "power2.inOut" });
+            gsap.to(p.label, { opacity: 0, duration: 1.5, ease: "power2.inOut" });
         });
     }
+
 
     // --- Event Listeners & Raycasting ---
     const raycaster = new THREE.Raycaster();
@@ -109,7 +135,10 @@ export default function initThreeScene(onProjectClick) {
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
         raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(projectObjects);
+        
+        const meshes = projectObjects.map(p => p.mesh);
+        const intersects = raycaster.intersectObjects(meshes);
+
         if (intersects.length > 0) {
             const clickedObjectName = intersects[0].object.name;
             if (onProjectClick) { onProjectClick(clickedObjectName); }
@@ -132,14 +161,26 @@ export default function initThreeScene(onProjectClick) {
     canvas.addEventListener('click', onCanvasClick, false);
     window.addEventListener('resize', onWindowResize, false);
 
+
     // --- Render Loop ---
     function animate() {
         requestAnimationFrame(animate);
         render();
     }
+    
     function render() {
-        projectObjects.forEach(star => {
-            star.lookAt(camera.position);
+        projectObjects.forEach(p => {
+            p.mesh.lookAt(camera.position);
+
+            const vector = new THREE.Vector3();
+            vector.setFromMatrixPosition(p.mesh.matrixWorld); 
+            vector.project(camera); 
+
+            const x = (vector.x * 0.5 + 0.5) * canvas.clientWidth;
+            const y = (vector.y * -0.5 + 0.5) * canvas.clientHeight;
+            
+            p.label.style.left = `${x}px`;
+            p.label.style.top = `${y}px`;
         });
 
         camera.position.x += (mouseX - camera.position.x) * 0.05;

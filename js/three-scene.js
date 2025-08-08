@@ -103,6 +103,28 @@ export default function initThreeScene(onProjectClick) {
         });
     }
 
+    function onCanvasClick(event) {
+        console.log("Canvas clicked!");
+        
+        if (!isZoomed) return;
+
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(projectObjects);
+
+        console.log("Raycaster found intersections:", intersects); 
+
+        if (intersects.length > 0) {
+            console.log("A triangle was successfully intersected!");
+            const clickedObjectName = intersects[0].object.name;
+            if (onProjectClick) {
+                onProjectClick(clickedObjectName);
+            }
+        }
+    }
+
     // --- Event Listeners & Raycasting ---
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();

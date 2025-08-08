@@ -342,6 +342,18 @@
       </div>
     </footer>
 
-    <script type="module" src="js/main.js?v=1.1"></script>
+    <div id="project-modal-backdrop" class="hidden">
+      <div id="project-modal-content">
+        <button id="modal-close-button" class="close-button">&times;</button>
+        <img id="modal-image" src="" alt="Project Image" />
+        <div class="modal-text-content">
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+            <a id="modal-link" href="#" target="_blank" class="modal-button">View on GitHub &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js?v=1.2"></script>
   </body>
 </html>

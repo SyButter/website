@@ -1,6 +1,16 @@
 import initThreeScene from './three-scene.js';
+import initModal from './modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Modal logic
+    const modalBackdrop = document.getElementById('project-modal-backdrop');
+    const modalContent = document.getElementById('project-modal-content');
+    const modalCloseButton = document.getElementById('modal-close-button');
+    const modalImage = document.getElementById('modal-image');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalLink = document.getElementById('modal-link');
 
     // --- Typing Effect ---
     const nameElement = document.getElementById('name-heading');
@@ -35,8 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize the 3D hero scene
-    const threeSceneControls = initThreeScene(onProjectSelect);
+    // --- INIT MODULES ---
+    const openModal = initModal();
+    const threeSceneControls = initThreeScene(openModal);
 
     // Mobile menu toggle
     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -134,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {
         threshold: 0.1
     });
+    
 
     const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
     elementsToAnimate.forEach(el => observer.observe(el));

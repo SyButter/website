@@ -1,0 +1,23 @@
+{
+  "name": "badr-website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyButter/badr-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SyButter/badr-website/issues"
+  },
+  "homepage": "https://github.com/SyButter/badr-website#readme",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^4.1.11"
+  }
+}

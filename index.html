@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Syed Badrudduja - Developer Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/dist/output.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +12,6 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=1.4" />
   </head>
   <body class="antialiased">
     <div class="cursor-dot"></div>
@@ -89,12 +88,14 @@
         id="three-canvas"
         class="absolute top-0 left-0 w-full h-full"
       ></canvas>
-       <div id="project-labels"></div>
+      <div id="project-labels"></div>
       <div class="relative z-10 container mx-auto px-6">
-        <h1
-          class="text-5xl md:text-7xl font-black text-white mb-4 leading-tight animate-on-scroll"
-        >
-          <span id="name-heading"></span><span class="typing-cursor"></span>
+        <h1 class="mb-4 text-center animate-on-scroll">
+          <span
+            id="name-heading"
+            class="text-5xl md:text-7xl font-black text-white leading-normal"
+          ></span
+          ><span class="typing-cursor"></span>
         </h1>
         <p
           class="text-xl md:text-2xl text-indigo-300 mb-8 animate-on-scroll"
@@ -105,7 +106,7 @@
         </p>
         <a
           href="#projects"
-          id="view-work-button" 
+          id="view-work-button"
           class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-110 inline-block animate-on-scroll"
           style="--delay: 0.4s"
         >
@@ -197,7 +198,10 @@
       </div>
     </section>
 
-    <section id="projects" class="py-20 bg-gray-900 opacity-0 animate-on-scroll">
+    <section
+      id="projects"
+      class="py-20 bg-gray-900 opacity-0 animate-on-scroll"
+    >
       <div class="container mx-auto px-6">
         <h2 class="section-title">My Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -337,7 +341,6 @@
 
     <footer class="bg-gray-900 text-center py-6">
       <div class="container mx-auto px-6">
-        
         <div class="mb-4 flex justify-center space-x-6">
           <a
             href="https://github.com/SyButter"
@@ -390,9 +393,11 @@
         <button id="modal-close-button" class="close-button">&times;</button>
         <img id="modal-image" src="" alt="Project Image" />
         <div class="modal-text-content">
-            <h3 id="modal-title"></h3>
-            <p id="modal-description"></p>
-            <a id="modal-link" href="#" target="_blank" class="modal-button">View on GitHub &rarr;</a>
+          <h3 id="modal-title"></h3>
+          <p id="modal-description"></p>
+          <a id="modal-link" href="#" target="_blank" class="modal-button"
+            >View on GitHub &rarr;</a
+          >
         </div>
       </div>
     </div>

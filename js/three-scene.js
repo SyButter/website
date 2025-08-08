@@ -4,7 +4,7 @@ export default function initThreeScene() {
     const canvas = document.getElementById('three-canvas');
     if (!canvas) return;
 
-    let scene, camera, renderer, particles, mouseX = 0, mouseY = 0;
+    let scene, camera, renderer, particles, lines, mouseX = 0, mouseY = 0;
 
     const windowHalfX = window.innerWidth / 2;
     const windowHalfY = window.innerHeight / 2;
@@ -21,27 +21,58 @@ export default function initThreeScene() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0); // Transparent background
 
-    // Particles
+    // --- Create Particles ---
     const particleCount = 5000;
-    const vertices = [];
+    const positions = [];
     for (let i = 0; i < particleCount; i++) {
         const x = Math.random() * 2000 - 1000;
         const y = Math.random() * 2000 - 1000;
         const z = Math.random() * 2000 - 1000;
-        vertices.push(x, y, z);
+        positions.push(x, y, z);
     }
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    const particlesGeometry = new THREE.BufferGeometry();
+    particlesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
 
-    const material = new THREE.PointsMaterial({
+    const particlesMaterial = new THREE.PointsMaterial({
         color: 0x818CF8, // Indigo-400
         size: 2,
         transparent: true,
         blending: THREE.AdditiveBlending,
     });
 
-    particles = new THREE.Points(geometry, material);
+    particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
+    
+    // --- Create Constellation Lines ---
+    const lineGeometry = new THREE.BufferGeometry();
+    const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x818CF8,
+        transparent: true,
+        opacity: 0.05 // Faint lines
+    });
+
+    const linePositions = [];
+    const maxDistance = 150; // Max distance to connect particles
+    const particlePositions = particlesGeometry.attributes.position.array;
+
+    for (let i = 0; i < particleCount; i++) {
+        for (let j = i + 1; j < particleCount; j++) {
+            const dx = particlePositions[i * 3] - particlePositions[j * 3];
+            const dy = particlePositions[i * 3 + 1] - particlePositions[j * 3 + 1];
+            const dz = particlePositions[i * 3 + 2] - particlePositions[j * 3 + 2];
+            const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+            if (distance < maxDistance) {
+                linePositions.push(particlePositions[i * 3], particlePositions[i * 3 + 1], particlePositions[i * 3 + 2]);
+                linePositions.push(particlePositions[j * 3], particlePositions[j * 3 + 1], particlePositions[j * 3 + 2]);
+            }
+        }
+    }
+
+    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+    lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+    scene.add(lines);
+
 
     // Event Listeners
     document.addEventListener('mousemove', onDocumentMouseMove, false);
@@ -70,8 +101,12 @@ export default function initThreeScene() {
         camera.position.y += (-mouseY - camera.position.y) * 0.05;
         camera.lookAt(scene.position);
 
-        particles.rotation.x = time * 0.2;
-        particles.rotation.y = time * 0.4;
+        // Rotate both particles and lines together
+        const rotationSpeed = 0.2;
+        particles.rotation.x = time * rotationSpeed;
+        particles.rotation.y = time * (rotationSpeed * 2);
+        lines.rotation.x = time * rotationSpeed;
+        lines.rotation.y = time * (rotationSpeed * 2);
         
         renderer.render(scene, camera);
     }

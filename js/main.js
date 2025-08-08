@@ -27,52 +27,78 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- STATE & ELEMENT SELECTORS ---
     const viewWorkButton = document.getElementById('view-work-button');
     const heroContent = document.querySelector('#home .relative.z-10');
-    let isProjectViewActive = false;
+    // --- DEVICE DETECTION ---
+    const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-    // --- "VIEW MY WORK" BUTTON LOGIC ---
-    if (viewWorkButton) {
-        viewWorkButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (isProjectViewActive) return; // Prevent clicking while already in project view
-            isProjectViewActive = true;
-            gsap.to(heroContent, {
-                opacity: 0,
-                duration: 1,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    heroContent.style.pointerEvents = 'none';
+    if (isMobile) {
+        // --- MOBILE-ONLY LOGIC ---
+        if (viewWorkButton) {
+            viewWorkButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // modal functionality
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const projectName = card.dataset.projectName;
+                if (projectName) {
+                    openModal(projectName);
                 }
             });
-            if (threeSceneControls) {
-                threeSceneControls.transitionToProjects();
-            }
         });
-    }
 
-    // --- OBSERVER TO RESET THE VIEW ON SCROLL UP ---
-    const homeSection = document.getElementById('home');
-    const homeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.5 && isProjectViewActive) {
-                isProjectViewActive = false;
-                if (threeSceneControls) {
-                    threeSceneControls.resetView();
-                }
+    } else {
+        // --- DESKTOP-ONLY LOGIC ---
+        let isProjectViewActive = false;
+
+        // 3d transition
+        if (viewWorkButton) {
+            viewWorkButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (isProjectViewActive) return;
+                isProjectViewActive = true;
                 gsap.to(heroContent, {
-                    opacity: 1,
-                    duration: 1.5,
-                    onStart: () => {
-                        heroContent.style.pointerEvents = 'auto';
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        heroContent.style.pointerEvents = 'none';
                     }
                 });
-            }
-        });
-    }, {
-        threshold: 0.5
-    });
+                if (threeSceneControls) {
+                    threeSceneControls.transitionToProjects();
+                }
+            });
+        }
 
-    if (homeSection) {
-        homeObserver.observe(homeSection);
+        // --- RESET VIEW LOGIC ---
+        const homeSection = document.getElementById('home');
+        const homeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.5 && isProjectViewActive) {
+                    isProjectViewActive = false;
+                    if (threeSceneControls) {
+                        threeSceneControls.resetView();
+                    }
+                    gsap.to(heroContent, {
+                        opacity: 1,
+                        duration: 1.5,
+                        onStart: () => {
+                            heroContent.style.pointerEvents = 'auto';
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        if (homeSection) {
+            homeObserver.observe(homeSection);
+        }
     }
     
     // --- MOBILE MENU LOGIC ---

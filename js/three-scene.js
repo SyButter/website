@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
 
-// Data for our project 
+// Data for our project
 const projectsData = [
     { name: 'openGBW', position: new THREE.Vector3(-250, 50, 150) },
     { name: 'RasPi Adhan', position: new THREE.Vector3(250, -100, 120) },
@@ -22,11 +22,7 @@ export default function initThreeScene(onProjectClick) {
     camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 2, 2000);
     camera.position.z = 1000;
 
-    renderer = new THREE.WebGLRenderer({
-        canvas: canvas,
-        antialias: true,
-        alpha: true
-    });
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
 
@@ -69,14 +65,7 @@ export default function initThreeScene(onProjectClick) {
     // --- Create Project Stars ---
     projectsData.forEach(proj => {
         const starGeometry = new THREE.CircleGeometry(50, 3);
-        const starMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00ffff,
-            transparent: true,
-            opacity: 0,
-            side: THREE.DoubleSide,
-            depthTest: false
-        });
-
+        const starMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0, side: THREE.DoubleSide, depthTest: false });
         const star = new THREE.Mesh(starGeometry, starMaterial);
         star.position.copy(proj.position);
         star.renderOrder = 1;
@@ -87,6 +76,7 @@ export default function initThreeScene(onProjectClick) {
 
     // --- Animation & Control Functions ---
     function transitionToProjects() {
+        if (isZoomed) return;
         isZoomed = true;
         const aspect = window.innerWidth / window.innerHeight;
         const targetZ = aspect > 1.2 ? 700 : 900;
@@ -94,35 +84,21 @@ export default function initThreeScene(onProjectClick) {
         gsap.to([particles.material, lines.material], { opacity: 0.15, duration: 2, ease: "power2.out" });
 
         projectObjects.forEach(star => {
-            gsap.to(star.material, {
-                opacity: 0.6,
-                duration: 2,
-                delay: 1,
-                ease: "power2.inOut"
-            });
+            gsap.to(star.material, { opacity: 0.6, duration: 2, delay: 1, ease: "power2.inOut" });
         });
     }
 
-    function onCanvasClick(event) {
-        console.log("Canvas clicked!");
-        
+    // Reverses the animations to return to the home screen state.
+    function resetView() {
         if (!isZoomed) return;
+        isZoomed = false;
+        gsap.to(camera.position, { z: 1000, duration: 2.5, ease: "power3.inOut" });
+        gsap.to(particles.material, { opacity: 1.0, duration: 2, ease: "power2.out" });
+        gsap.to(lines.material, { opacity: 0.05, duration: 2, ease: "power2.out" });
 
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-
-        raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(projectObjects);
-
-        console.log("Raycaster found intersections:", intersects); 
-
-        if (intersects.length > 0) {
-            console.log("A triangle was successfully intersected!");
-            const clickedObjectName = intersects[0].object.name;
-            if (onProjectClick) {
-                onProjectClick(clickedObjectName);
-            }
-        }
+        projectObjects.forEach(star => {
+            gsap.to(star.material, { opacity: 0, duration: 1.5, ease: "power2.inOut" });
+        });
     }
 
     // --- Event Listeners & Raycasting ---
@@ -166,11 +142,9 @@ export default function initThreeScene(onProjectClick) {
             star.lookAt(camera.position);
         });
 
-        // Mouse-driven parallax
         camera.position.x += (mouseX - camera.position.x) * 0.05;
         camera.position.y += (-mouseY - camera.position.y) * 0.05;
 
-        // Automatic rotation only happens before the zoom.
         if (!isZoomed) {
             const time = Date.now() * 0.00005;
             particles.rotation.y = time * 0.4;
@@ -182,5 +156,5 @@ export default function initThreeScene(onProjectClick) {
     }
     animate();
 
-    return { transitionToProjects };
+    return { transitionToProjects, resetView };
 }

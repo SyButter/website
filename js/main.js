@@ -20,8 +20,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100); // Adjust typing speed (milliseconds)
     }
 
+    // --- Handle Project Selection from 3D Scene ---
+    function onProjectSelect(projectName) {
+        console.log(`Project selected: ${projectName}`);
+        const projectCard = document.querySelector(`.project-card[data-project-name="${projectName}"]`);
+        if (projectCard) {
+            projectCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Add a temporary highlight effect
+            projectCard.style.transition = 'box-shadow 0.5s ease-in-out';
+            projectCard.style.boxShadow = '0 0 35px rgba(165, 180, 252, 0.7)';
+            setTimeout(() => {
+                projectCard.style.boxShadow = '';
+            }, 2000);
+        }
+    }
+
     // Initialize the 3D hero scene
-    initThreeScene();
+    const threeSceneControls = initThreeScene(onProjectSelect);
 
     // Mobile menu toggle
     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -48,6 +63,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    
+    // --- "View My Work" Button Logic ---
+    const viewWorkButton = document.getElementById('view-work-button');
+    const heroContent = document.querySelector('#home .relative.z-10');
+    const projectsSection = document.getElementById('projects');
+
+    if (viewWorkButton) {
+        viewWorkButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // 1. Fade out the hero text and button
+            gsap.to(heroContent, { 
+                opacity: 0, 
+                duration: 1, 
+                ease: "power2.inOut",
+                onComplete: () => {
+                    heroContent.style.pointerEvents = 'none';
+                }
+            });
+
+            // 2. Trigger the 3D zoom animation
+            if (threeSceneControls) {
+                threeSceneControls.transitionToProjects();
+            }
+            
+            // 3. Fade in the projects section after the zoom starts
+            gsap.to(projectsSection, {
+                opacity: 1,
+                duration: 1.5,
+                delay: 2, // Delay to sync with the end of the camera zoom
+                ease: "power2.inOut"
+            });
+        });
+    }
 
     // Custom cursor logic
     const cursorDot = document.querySelector('.cursor-dot');

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Syed Badrudduja - Developer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -103,7 +104,8 @@
         </p>
         <a
           href="#projects"
-          class="nav-link bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-110 inline-block animate-on-scroll"
+          id="view-work-button" 
+          class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-110 inline-block animate-on-scroll"
           style="--delay: 0.4s"
         >
           View My Work
@@ -194,11 +196,11 @@
       </div>
     </section>
 
-    <section id="projects" class="py-20 bg-gray-900 animate-on-scroll">
+    <section id="projects" class="py-20 bg-gray-900 opacity-0 animate-on-scroll">
       <div class="container mx-auto px-6">
         <h2 class="section-title">My Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          <div class="project-card">
+          <div class="project-card" data-project-name="openGBW">
             <img
               src="https://placehold.co/600x400/1f2937/ffffff?text=openGBW"
               alt="openGBW Project"
@@ -221,7 +223,7 @@
             </div>
           </div>
 
-          <div class="project-card">
+          <div class="project-card" data-project-name="RaspPi Adhan">
             <img
               src="https://placehold.co/600x400/1f2937/ffffff?text=RasPi+Adhan"
               alt="Raspberry Pi Adhan Player Project"
@@ -245,7 +247,7 @@
             </div>
           </div>
 
-          <div class="project-card">
+          <div class="project-card" data-project-name="AVAT">
             <img
               src="https://placehold.co/600x400/1f2937/ffffff?text=A.V.A.T"
               alt="Automated Vulnerability Assessment Tool"
@@ -269,7 +271,7 @@
             </div>
           </div>
 
-          <div class="project-card">
+          <div class="project-card" data-project-name="FIT">
             <img
               src="https://placehold.co/600x400/1f2937/ffffff?text=F.I.T"
               alt="Blockchain-Based File Integrity Tracker"
@@ -293,7 +295,7 @@
             </div>
           </div>
 
-          <div class="project-card">
+          <div class="project-card" data-project-name="Enrollment App">
             <img
               src="images/enrollmentapp.png"
               alt="Enrollment Forecasting App"
@@ -340,6 +342,6 @@
       </div>
     </footer>
 
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js?v=1.1"></script>
   </body>
 </html>

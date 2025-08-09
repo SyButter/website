@@ -19,14 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }
 
-  // --- INITIALIZE MODULES ---
+  // init
   const openModal = initModal();
   const threeSceneControls = initThreeScene(openModal);
 
-  // --- STATE & ELEMENT SELECTORS ---
   const viewWorkButton = document.getElementById("view-work-button");
   const heroContent = document.querySelector("#home .relative.z-10");
-  // --- DEVICE DETECTION ---
+  // device detection
   const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
   // modal functionality
@@ -51,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   } else {
-    // --- DESKTOP-ONLY LOGIC ---
+    // desktop logic
     let isProjectViewActive = false;
 
     // 3d transition
@@ -108,14 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- MOBILE MENU LOGIC ---
+  // mobile menu
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
   mobileMenuButton.addEventListener("click", () => {
     mobileMenu.classList.toggle("hidden");
   });
 
-  // --- NAV LINK SMOOTH SCROLL ---
+  // smooth scroll
   const navLinks = document.querySelectorAll(".nav-link");
   navLinks.forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
@@ -134,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- CUSTOM CURSOR LOGIC ---
+  // custom cursor
   const cursorDot = document.querySelector(".cursor-dot");
   const cursorOutline = document.querySelector(".cursor-outline");
   window.addEventListener("mousemove", (e) => {
@@ -167,7 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   });
 
-  // --- RESTORED ANIMATE ON SCROLL LOGIC ---
   const animateObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -184,21 +182,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const elementsToAnimate = document.querySelectorAll(".animate-on-scroll");
   elementsToAnimate.forEach((el) => animateObserver.observe(el));
 
+  // swiper
   const swiper = new Swiper(".project-swiper", {
     loop: true,
-    spaceBetween: 30, // Space between slides in px
-
-    // How many slides to show at once
+    spaceBetween: 30,
     slidesPerView: 1,
-
-    // Responsive breakpoints
     breakpoints: {
-      // when window width is >= 768px
       768: {
         slidesPerView: 2,
         spaceBetween: 30,
       },
-      // when window width is >= 1024px
       1024: {
         slidesPerView: 3,
         spaceBetween: 40,

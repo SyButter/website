@@ -269,3 +269,13 @@ body:hover .cursor-dot, body:hover .cursor-outline {
 body.modal-open {
     overflow: hidden;
 }
+
+/* Custom Swiper Navigation Styles */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #A5B4FC;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #A5B4FC;
+}

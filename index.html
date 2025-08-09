@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
@@ -204,110 +208,132 @@
     >
       <div class="container mx-auto px-6">
         <h2 class="section-title">My Projects</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          <div class="project-card" data-project-name="openGBW">
-            <img
-              src="https://placehold.co/600x400/1f2937/ffffff?text=openGBW"
-              alt="openGBW Project"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-2xl font-bold text-white mb-2">
-                openGBW - Open-Source Grind by Weight
-              </h3>
-              <p class="text-gray-400 mb-4">
-                An open-source 3d printed base which turns a timed coffee
-                grinder into a weight-based grinder using a esp32.
-              </p>
-              <span class="text-indigo-400 font-semibold">
-                Click to view more &rarr;
-              </span>
-            </div>
-          </div>
 
-          <div class="project-card" data-project-name="RasPi Adhan">
-            <img
-              src="https://placehold.co/600x400/1f2937/ffffff?text=RasPi+Adhan"
-              alt="Raspberry Pi Adhan Player Project"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-2xl font-bold text-white mb-2">
-                Raspberry Pi Adhan Player
-              </h3>
-              <p class="text-gray-400 mb-4">
-                A Raspberry Pi-powered system that automatically plays the Adhan
-                by fetching daily prayer times from an API using a Python
-                script.
-              </p>
-              <span class="text-indigo-400 font-semibold">
-                Click to view more &rarr;
-              </span>
+        <div class="swiper project-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="project-card h-full flex flex-col" data-project-name="openGBW">
+                <img
+                  src="https://placehold.co/600x400/1f2937/ffffff?text=openGBW"
+                  alt="openGBW Project"
+                  class="w-full h-56 object-cover"
+                />
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                  <div><h3 class="text-2xl font-bold text-white mb-2">
+                    openGBW - Open-Source Grind by Weight
+                  </h3>
+                  <p class="text-gray-400 mb-4">
+                    An open-source 3d printed base which turns a timed coffee
+                    grinder into a weight-based grinder using a esp32.
+                  </p>
+                  </div>
+                  <span class="text-indigo-400 font-semibold">
+                    Click to view more &rarr;
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="project-card" data-project-name="AVAT">
-            <img
-              src="https://placehold.co/600x400/1f2937/ffffff?text=A.V.A.T"
-              alt="Automated Vulnerability Assessment Tool"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-2xl font-bold text-white mb-2">
-                Automated Vulnerability Assessment Tool
-              </h3>
-              <p class="text-gray-400 mb-4">
-                A Python-driven security scanner that orchestrates Nmap and
-                OpenVAS to perform nightly vulnerability checks and send
-                real-time Slack alerts.
-              </p>
-              <span class="text-indigo-400 font-semibold">
-                Click to view more &rarr;
-              </span>
+            <div class="swiper-slide">
+              <div class="project-card h-full flex flex-col" data-project-name="RasPi Adhan">
+                <img
+                  src="https://placehold.co/600x400/1f2937/ffffff?text=RasPi+Adhan"
+                  alt="Raspberry Pi Adhan Player Project"
+                  class="w-full h-56 object-cover"
+                />
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                  <div><h3 class="text-2xl font-bold text-white mb-2">
+                    Raspberry Pi Adhan Player
+                  </h3>
+                  <p class="text-gray-400 mb-4">
+                    A Raspberry Pi-powered system that automatically plays the
+                    Adhan by fetching daily prayer times from an API using a
+                    Python script.
+                  </p>
+                    </div>
+                  <span class="text-indigo-400 font-semibold">
+                    Click to view more &rarr;
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="project-card" data-project-name="FIT">
-            <img
-              src="https://placehold.co/600x400/1f2937/ffffff?text=F.I.T"
-              alt="Blockchain-Based File Integrity Tracker"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-2xl font-bold text-white mb-2">
-                Blockchain-Based File Integrity Tracker
-              </h3>
-              <p class="text-gray-400 mb-4">
-                A Solidity smart contract and React/Web3.js UI to log and verify
-                file integrity on the Ethereum testnet, ensuring real-time,
-                tamper-proof validation.
-              </p>
-              <span class="text-indigo-400 font-semibold">
-                Click to view more &rarr;
-              </span>
+            <div class="swiper-slide">
+              <div class="project-card h-full flex flex-col" data-project-name="AVAT">
+                <img
+                  src="https://placehold.co/600x400/1f2937/ffffff?text=A.V.A.T"
+                  alt="Automated Vulnerability Assessment Tool"
+                  class="w-full h-56 object-cover"
+                />
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                  <div><h3 class="text-2xl font-bold text-white mb-2">
+                    Automated Vulnerability Assessment Tool
+                  </h3>
+                  <p class="text-gray-400 mb-4">
+                    A Python-driven security scanner that orchestrates Nmap and
+                    OpenVAS to perform nightly vulnerability checks and send
+                    real-time Slack alerts.
+                  </p>
+                  </div>
+                  <span class="text-indigo-400 font-semibold">
+                    Click to view more &rarr;
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="project-card" data-project-name="Enrollment App">
-            <img
-              src="images/enrollmentapp.png"
-              alt="Enrollment Forecasting App"
-              class="w-full h-56 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-2xl font-bold text-white mb-2">
-                Enrollment Forecasting App
-              </h3>
-              <p class="text-gray-400 mb-4">
-                A full-stack web app to forecast student enrollment data for
-                public schools using Python (Flask, Prophet) and Chart.js for
-                dynamic, interactive visualizations.
-              </p>
-              <span class="text-indigo-400 font-semibold">
-                Click to view more &rarr;
-              </span>
+            <div class="swiper-slide">
+              <div class="project-card h-full flex flex-col" data-project-name="FIT">
+                <img
+                  src="https://placehold.co/600x400/1f2937/ffffff?text=F.I.T"
+                  alt="Blockchain-Based File Integrity Tracker"
+                  class="w-full h-56 object-cover"
+                />
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                  <div><h3 class="text-2xl font-bold text-white mb-2">
+                    Blockchain-Based File Integrity Tracker
+                  </h3>
+                  <p class="text-gray-400 mb-4">
+                    A Solidity smart contract and React/Web3.js UI to log and
+                    verify file integrity on the Ethereum testnet, ensuring
+                    real-time, tamper-proof validation.
+                  </p>
+                    </div>
+                  <span class="text-indigo-400 font-semibold">
+                    Click to view more &rarr;
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="project-card h-full flex flex-col" data-project-name="Enrollment App">
+                <img
+                  src="images/enrollmentapp.png"
+                  alt="Enrollment Forecasting App"
+                  class="w-full h-56 object-cover"
+                />
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                  <div><h3 class="text-2xl font-bold text-white mb-2">
+                    Enrollment Forecasting App
+                  </h3>
+                  <p class="text-gray-400 mb-4">
+                    A full-stack web app to forecast student enrollment data for
+                    public schools using Python (Flask, Prophet) and Chart.js
+                    for dynamic, interactive visualizations.
+                  </p>
+                  </div>
+                  <span class="text-indigo-400 font-semibold">
+                    Click to view more &rarr;
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="swiper-pagination"></div>
+
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
         </div>
       </div>
     </section>
@@ -391,5 +417,6 @@
     </div>
 
     <script type="module" src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </body>
 </html>

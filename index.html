@@ -85,7 +85,7 @@
       <h2 class="section-title">About Me</h2>
       <div class="flex flex-col md:flex-row items-center gap-12">
         <div class="md:w-1/3">
-          <img src="images/headshot3.jpg" alt="A headshot of Syed Badrudduja" class="rounded-full shadow-lg mx-auto" />
+          <img src="images/headshot4.jpg" alt="A headshot of Syed Badrudduja" class="rounded-full shadow-lg mx-auto" />
         </div>
         <div class="md:w-2/3 text-lg text-gray-300">
           <p class="mb-4">
@@ -113,6 +113,13 @@
             <span class="skill-badge">Git</span>
             <span class="skill-badge">SQL</span>
           </div>
+          <!-- <div class="mt-10">
+            <h3 class="text-2xl font-bold text-white mb-4">Certifications</h3>
+            <div class="flex flex-wrap gap-4">
+              <span class="skill-badge">AWS Certified Cloud Practitioner</span>
+              <span class="skill-badge">CompTIA Security+</span>
+            </div>
+          </div> -->
           <div>
             <div class="mt-12 flex flex-col sm:flex-row gap-4">
               <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
@@ -291,14 +298,33 @@
 
   <div id="project-modal-backdrop" class="hidden">
     <div id="project-modal-content">
-      <button id="modal-close-button" class="close-button">&times;</button>
-      <img id="modal-image" src="" alt="Project Image" />
-      <div class="modal-text-content">
-        <h3 id="modal-title"></h3>
-        <p id="modal-description"></p>
-        <a id="modal-link" href="#" target="_blank" class="modal-button">View on GitHub &rarr;</a>
-      </div>
+  <button id="modal-close-button" class="close-button">&times;</button>
+  <img id="modal-image" src="" alt="Project Image" />
+  <div class="modal-text-content">
+    <h3 id="modal-title"></h3>
+    <p id="modal-description"></p>
+
+    <div class="mt-6">
+      <h4 class="text-xl font-bold text-white mb-2">Technology Stack</h4>
+      <div id="modal-tech-stack" class="flex flex-wrap gap-2">
+        </div>
     </div>
+    <div class="mt-6">
+      <h4 class="text-xl font-bold text-white mb-2">Key Features</h4>
+      <ul id="modal-features" class="list-disc list-inside space-y-2 text-gray-300">
+        </ul>
+    </div>
+    <div class="mt-6">
+        <h4 class="text-xl font-bold text-white mb-2">Project Challenges</h4>
+        <p id="modal-challenges" class="text-gray-400 italic"></p>
+    </div>
+    <div class="mt-8"> <a id="modal-link" href="#" target="_blank" class="modal-button">
+        View on GitHub &rarr;
+      </a>
+    </div>
+
+  </div>
+</div>
   </div>
 
   <script type="module" src="js/main.js"></script>

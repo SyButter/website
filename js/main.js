@@ -30,16 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DEVICE DETECTION ---
     const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-    if (isMobile) {
-        // --- MOBILE-ONLY LOGIC ---
-        if (viewWorkButton) {
-            viewWorkButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-
-        // modal functionality
+    // modal functionality
         const projectCards = document.querySelectorAll('.project-card');
         projectCards.forEach(card => {
             card.addEventListener('click', () => {
@@ -49,6 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+    if (isMobile) {
+        // --- MOBILE-ONLY LOGIC ---
+        if (viewWorkButton) {
+            viewWorkButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
 
     } else {
         // --- DESKTOP-ONLY LOGIC ---

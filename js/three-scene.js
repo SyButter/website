@@ -1,12 +1,24 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
 
+// --- Configuration ---
+// Adjust these values to change the appearance of the project "comets"
+
+// Controls the glass-like appearance of the outer shell.
+// 0.0 = opaque, 1.0 = fully transparent/glass-like.
+const SHELL_TRANSMISSION = 0.5;
+
+// Controls the final opacity of the outer shell after the fade-in animation.
+// 0.0 = fully transparent, 1.0 = fully opaque.
+const SHELL_MAX_OPACITY = 0.8;
+
+
 // Data for our project
 const projectsData = [
-    { name: 'openGBW', position: new THREE.Vector3(-250, 50, 150) },
-    { name: 'RasPi Adhan', position: new THREE.Vector3(250, -100, 120) },
+    { name: 'openGBW', position: new THREE.Vector3(-350, 50, 150) },
+    { name: 'RasPi Adhan', position: new THREE.Vector3(350, -100, 120) },
     { name: 'AVAT', position: new THREE.Vector3(0, 150, 100) },
-    { name: 'FIT', position: new THREE.Vector3(300, 50, 80) },
-    { name: 'Enrollment App', position: new THREE.Vector3(-300, -50, 90) },
+    { name: 'FIT', position: new THREE.Vector3(450, 50, 80) },
+    { name: 'Enrollment App', position: new THREE.Vector3(-450, -50, 90) },
 ];
 let projectObjects = [];
 
@@ -81,32 +93,54 @@ export default function initThreeScene(onProjectClick) {
     ];
 
     projectsData.forEach((proj, index) => {
-        const starGeometry = new THREE.BoxGeometry(80, 80, 80);
-        
-        const starMaterial = new THREE.MeshStandardMaterial({
+        // --- Create the main group ---
+        const projectGroup = new THREE.Group();
+        projectGroup.position.copy(proj.position);
+        projectGroup.name = proj.name;
+        scene.add(projectGroup);
+
+        // --- Create the outer shell (glitchy icosahedron) ---
+        const shellGeometry = new THREE.IcosahedronGeometry(80, 1);
+        const originalVertices = shellGeometry.attributes.position.clone();
+        const shellMaterial = new THREE.MeshPhysicalMaterial({
             color: colors[index % colors.length],
             metalness: 0.1,
-            roughness: 0.3,
-            transmission: 1.0,
+            roughness: 0.2,
+            transmission: SHELL_TRANSMISSION,
             ior: 1.5,
             thickness: 2.0,
             transparent: true,
             opacity: 0,
-            depthTest: false
+            depthTest: false,
         });
+        const shell = new THREE.Mesh(shellGeometry, shellMaterial);
+        shell.renderOrder = 1;
+        shell.name = proj.name;
+        projectGroup.add(shell);
 
-        const star = new THREE.Mesh(starGeometry, starMaterial);
-        star.position.copy(proj.position);
-        star.renderOrder = 1;
-        star.name = proj.name;
-        scene.add(star);
+        // --- Create the inner glowing core ---
+        const coreGeometry = new THREE.IcosahedronGeometry(30, 1);
+        const coreMaterial = new THREE.MeshBasicMaterial({
+            color: colors[index % colors.length],
+            transparent: true,
+            opacity: 0,
+        });
+        const core = new THREE.Mesh(coreGeometry, coreMaterial);
+        projectGroup.add(core);
+
 
         const labelDiv = document.createElement('div');
         labelDiv.className = 'project-label';
         labelDiv.textContent = proj.name;
         labelsContainer.appendChild(labelDiv);
 
-        projectObjects.push({ mesh: star, label: labelDiv });
+        projectObjects.push({
+            group: projectGroup,
+            shell: shell,
+            core: core,
+            label: labelDiv,
+            originalVertices: originalVertices, // Store for animation
+        });
     });
 
     // --- Animation & Control Functions ---
@@ -120,7 +154,8 @@ export default function initThreeScene(onProjectClick) {
         gsap.to(lines.material, { opacity: 0.15, duration: 2, ease: "power2.out" });
 
         projectObjects.forEach(p => {
-            gsap.to(p.mesh.material, { opacity: 0.7, duration: 2, delay: 1, ease: "power2.inOut" });
+            gsap.to(p.shell.material, { opacity: SHELL_MAX_OPACITY, duration: 2, delay: 1, ease: "power2.inOut" });
+            gsap.to(p.core.material, { opacity: 1, duration: 2, delay: 1, ease: "power2.inOut" });
             gsap.to(p.label, { opacity: 1, duration: 2, delay: 1, ease: "power2.inOut" });
         });
     }
@@ -133,7 +168,8 @@ export default function initThreeScene(onProjectClick) {
         gsap.to(lines.material, { opacity: 0.05, duration: 2, ease: "power2.out" });
 
         projectObjects.forEach(p => {
-            gsap.to(p.mesh.material, { opacity: 0, duration: 1.5, ease: "power2.inOut" });
+            gsap.to(p.shell.material, { opacity: 0, duration: 1.5, ease: "power2.inOut" });
+            gsap.to(p.core.material, { opacity: 0, duration: 1.5, ease: "power2.inOut" });
             gsap.to(p.label, { opacity: 0, duration: 1.5, ease: "power2.inOut" });
         });
     }
@@ -148,7 +184,7 @@ export default function initThreeScene(onProjectClick) {
         mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
         raycaster.setFromCamera(mouse, camera);
         
-        const meshes = projectObjects.map(p => p.mesh);
+        const meshes = projectObjects.map(p => p.shell);
         const intersects = raycaster.intersectObjects(meshes);
 
         if (intersects.length > 0) {
@@ -182,12 +218,35 @@ export default function initThreeScene(onProjectClick) {
     
     function render() {
         const time = Date.now() * 0.0005;
-        projectObjects.forEach(p => {
-            p.mesh.rotation.x = time * 0.5;
-            p.mesh.rotation.y = time * 0.3;
+        const glitchTime = Date.now() * 0.001;
+
+        projectObjects.forEach((p, index) => {
+            p.group.rotation.x = time * 0.5;
+            p.group.rotation.y = time * 0.3;
+
+            // Pulsating core animation
+            const pulse = (Math.sin(time * 5 + index) + 1) / 2;
+            const scale = 1 + pulse * 0.15;
+            p.core.scale.set(scale, scale, scale);
+
+
+            // Glitchy vertex animation for the shell
+            const positionAttribute = p.shell.geometry.attributes.position;
+            const originalPositionAttribute = p.originalVertices;
+            const vertex = new THREE.Vector3();
+            const glitchAmount = 0.5; // Reduced for a more subtle effect
+
+            for (let i = 0; i < positionAttribute.count; i++) {
+                vertex.fromBufferAttribute(originalPositionAttribute, i);
+                const noise = (Math.sin(i * 1.5 + glitchTime) + Math.cos(i * 2.5 + glitchTime)) * glitchAmount;
+                vertex.addScalar(noise);
+                positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
+            }
+            positionAttribute.needsUpdate = true;
+            p.shell.geometry.computeVertexNormals();
 
             const vector = new THREE.Vector3();
-            vector.setFromMatrixPosition(p.mesh.matrixWorld); 
+            vector.setFromMatrixPosition(p.group.matrixWorld);
             vector.project(camera); 
 
             const x = (vector.x * 0.5 + 0.5) * canvas.clientWidth;

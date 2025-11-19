@@ -1,24 +1,16 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
 
-// --- Configuration ---
-// Adjust these values to change the appearance of the project "comets"
-
-// Controls the glass-like appearance of the outer shell.
-// 0.0 = opaque, 1.0 = fully transparent/glass-like.
 const SHELL_TRANSMISSION = 0.5;
-
-// Controls the final opacity of the outer shell after the fade-in animation.
-// 0.0 = fully transparent, 1.0 = fully opaque.
 const SHELL_MAX_OPACITY = 0.8;
 
 
 // Data for our project
 const projectsData = [
-    { name: 'openGBW', position: new THREE.Vector3(-350, 50, 150) },
-    { name: 'RasPi Adhan', position: new THREE.Vector3(350, -100, 120) },
-    { name: 'AVAT', position: new THREE.Vector3(0, 150, 100) },
-    { name: 'FIT', position: new THREE.Vector3(450, 50, 80) },
-    { name: 'Enrollment App', position: new THREE.Vector3(-450, -50, 90) },
+    { name: 'openGBW', position: new THREE.Vector3(250, 0, 150), url: 'https://github.com/S-sd-s/openGBW' }, // 0 deg
+    { name: 'RasPi Adhan', position: new THREE.Vector3(77.25, 237.75, 120), url: 'https://github.com/S-sd-s/RasPi-Adhan' }, // 72 deg
+    { name: 'AVAT', position: new THREE.Vector3(-202.25, 147, 100), url: 'https://github.com/S-sd-s/AVAT' }, // 144 deg
+    { name: 'FIT', position: new THREE.Vector3(-202.25, -147, 80), url: 'https://github.com/S-sd-s/FIT' }, // 216 deg
+    { name: 'Enrollment App', position: new THREE.Vector3(77.25, -237.75, 90), url: 'https://github.com/S-sd-s/Enrollment-App' }, // 288 deg
 ];
 let projectObjects = [];
 

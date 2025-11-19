@@ -26,6 +26,14 @@ export default function initThreeScene(onProjectClick) {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
 
+    // --- Lighting ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 1000);
+    scene.add(directionalLight);
+
     // --- Background Particles & Constellations ---
     const particleCount = 5000;
     const positions = [];
@@ -73,13 +81,17 @@ export default function initThreeScene(onProjectClick) {
     ];
 
     projectsData.forEach((proj, index) => {
-        const starGeometry = new THREE.CircleGeometry(50, 4);
+        const starGeometry = new THREE.BoxGeometry(80, 80, 80);
         
-        const starMaterial = new THREE.MeshBasicMaterial({
+        const starMaterial = new THREE.MeshStandardMaterial({
             color: colors[index % colors.length],
+            metalness: 0.1,
+            roughness: 0.3,
+            transmission: 1.0,
+            ior: 1.5,
+            thickness: 2.0,
             transparent: true,
             opacity: 0,
-            side: THREE.DoubleSide,
             depthTest: false
         });
 
@@ -169,8 +181,10 @@ export default function initThreeScene(onProjectClick) {
     }
     
     function render() {
+        const time = Date.now() * 0.0005;
         projectObjects.forEach(p => {
-            p.mesh.lookAt(camera.position);
+            p.mesh.rotation.x = time * 0.5;
+            p.mesh.rotation.y = time * 0.3;
 
             const vector = new THREE.Vector3();
             vector.setFromMatrixPosition(p.mesh.matrixWorld); 

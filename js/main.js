@@ -108,10 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
       homeObserver.observe(homeSection);
     }
 
-    // scroll parallax depth for hero Three.js scene (desktop only)
+    // scroll parallax — full page depth, stars visible throughout site
     window.addEventListener('scroll', () => {
-      if (!isProjectViewActive && threeSceneControls) {
-        const progress = Math.min(window.scrollY / window.innerHeight, 1);
+      if (threeSceneControls && !isProjectViewActive) {
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const progress = maxScroll > 0 ? Math.min(window.scrollY / maxScroll, 1) : 0;
         threeSceneControls.updateScrollParallax(progress);
       }
     }, { passive: true });

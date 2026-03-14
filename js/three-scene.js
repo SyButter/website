@@ -207,7 +207,8 @@ export default function initThreeScene(onProjectClick) {
 
     function updateScrollParallax(progress) {
         if (!isZoomed) {
-            scrollTargetZ = 1000 - progress * 220;
+            // Camera flies from z=1000 (far) to z=550 (close) over full page scroll
+            scrollTargetZ = 1000 - progress * 450;
         }
     }
 

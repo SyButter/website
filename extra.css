@@ -1,4 +1,54 @@
 /* ================================== */
+/* SITE-WIDE FIXED STAR FIELD         */
+/* ================================== */
+#three-canvas {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 0;
+}
+
+/* Hero is fully transparent — stars fully visible */
+#home {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+}
+
+/* Other sections are semi-transparent — stars bleed through subtly */
+#about {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(17, 24, 39, 0.84);
+}
+
+#referrals {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(17, 24, 39, 0.84);
+}
+
+#projects {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(17, 24, 39, 0.88) !important;
+}
+
+#contact {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(17, 24, 39, 0.84);
+}
+
+footer {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(17, 24, 39, 0.92) !important;
+}
+
+/* ================================== */
 /* 3D SKILL CLOUD                     */
 /* ================================== */
 .skill-cloud-container {
@@ -34,7 +84,6 @@
 
 /* ================================== */
 /* CARD REVEAL (cross-fade + scale)   */
-/* Works inside Swiper overflow:hidden */
 /* ================================== */
 .project-card-wrapper {
     position: relative;
@@ -55,7 +104,6 @@
     position: absolute;
     inset: 0;
     border-radius: 0.5rem;
-    background-color: #1F2937;
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
@@ -63,20 +111,35 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    background-color: #1F2937;
     opacity: 1;
     transform: scale(1);
     z-index: 2;
 }
 
+/* Back: dramatically different — indigo gradient + accent bar */
 .project-card-back {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 2rem;
-    border: 1px solid #4F46E5;
+    background: linear-gradient(140deg, #1e1b4b 0%, #1F2937 60%);
+    border: 1px solid rgba(99, 102, 241, 0.5);
     opacity: 0;
     transform: scale(0.94);
     z-index: 1;
+}
+
+/* Accent bar at top of back */
+.project-card-back::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    border-radius: 9999px;
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;
 }
 
 .project-card-wrapper:hover .project-card-front {
@@ -88,14 +151,17 @@
     opacity: 1;
     transform: scale(1);
     z-index: 3;
+    box-shadow: inset 0 0 40px rgba(99, 102, 241, 0.1);
 }
 
+/* Tech badges: indigo gradient, bold */
 .tech-badge {
-    background-color: #374151;
-    color: #A5B4FC;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.25rem 0.75rem;
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.3rem 0.85rem;
     border-radius: 9999px;
     display: inline-block;
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.35);
 }

@@ -33,11 +33,55 @@ export default function initSkillCloud(containerId) {
     let rotY = 0;
     let velX = 0;
     let velY = 0.004;
+    let isDragging = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    // Mouse drag
+    container.addEventListener('mousedown', e => {
+        isDragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        velX = 0;
+        velY = 0;
+        container.style.cursor = 'grabbing';
+        e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        velY = (e.clientX - lastX) * 0.007;
+        velX = (e.clientY - lastY) * 0.007;
+        lastX = e.clientX;
+        lastY = e.clientY;
+    });
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        container.style.cursor = 'grab';
+    });
+
+    // Touch drag
+    container.addEventListener('touchstart', e => {
+        isDragging = true;
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+        velX = 0;
+        velY = 0;
+    }, { passive: true });
+    container.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        velY = (e.touches[0].clientX - lastX) * 0.007;
+        velX = (e.touches[0].clientY - lastY) * 0.007;
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+    }, { passive: true });
+    container.addEventListener('touchend', () => { isDragging = false; });
 
     function tick() {
-        // Gently drift back toward default rotation speed
-        velX *= 0.94;
-        velY += (0.004 - velY) * 0.015;
+        if (!isDragging) {
+            // Decay drag velocity, gently nudge back toward auto-rotation
+            velX *= 0.92;
+            velY += (0.004 - velY) * 0.015;
+        }
 
         rotX += velX;
         rotY += velY;

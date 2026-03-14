@@ -154,6 +154,14 @@ footer {
     box-shadow: inset 0 0 40px rgba(99, 102, 241, 0.1);
 }
 
+/* Skill badges — disable float animation, consistent spacing */
+.skill-badge {
+    animation: none !important;
+    padding: 0.35rem 0.85rem !important;
+    font-size: 0.82rem !important;
+    vertical-align: middle;
+}
+
 /* Tech badges: indigo gradient, bold */
 .tech-badge {
     background: linear-gradient(135deg, #4F46E5, #7C3AED);

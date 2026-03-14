@@ -113,34 +113,9 @@
             automation, and machine learning. I enjoy breaking down complex problems and engineering scalable, elegant solutions
             that make a measurable impact.
           </p>
-          <h3 class="text-2xl font-bold text-white mb-4">My Skills</h3>
-          <div class="flex flex-wrap gap-4">
-            <!-- Programming Languages -->
-            <span class="skill-badge">JavaScript</span>
-            <span class="skill-badge">Python</span>
-            <span class="skill-badge">C#</span>
-            <span class="skill-badge">Java</span>
-            <span class="skill-badge">SQL</span>
-          
-            <!-- Test Automation & DevOps -->
-            <span class="skill-badge">Cypress</span>
-            <span class="skill-badge">Selenium</span>
-            <span class="skill-badge">Playwright</span>
-            <span class="skill-badge">Jenkins</span>
-            <span class="skill-badge">Docker</span>
-            <span class="skill-badge">Git</span>
-            <span class="skill-badge">AWS</span>
-          
-            <!-- AI/ML & Data -->
-            <span class="skill-badge">Prophet</span>
-            <span class="skill-badge">OpenAI</span>
-            <span class="skill-badge">Pandas</span>
-            <span class="skill-badge">NumPy</span>
-            <span class="skill-badge">scikit-learn</span>
-            <span class="skill-badge">PyTorch</span>
-            <span class="skill-badge">n8n</span>
-          
-          </div>
+          <h3 class="text-2xl font-bold text-white mb-2">My Skills</h3>
+          <p class="text-gray-500 text-sm mb-0">Drag or watch it spin</p>
+          <div id="skill-cloud-container" class="skill-cloud-container"></div>
           <div>
             <div class="mt-12 flex flex-col sm:flex-row gap-4">
               <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
@@ -168,109 +143,141 @@
       <div class="swiper project-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="openGBW">
-              <img src="https://placehold.co/600x400/1f2937/ffffff?text=openGBW" alt="openGBW Project"
-                class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    openGBW - Open-Source Grind by Weight
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    An open-source 3d printed base which turns a timed coffee
-                    grinder into a weight-based grinder using a esp32.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="openGBW">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=openGBW" alt="openGBW Project" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <h3 class="text-2xl font-bold text-white mb-2">openGBW - Grind by Weight</h3>
+                      <p class="text-gray-400 text-sm">An open-source 3D printed base turning a timed coffee grinder into a precision weight-based grinder with ESP32.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">openGBW</h3>
+                  <p class="text-gray-400 text-sm mb-5">Precision weight-based coffee grinding with a custom ESP32 microcontroller and open-source 3D-printed hardware.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">C++</span>
+                    <span class="tech-badge">ESP32</span>
+                    <span class="tech-badge">PlatformIO</span>
+                    <span class="tech-badge">3D Printing</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="Enrollment App">
-              <img src="images/enrollmentapp.png" alt="Enrollment Forecasting App" class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    Enrollment Forecasting App
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    A full-stack web app to forecast student enrollment data
-                    for public schools using Python (Flask, Prophet) and
-                    Chart.js for dynamic, interactive visualizations.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="Enrollment App">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="images/enrollmentapp.png" alt="Enrollment Forecasting App" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <h3 class="text-2xl font-bold text-white mb-2">Enrollment Forecasting App</h3>
+                      <p class="text-gray-400 text-sm">A full-stack web app forecasting student enrollment for public schools with Python, Flask, Prophet, and Chart.js.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">Enrollment Forecasting App</h3>
+                  <p class="text-gray-400 text-sm mb-5">ML-powered time-series forecasting of school enrollment with interactive visualizations and a REST API backend.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Flask</span>
+                    <span class="tech-badge">Prophet</span>
+                    <span class="tech-badge">Chart.js</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="RasPi Adhan">
-              <img src="https://placehold.co/600x400/1f2937/ffffff?text=RasPi+Adhan"
-                alt="Raspberry Pi Adhan Player Project" class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    Raspberry Pi Adhan Player
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    A Raspberry Pi-powered system that automatically plays the
-                    Adhan by fetching daily prayer times from an API using a
-                    Python script.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="RasPi Adhan">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=RasPi+Adhan" alt="Raspberry Pi Adhan Player" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <h3 class="text-2xl font-bold text-white mb-2">Raspberry Pi Adhan Player</h3>
+                      <p class="text-gray-400 text-sm">A Raspberry Pi system that auto-plays the Adhan by fetching daily prayer times from an API via Python script.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">RasPi Adhan Player</h3>
+                  <p class="text-gray-400 text-sm mb-5">Reliable set-and-forget Adhan scheduler using systemd and cron for homes and community spaces.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Raspberry Pi</span>
+                    <span class="tech-badge">Systemd</span>
+                    <span class="tech-badge">REST APIs</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="AVAT">
-              <img src="https://placehold.co/600x400/1f2937/ffffff?text=A.V.A.T"
-                alt="Automated Vulnerability Assessment Tool" class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    Automated Vulnerability Assessment Tool
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    A Python-driven security scanner that orchestrates Nmap
-                    and OpenVAS to perform nightly vulnerability checks and
-                    send real-time Slack alerts.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="AVAT">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=A.V.A.T" alt="Automated Vulnerability Assessment Tool" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <h3 class="text-2xl font-bold text-white mb-2">Automated Vulnerability Assessment Tool</h3>
+                      <p class="text-gray-400 text-sm">A Python security scanner orchestrating Nmap and OpenVAS for nightly checks with real-time Slack alerts.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">A.V.A.T</h3>
+                  <p class="text-gray-400 text-sm mb-5">Automated nightly vulnerability scanning pipeline with unified reporting and instant Slack alerting.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Nmap</span>
+                    <span class="tech-badge">OpenVAS</span>
+                    <span class="tech-badge">Slack API</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="FIT">
-              <img src="https://placehold.co/600x400/1f2937/ffffff?text=F.I.T"
-                alt="Blockchain-Based File Integrity Tracker" class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    Blockchain-Based File Integrity Tracker
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    A Solidity smart contract and React/Web3.js UI to log and
-                    verify file integrity on the Ethereum testnet, ensuring
-                    real-time, tamper-proof validation.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="FIT">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=F.I.T" alt="Blockchain-Based File Integrity Tracker" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <h3 class="text-2xl font-bold text-white mb-2">Blockchain-Based File Integrity Tracker</h3>
+                      <p class="text-gray-400 text-sm">A Solidity smart contract and React/Web3.js UI to log and verify file integrity on the Ethereum testnet.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">F.I.T</h3>
+                  <p class="text-gray-400 text-sm mb-5">Tamper-proof, decentralized file integrity verification on Ethereum with a React/Web3 frontend.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Solidity</span>
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">Web3.js</span>
+                    <span class="tech-badge">Ethereum</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>

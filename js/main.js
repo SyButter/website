@@ -1,5 +1,6 @@
 import initThreeScene from "./three-scene.js";
 import initModal from "./modal.js";
+import initSkillCloud from "./skill-cloud.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // --- Typing Effect ---
@@ -22,14 +23,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // init
   const openModal = initModal();
   const threeSceneControls = initThreeScene(openModal);
+  initSkillCloud('skill-cloud-container');
 
   const viewWorkButton = document.getElementById("view-work-button");
   const heroContent = document.querySelector("#home .relative.z-10");
   // device detection
   const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-  // modal functionality
-  const projectCards = document.querySelectorAll(".project-card");
+  // modal functionality (works on both flip card wrapper and legacy .project-card)
+  const projectCards = document.querySelectorAll(".project-card-wrapper, .project-card");
   projectCards.forEach((card) => {
     card.addEventListener("click", () => {
       const projectName = card.dataset.projectName;
@@ -105,6 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (homeSection) {
       homeObserver.observe(homeSection);
     }
+
+    // scroll parallax depth for hero Three.js scene (desktop only)
+    window.addEventListener('scroll', () => {
+      if (!isProjectViewActive && threeSceneControls) {
+        const progress = Math.min(window.scrollY / window.innerHeight, 1);
+        threeSceneControls.updateScrollParallax(progress);
+      }
+    }, { passive: true });
   }
 
   // mobile menu
@@ -255,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const interactiveElements = document.querySelectorAll(
-    "a, button, .project-card, .skill-badge"
+    "a, button, .project-card-wrapper, .project-card, .skill-tag-3d"
   );
   interactiveElements.forEach((el) => {
     el.addEventListener("mouseover", () =>

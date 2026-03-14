@@ -54,10 +54,10 @@ footer {
 .skill-cloud-container {
     position: relative;
     width: 100%;
-    height: 320px;
+    height: 380px;
     cursor: default;
     user-select: none;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 .skill-tag-3d {

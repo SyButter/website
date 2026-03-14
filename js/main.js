@@ -1,6 +1,5 @@
 import initThreeScene from "./three-scene.js";
 import initModal from "./modal.js";
-import initSkillCloud from "./skill-cloud.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // --- Typing Effect ---
@@ -23,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // init
   const openModal = initModal();
   const threeSceneControls = initThreeScene(openModal);
-  initSkillCloud('skill-cloud-container');
 
   const viewWorkButton = document.getElementById("view-work-button");
   const heroContent = document.querySelector("#home .relative.z-10");

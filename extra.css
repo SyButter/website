@@ -157,8 +157,45 @@
 }
 
 /* ================================== */
+/* PROJECT ORB LABELS                 */
+/* ================================== */
+/* style.css sets base positioning;   */
+/* here we override visuals only      */
+.project-label {
+    /* Neon badge look */
+    color: var(--clr, #a5b4fc) !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em;
+    padding: 0.28rem 0.85rem !important;
+    background: rgba(10, 10, 20, 0.72) !important;
+    border: 1px solid var(--clr, #6366f1) !important;
+    border-radius: 9999px !important;
+    backdrop-filter: blur(6px);
+    box-shadow:
+        0 0 6px  var(--clr, #6366f1),
+        0 0 18px var(--clr, #6366f1) !important;
+    text-shadow: 0 0 8px var(--clr, #6366f1);
+    pointer-events: none;
+    /* Perfectly center the badge on the projected orb position */
+    transform: translate(-50%, -50%) !important;
+}
+
+/* ================================== */
 /* SITE-WIDE FIXED STAR FIELD         */
 /* ================================== */
+
+/* Labels must be fixed like the canvas so scroll offset doesn't shift them */
+#project-labels {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+}
+
 #three-canvas {
     position: fixed !important;
     top: 0;

@@ -106,8 +106,21 @@ document.addEventListener("DOMContentLoaded", () => {
       homeObserver.observe(homeSection);
     }
 
-    // scroll parallax — full page depth, stars visible throughout site
+    // scroll parallax + hide orbs when hero scrolls out of view
     window.addEventListener('scroll', () => {
+      if (threeSceneControls && isProjectViewActive) {
+        // If the hero section has scrolled completely off the top, hide the orbs
+        const heroBottom = homeSection.getBoundingClientRect().bottom;
+        if (heroBottom <= 0) {
+          isProjectViewActive = false;
+          threeSceneControls.resetView();
+          gsap.to(heroContent, {
+            opacity: 1,
+            duration: 0.5,
+            onStart: () => { heroContent.style.pointerEvents = "auto"; },
+          });
+        }
+      }
       if (threeSceneControls && !isProjectViewActive) {
         const maxScroll = document.body.scrollHeight - window.innerHeight;
         const progress = maxScroll > 0 ? Math.min(window.scrollY / maxScroll, 1) : 0;

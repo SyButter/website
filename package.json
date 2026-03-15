@@ -18,6 +18,6 @@
   "homepage": "https://github.com/SyButter/badr-website#readme",
   "description": "",
   "devDependencies": {
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.2.1"
   }
 }

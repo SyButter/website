@@ -68,6 +68,51 @@ export default function initModal() {
             ],
             challenges: 'Writing a gas-efficient and secure Solidity smart contract was the primary challenge. On the front end, managing the asynchronous nature of blockchain transactions and creating a smooth user experience for wallet connections and transaction signing required careful state management.'
         },
+        'AI Forecast Pipeline': {
+            title: 'AI Forecast Intelligence Pipeline',
+            description: 'An end-to-end AI deployment pipeline that combines Meta\'s Prophet for time-series forecasting with OpenAI\'s GPT models to automatically convert raw predictions into clear, human-readable decision recommendations for stakeholders in education and resource allocation.',
+            image: 'https://placehold.co/800x400/312e81/a5b4fc?text=AI+Forecast+Pipeline',
+            link: '#',
+            techStack: ['Python', 'Prophet (Meta)', 'OpenAI API', 'Pandas', 'Flask', 'Chart.js'],
+            features: [
+                'Ingests historical time-series data and trains a tuned Prophet forecasting model.',
+                'Passes forecast output to GPT to generate plain-language decision summaries.',
+                'REST API serves both raw forecast data and AI-generated recommendations.',
+                'Interactive dashboard visualises historical trends alongside future projections.',
+                'Configurable horizon windows for short, medium, and long-range planning.'
+            ],
+            challenges: 'The core challenge was prompt-engineering the OpenAI layer to produce consistently structured, domain-appropriate recommendations rather than generic summaries. Ensuring the LLM output remained grounded in the actual forecast numbers — without hallucinating trends — required careful context injection and output validation logic.'
+        },
+        'n8n AI Engine': {
+            title: 'n8n AI Automation Engine',
+            description: 'A production-grade, low-code automation platform built on n8n that wires together data ingestion from APIs and spreadsheets, Python-based ML inference, and OpenAI summarisation — delivering fully automated, AI-written reports to Slack or email with zero manual intervention.',
+            image: 'https://placehold.co/800x400/312e81/a5b4fc?text=n8n+AI+Engine',
+            link: '#',
+            techStack: ['n8n', 'OpenAI API', 'Python', 'REST APIs', 'Slack API', 'SQL'],
+            features: [
+                'Visual workflow orchestration with n8n connecting 10+ data sources.',
+                'Python ML nodes run inference and scoring inside the pipeline.',
+                'OpenAI node generates plain-language summaries of model outputs.',
+                'Delivers formatted reports to Slack channels and email recipients automatically.',
+                'Error-handling branches with alerting to ensure zero silent failures.'
+            ],
+            challenges: 'Keeping ML inference fast enough to fit within workflow timeouts required pre-loading models into a persistent Python service rather than cold-starting per run. Designing reliable error-handling branches that surface failures clearly — without spamming alerts — was equally critical for a production-ready setup.'
+        },
+        'Healthcare Forecaster': {
+            title: 'Healthcare Demand Forecaster',
+            description: 'A machine learning pipeline that predicts patient volume and healthcare resource demand weeks in advance using scikit-learn ensemble models and Prophet. OpenAI then transforms model output into clear, actionable allocation guidance written in plain language for clinical and operations staff.',
+            image: 'https://placehold.co/800x400/312e81/a5b4fc?text=Healthcare+Forecaster',
+            link: '#',
+            techStack: ['Python', 'scikit-learn', 'Prophet (Meta)', 'OpenAI API', 'Pandas', 'NumPy'],
+            features: [
+                'Ensemble model (Random Forest + Prophet) for robust demand prediction.',
+                'Handles seasonality, holidays, and irregular demand spikes automatically.',
+                'OpenAI layer converts numeric forecasts into staffing and supply recommendations.',
+                'Confidence intervals surfaced alongside point predictions for risk-aware planning.',
+                'Modular pipeline design allows swapping datasets for different resource types.'
+            ],
+            challenges: 'Healthcare demand data is noisy, irregular, and often incomplete. Building a robust data cleaning and imputation layer that preserved meaningful signals while removing outliers was the primary challenge. Tuning the ensemble to avoid over-fitting on short historical windows, while still capturing seasonal patterns, required extensive cross-validation.'
+        },
         'Enrollment App': {
             title: 'Enrollment Forecasting App',
             description: 'A full-stack web app to forecast student enrollment data for public schools using Python (Flask, Prophet) and Chart.js for dynamic, interactive visualizations.',

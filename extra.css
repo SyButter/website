@@ -1,4 +1,162 @@
 /* ================================== */
+/* HERO ENHANCEMENTS                  */
+/* ================================== */
+
+/* Gradient hero name */
+.hero-gradient-name {
+    background: linear-gradient(120deg, #e0e7ff 0%, #a5b4fc 35%, #c084fc 65%, #f0abfc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Aurora radial glow behind hero text */
+.hero-aurora {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse at center,
+        rgba(99, 102, 241, 0.18) 0%,
+        rgba(168, 85, 247, 0.10) 40%,
+        transparent 70%);
+    pointer-events: none;
+    z-index: 2;
+    animation: aurora-pulse 6s ease-in-out infinite;
+}
+@keyframes aurora-pulse {
+    0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+    50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
+}
+
+/* Open to work badge */
+.open-to-work-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #86efac;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+.otw-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+    animation: otw-ping 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+}
+@keyframes otw-ping {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+    60%       { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+}
+
+/* Hero stats strip */
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    min-width: 72px;
+}
+.hero-stat-num {
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: linear-gradient(120deg, #a5b4fc, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+.hero-stat-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: #6b7280;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.hero-stat-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(99, 102, 241, 0.25);
+    align-self: center;
+}
+
+/* ================================== */
+/* PROFILE PHOTO GRADIENT RING        */
+/* ================================== */
+@keyframes ring-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.photo-ring-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 9999px;
+    padding: 4px;
+    background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899, #6366f1);
+    background-size: 300% 300%;
+    animation: ring-gradient 4s ease infinite;
+}
+@keyframes ring-gradient {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.photo-ring-wrapper img {
+    display: block;
+    border-radius: 9999px;
+    border: 4px solid #111827;
+}
+
+/* ================================== */
+/* SPECIALTY CARDS                    */
+/* ================================== */
+.specialty-cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+.specialty-card {
+    background: rgba(99, 102, 241, 0.07);
+    border: 1px solid rgba(99, 102, 241, 0.18);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+.specialty-card:hover {
+    background: rgba(99, 102, 241, 0.14);
+    border-color: rgba(99, 102, 241, 0.4);
+    transform: translateY(-4px);
+}
+.specialty-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+}
+.specialty-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e0e7ff;
+    margin-bottom: 0.4rem;
+}
+.specialty-card p {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    line-height: 1.55;
+}
+
+/* ================================== */
 /* SITE-WIDE FIXED STAR FIELD         */
 /* ================================== */
 #three-canvas {

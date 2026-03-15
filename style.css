@@ -63,17 +63,11 @@ body:hover .cursor-dot, body:hover .cursor-outline {
 }
 
 
-/* 3D Project Card Effect */
+/* Legacy .project-card kept for any modal compatibility */
 .project-card {
-    background-color: #1F2937; 
+    background-color: #1F2937;
     border-radius: 0.5rem;
     overflow: hidden;
-    transform: perspective(1000px);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-.project-card:hover {
-    transform: scale(1.05) rotateY(5deg) rotateX(5deg);
-    box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
 }
 
 /* Animated Skill Badges */
@@ -279,3 +273,5 @@ body.modal-open {
 .swiper-pagination-bullet-active {
     background-color: #A5B4FC;
 }
+
+/* 3D skill cloud + card flip styles are in extra.css (linked directly, no Tailwind build needed) */

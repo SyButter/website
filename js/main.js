@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // device detection
   const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-  // modal functionality
-  const projectCards = document.querySelectorAll(".project-card");
+  // modal functionality (works on both flip card wrapper and legacy .project-card)
+  const projectCards = document.querySelectorAll(".project-card-wrapper, .project-card");
   projectCards.forEach((card) => {
     card.addEventListener("click", () => {
       const projectName = card.dataset.projectName;
@@ -105,6 +105,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (homeSection) {
       homeObserver.observe(homeSection);
     }
+
+    // scroll parallax + hide orbs when hero scrolls out of view
+    window.addEventListener('scroll', () => {
+      if (threeSceneControls && isProjectViewActive) {
+        // If the hero section has scrolled completely off the top, hide the orbs
+        const heroBottom = homeSection.getBoundingClientRect().bottom;
+        if (heroBottom <= 0) {
+          isProjectViewActive = false;
+          threeSceneControls.resetView();
+          gsap.to(heroContent, {
+            opacity: 1,
+            duration: 0.5,
+            onStart: () => { heroContent.style.pointerEvents = "auto"; },
+          });
+        }
+      }
+      if (threeSceneControls && !isProjectViewActive) {
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const progress = maxScroll > 0 ? Math.min(window.scrollY / maxScroll, 1) : 0;
+        threeSceneControls.updateScrollParallax(progress);
+      }
+    }, { passive: true });
   }
 
   // mobile menu
@@ -255,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const interactiveElements = document.querySelectorAll(
-    "a, button, .project-card, .skill-badge"
+    "a, button, .project-card-wrapper, .project-card, .skill-tag-3d"
   );
   interactiveElements.forEach((el) => {
     el.addEventListener("mouseover", () =>

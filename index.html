@@ -7,6 +7,7 @@
   <title>Syed Badrudduja - Developer Portfolio</title>
   <link rel="icon" type="image/png" href="images/favicon1.png">
   <link href="dist/output.css" rel="stylesheet" />
+  <link href="extra.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -55,22 +56,33 @@
 
   <section id="home" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
     <canvas id="three-canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+    <div class="hero-aurora"></div>
     <div id="project-labels"></div>
     <div class="relative z-10 container mx-auto px-6">
+      <div class="animate-on-scroll mb-4">
+        <span class="open-to-work-badge"><span class="otw-dot"></span>Open to Opportunities</span>
+      </div>
       <h1 class="mb-4 text-center animate-on-scroll">
-        <span id="name-heading" class="text-5xl md:text-7xl font-black text-white leading-normal"></span><span
+        <span id="name-heading" class="text-5xl md:text-7xl font-black hero-gradient-name leading-normal"></span><span
           class="typing-cursor"></span>
       </h1>
       <p class="text-xl md:text-2xl text-indigo-300 mb-8 animate-on-scroll" style="--delay: 0.2s">
-        A Software Development Engineer in Test specializing in automation,
-        CI/CD, and QA process optimization.
+        A Forward AI Deployment Engineer specializing in automation,
+        CI/CD, and intelligent systems that scale.
       </p>
       <a href="#projects" id="view-work-button"
         class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-110 inline-block animate-on-scroll"
         style="--delay: 0.4s">
         View My Work
       </a>
-      <div class="mt-12 flex justify-center space-x-6 animate-on-scroll" style="--delay: 0.6s">
+      <div class="mt-8 flex justify-center gap-6 animate-on-scroll" style="--delay: 0.55s">
+        <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Projects</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><span class="hero-stat-num">5+</span><span class="hero-stat-label">Years</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><span class="hero-stat-num">AI</span><span class="hero-stat-label">× QA</span></div>
+      </div>
+      <div class="mt-8 flex justify-center space-x-6 animate-on-scroll" style="--delay: 0.6s">
         <a href="https://github.com/SyButter" target="_blank"
           class="nav-link text-gray-400 hover:text-indigo-400 transition-colors duration-300">
           <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -94,63 +106,60 @@
   <section id="about" class="py-20 animate-on-scroll">
     <div class="container mx-auto px-6">
       <h2 class="section-title">About Me</h2>
-      <div class="flex flex-col md:flex-row items-center gap-12">
-        <div class="md:w-1/3">
-          <img src="images/headshotmain.png" alt="A headshot of Syed Badrudduja" class="rounded-full shadow-lg mx-auto" />
+      <div class="flex flex-col md:flex-row items-center gap-12 mb-12">
+        <div class="md:w-1/3 flex justify-center">
+          <div class="photo-ring-wrapper">
+            <img src="images/headshotmain.png" alt="A headshot of Syed Badrudduja" class="rounded-full shadow-lg block" />
+          </div>
         </div>
         <div class="md:w-2/3 text-lg text-gray-300">
           <p class="mb-4">
-            Hello! I’m Syed, an AI/ML Engineer and Software Development Engineer in Test with hands-on experience in automation,
-            forecasting, and data-driven intelligence. My work spans from building robust CI/CD pipelines and automated test
-            frameworks to designing machine learning pipelines that turn raw data into actionable insights.
-            I specialize in forecasting and automation pipelines using tools like Prophet, SQL, Python, and
-            n8n to solve real-world challenges. I also leverage OpenAI models to generate recommendations and transform forecasts 
-            into decision-ready intelligence for education, healthcare, and resource allocation use cases.
+            Hello! I’m Syed, a Forward AI Deployment Engineer and Software Development Engineer in Test with hands-on experience
+            in automation, forecasting, and data-driven intelligence. I build and ship AI-powered systems end-to-end — from
+            designing machine learning pipelines and forecasting models to deploying them into production environments that
+            deliver real business impact. I specialize in AI deployment using tools like Prophet, OpenAI, Python, and n8n
+            to solve real-world challenges in education, healthcare, and resource allocation.
           </p>
           <p class="mb-6">
-            With a strong foundation in QA automation (Cypress, Selenium, Playwright, AWS-based testing) and a growing expertise
-            in AI/ML frameworks (pandas, NumPy, scikit-learn, PyTorch), I thrive at the intersection of software quality,
-            automation, and machine learning. I enjoy breaking down complex problems and engineering scalable, elegant solutions
-            that make a measurable impact.
+            With a strong foundation in QA automation (Cypress, Selenium, Playwright, AWS-based testing) and deep expertise
+            in AI/ML frameworks (pandas, NumPy, scikit-learn, PyTorch), I bridge the gap between intelligent systems and
+            production-ready software. I thrive at the intersection of automation, machine learning, and forward-thinking
+            AI deployment — engineering scalable, elegant solutions that make a measurable impact.
           </p>
-          <h3 class="text-2xl font-bold text-white mb-4">My Skills</h3>
-          <div class="flex flex-wrap gap-4">
-            <!-- Programming Languages -->
-            <span class="skill-badge">JavaScript</span>
-            <span class="skill-badge">Python</span>
-            <span class="skill-badge">C#</span>
-            <span class="skill-badge">Java</span>
-            <span class="skill-badge">SQL</span>
-          
-            <!-- Test Automation & DevOps -->
-            <span class="skill-badge">Cypress</span>
-            <span class="skill-badge">Selenium</span>
-            <span class="skill-badge">Playwright</span>
-            <span class="skill-badge">Jenkins</span>
-            <span class="skill-badge">Docker</span>
-            <span class="skill-badge">Git</span>
-            <span class="skill-badge">AWS</span>
-          
-            <!-- AI/ML & Data -->
-            <span class="skill-badge">Prophet</span>
-            <span class="skill-badge">OpenAI</span>
-            <span class="skill-badge">Pandas</span>
-            <span class="skill-badge">NumPy</span>
-            <span class="skill-badge">scikit-learn</span>
-            <span class="skill-badge">PyTorch</span>
-            <span class="skill-badge">n8n</span>
-          
-          </div>
-          <div>
-            <div class="mt-12 flex flex-col sm:flex-row gap-4">
-              <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
-                class="bg-indigo-600 text-white text-center font-bold py-3 px-6 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-105 inline-block">
-                View My Resume
-              </a>
-            </div>
+          <div class="mt-4 flex flex-col sm:flex-row gap-4">
+            <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
+              class="bg-indigo-600 text-white text-center font-bold py-3 px-6 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-105 inline-block">
+              View My Resume
+            </a>
           </div>
         </div>
       </div>
+
+      <div class="mt-4">
+        <h3 class="text-2xl font-bold text-white mb-4">My Skills</h3>
+        <div class="flex flex-wrap gap-x-2 gap-y-5">
+          <span class="skill-badge">JavaScript</span>
+          <span class="skill-badge">Python</span>
+          <span class="skill-badge">C#</span>
+          <span class="skill-badge">Java</span>
+          <span class="skill-badge">SQL</span>
+          <span class="skill-badge">Cypress</span>
+          <span class="skill-badge">Selenium</span>
+          <span class="skill-badge">Playwright</span>
+          <span class="skill-badge">Jenkins</span>
+          <span class="skill-badge">Docker</span>
+          <span class="skill-badge">Git</span>
+          <span class="skill-badge">AWS</span>
+          <span class="skill-badge">Prophet</span>
+          <span class="skill-badge">OpenAI</span>
+          <span class="skill-badge">Pandas</span>
+          <span class="skill-badge">NumPy</span>
+          <span class="skill-badge">scikit-learn</span>
+          <span class="skill-badge">PyTorch</span>
+          <span class="skill-badge">n8n</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="referrals" class="py-16 animate-on-scroll">
@@ -168,109 +177,236 @@
       <div class="swiper project-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="openGBW">
-              <img src="https://placehold.co/600x400/1f2937/ffffff?text=openGBW" alt="openGBW Project"
-                class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    openGBW - Open-Source Grind by Weight
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    An open-source 3d printed base which turns a timed coffee
-                    grinder into a weight-based grinder using a esp32.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="openGBW">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=openGBW" alt="openGBW Project" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <span class="project-category-badge">Hardware</span>
+                      <h3 class="text-2xl font-bold text-white mb-2">openGBW - Grind by Weight</h3>
+                      <p class="text-gray-400 text-sm">An open-source 3D printed base turning a timed coffee grinder into a precision weight-based grinder with ESP32.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">openGBW</h3>
+                  <p class="text-gray-400 text-sm mb-5">Precision weight-based coffee grinding with a custom ESP32 microcontroller and open-source 3D-printed hardware.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">C++</span>
+                    <span class="tech-badge">ESP32</span>
+                    <span class="tech-badge">PlatformIO</span>
+                    <span class="tech-badge">3D Printing</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="Enrollment App">
-              <img src="images/enrollmentapp.png" alt="Enrollment Forecasting App" class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    Enrollment Forecasting App
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    A full-stack web app to forecast student enrollment data
-                    for public schools using Python (Flask, Prophet) and
-                    Chart.js for dynamic, interactive visualizations.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="Enrollment App">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="images/enrollmentapp.png" alt="Enrollment Forecasting App" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <span class="project-category-badge ai">AI / ML</span>
+                      <h3 class="text-2xl font-bold text-white mb-2">Enrollment Forecasting App</h3>
+                      <p class="text-gray-400 text-sm">A full-stack web app forecasting student enrollment for public schools with Python, Flask, Prophet, and Chart.js.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">Enrollment Forecasting App</h3>
+                  <p class="text-gray-400 text-sm mb-5">ML-powered time-series forecasting of school enrollment with interactive visualizations and a REST API backend.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Flask</span>
+                    <span class="tech-badge">Prophet</span>
+                    <span class="tech-badge">Chart.js</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="RasPi Adhan">
-              <img src="https://placehold.co/600x400/1f2937/ffffff?text=RasPi+Adhan"
-                alt="Raspberry Pi Adhan Player Project" class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    Raspberry Pi Adhan Player
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    A Raspberry Pi-powered system that automatically plays the
-                    Adhan by fetching daily prayer times from an API using a
-                    Python script.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="RasPi Adhan">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=RasPi+Adhan" alt="Raspberry Pi Adhan Player" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <span class="project-category-badge">Automation</span>
+                      <h3 class="text-2xl font-bold text-white mb-2">Raspberry Pi Adhan Player</h3>
+                      <p class="text-gray-400 text-sm">A Raspberry Pi system that auto-plays the Adhan by fetching daily prayer times from an API via Python script.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">RasPi Adhan Player</h3>
+                  <p class="text-gray-400 text-sm mb-5">Reliable set-and-forget Adhan scheduler using systemd and cron for homes and community spaces.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Raspberry Pi</span>
+                    <span class="tech-badge">Systemd</span>
+                    <span class="tech-badge">REST APIs</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="AVAT">
-              <img src="https://placehold.co/600x400/1f2937/ffffff?text=A.V.A.T"
-                alt="Automated Vulnerability Assessment Tool" class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    Automated Vulnerability Assessment Tool
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    A Python-driven security scanner that orchestrates Nmap
-                    and OpenVAS to perform nightly vulnerability checks and
-                    send real-time Slack alerts.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="AVAT">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=A.V.A.T" alt="Automated Vulnerability Assessment Tool" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <span class="project-category-badge">Security</span>
+                      <h3 class="text-2xl font-bold text-white mb-2">Automated Vulnerability Assessment Tool</h3>
+                      <p class="text-gray-400 text-sm">A Python security scanner orchestrating Nmap and OpenVAS for nightly checks with real-time Slack alerts.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">A.V.A.T</h3>
+                  <p class="text-gray-400 text-sm mb-5">Automated nightly vulnerability scanning pipeline with unified reporting and instant Slack alerting.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Nmap</span>
+                    <span class="tech-badge">OpenVAS</span>
+                    <span class="tech-badge">Slack API</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="project-card h-full flex flex-col" data-project-name="FIT">
-              <img src="https://placehold.co/600x400/1f2937/ffffff?text=F.I.T"
-                alt="Blockchain-Based File Integrity Tracker" class="w-full h-56 object-cover" />
-              <div class="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2">
-                    Blockchain-Based File Integrity Tracker
-                  </h3>
-                  <p class="text-gray-400 mb-4">
-                    A Solidity smart contract and React/Web3.js UI to log and
-                    verify file integrity on the Ethereum testnet, ensuring
-                    real-time, tamper-proof validation.
-                  </p>
+            <div class="project-card-wrapper" data-project-name="FIT">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=F.I.T" alt="Blockchain-Based File Integrity Tracker" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <span class="project-category-badge">Web3</span>
+                      <h3 class="text-2xl font-bold text-white mb-2">Blockchain-Based File Integrity Tracker</h3>
+                      <p class="text-gray-400 text-sm">A Solidity smart contract and React/Web3.js UI to log and verify file integrity on the Ethereum testnet.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
                 </div>
-                <span class="text-indigo-400 font-semibold">
-                  Click to view more &rarr;
-                </span>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">F.I.T</h3>
+                  <p class="text-gray-400 text-sm mb-5">Tamper-proof, decentralized file integrity verification on Ethereum with a React/Web3 frontend.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Solidity</span>
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">Web3.js</span>
+                    <span class="tech-badge">Ethereum</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="project-card-wrapper" data-project-name="AI Forecast Pipeline">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/312e81/a5b4fc?text=AI+Forecast+Pipeline" alt="AI Forecast Intelligence Pipeline" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <span class="project-category-badge ai">AI / ML</span>
+                      <h3 class="text-2xl font-bold text-white mb-2">AI Forecast Intelligence Pipeline</h3>
+                      <p class="text-gray-400 text-sm">An end-to-end pipeline combining Prophet time-series forecasting with OpenAI to generate human-readable decision recommendations.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
+                </div>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">AI Forecast Intelligence Pipeline</h3>
+                  <p class="text-gray-400 text-sm mb-5">Raw data in, actionable AI-generated insights out — bridging ML forecasts and natural language reporting.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Prophet</span>
+                    <span class="tech-badge">OpenAI API</span>
+                    <span class="tech-badge">Pandas</span>
+                    <span class="tech-badge">Flask</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="project-card-wrapper" data-project-name="n8n AI Engine">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/312e81/a5b4fc?text=n8n+AI+Engine" alt="n8n AI Automation Engine" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <span class="project-category-badge ai">AI Automation</span>
+                      <h3 class="text-2xl font-bold text-white mb-2">n8n AI Automation Engine</h3>
+                      <p class="text-gray-400 text-sm">A low-code automation platform wiring data sources, ML inference, and LLM summarisation into zero-touch reporting workflows.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
+                </div>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">n8n AI Automation Engine</h3>
+                  <p class="text-gray-400 text-sm mb-5">Ingests data from APIs and spreadsheets, runs ML models, and delivers AI-written summaries to Slack or email — fully automated.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">n8n</span>
+                    <span class="tech-badge">OpenAI API</span>
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">REST APIs</span>
+                    <span class="tech-badge">Slack API</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="project-card-wrapper" data-project-name="Healthcare Forecaster">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <img src="https://placehold.co/600x400/312e81/a5b4fc?text=Healthcare+Forecaster" alt="Healthcare Demand Forecaster" class="w-full h-56 object-cover" />
+                  <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                      <span class="project-category-badge ai">AI / ML</span>
+                      <h3 class="text-2xl font-bold text-white mb-2">Healthcare Demand Forecaster</h3>
+                      <p class="text-gray-400 text-sm">A scikit-learn + Prophet model predicting healthcare resource demand, with OpenAI generating plain-language allocation recommendations.</p>
+                    </div>
+                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                  </div>
+                </div>
+                <div class="project-card-back">
+                  <h3 class="text-xl font-bold text-white mb-3">Healthcare Demand Forecaster</h3>
+                  <p class="text-gray-400 text-sm mb-5">Predicts patient volume and resource needs weeks ahead, then converts model output into clear, actionable guidance for staff.</p>
+                  <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">scikit-learn</span>
+                    <span class="tech-badge">Prophet</span>
+                    <span class="tech-badge">OpenAI API</span>
+                    <span class="tech-badge">Pandas</span>
+                  </div>
+                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                </div>
               </div>
             </div>
           </div>
@@ -285,42 +421,31 @@
   </section>
 
   <section id="contact" class="py-16 animate-on-scroll">
-    <div class="container mx-auto px-6">
+    <div class="container mx-auto px-6 text-center">
       <h2 class="section-title">Get In Touch</h2>
-      <p class="text-center text-lg text-gray-400 max-w-3xl mx-auto mb-12">
-        I'm currently available for new opportunities. Have a project in mind
-        or want to connect? Feel free to reach out via email at
-        <a href="mailto:syed.badrudduja@protonmail.com"
-          class="nav-link text-indigo-400 hover:underline">hello@sbadar.com</a>.
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
+        I'm currently available for new opportunities — whether it's AI deployment, automation pipelines, or QA engineering.
+        Have a project in mind or want to connect? Let's talk.
       </p>
+      <a href="mailto:syed.badrudduja@protonmail.com"
+        class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-105 inline-block mb-12">
+        Say Hello &rarr;
+      </a>
+      <div class="flex justify-center gap-4 mt-4 flex-wrap">
+        <a href="https://github.com/SyButter" target="_blank"
+          class="nav-link contact-pill">GitHub</a>
+        <a href="https://linkedin.com/in/sbadrudduja" target="_blank"
+          class="nav-link contact-pill">LinkedIn</a>
+        <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
+          class="nav-link contact-pill">Resume</a>
+      </div>
     </div>
   </section>
 
   <footer class="bg-gray-900 text-center py-6">
     <div class="container mx-auto px-6">
-      <div class="mb-4 flex justify-center space-x-6">
-        <a href="https://github.com/SyButter" target="_blank"
-          class="nav-link text-gray-400 hover:text-indigo-400 transition-colors duration-300"
-          aria-label="GitHub Profile">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill-rule="evenodd"
-              d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z"
-              clip-rule="evenodd" />
-          </svg>
-        </a>
-        <a href="https://linkedin.com/in/sbadrudduja" target="_blank"
-          class="nav-link text-gray-400 hover:text-indigo-400 transition-colors duration-300"
-          aria-label="LinkedIn Profile">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill-rule="evenodd"
-              d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.206v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H6.328C3.965 1 2 2.985 2 5.355v13.29C2 21.015 3.965 23 6.328 23h11.34C20.035 23 22 21.015 22 18.645V5.355C22 2.985 20.035 1 17.668 1z"
-              clip-rule="evenodd" />
-          </svg>
-        </a>
-      </div>
-
       <p class="text-gray-500">
-        &copy; 2024 Syed Badrudduja. All Rights Reserved.
+        &copy; 2026 Syed Badrudduja. All Rights Reserved.
       </p>
     </div>
   </footer>

@@ -24,6 +24,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     el.classList.add("js-hidden");
   });
 
+  // Reveal fallback — registered immediately so a later error can't prevent it
+  setTimeout(() => {
+    document.querySelectorAll(".animate-on-scroll.js-hidden").forEach((el) => {
+      el.classList.remove("js-hidden");
+      el.classList.add("is-visible");
+    });
+  }, 800);
+
   // init modal (no external deps — always safe)
   const openModal = initModal();
 
@@ -338,6 +346,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const elementsToAnimate = document.querySelectorAll(".animate-on-scroll");
   elementsToAnimate.forEach((el) => animateObserver.observe(el));
+
+  // Reveal in-viewport elements immediately after layout
+  function revealInViewport() {
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (!vh) return;
+    document.querySelectorAll(".animate-on-scroll.js-hidden").forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < vh && rect.bottom > 0) {
+        el.classList.remove("js-hidden");
+        el.classList.add("is-visible");
+        animateObserver.unobserve(el);
+      }
+    });
+  }
+  requestAnimationFrame(revealInViewport);
+  window.addEventListener('load', revealInViewport, { once: true });
+
+  // Hard fallback: reveal everything still hidden after 1s (catches broken
+  // IntersectionObserver environments like headless browsers)
+  setTimeout(() => {
+    document.querySelectorAll(".animate-on-scroll.js-hidden").forEach((el) => {
+      el.classList.remove("js-hidden");
+      el.classList.add("is-visible");
+    });
+  }, 1000);
 
   // swiper
   const swiper = new Swiper(".project-swiper", {

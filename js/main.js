@@ -213,14 +213,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       referralEl.className = 'referral-item absolute inset-0 flex items-center justify-center p-4';
       if (index === 0) referralEl.classList.add('is-active');
       referralEl.innerHTML = `
-        <div class=”text-center”>
-          <blockquote class=”text-xl md:text-2xl text-gray-300 italic”>”${ref.quote}”</blockquote>
-          <cite class=”block not-italic mt-6”>
-            <span class=”font-bold text-white text-lg”>${ref.author}</span>
-            <span class=”block text-indigo-300 text-sm”>${ref.title}</span>
+        <div class="text-center">
+          <blockquote class="text-xl md:text-2xl text-gray-300 italic">"${ref.quote}"</blockquote>
+          <cite class="block not-italic mt-6">
+            <span class="font-bold text-white text-lg">${ref.author}</span>
+            <span class="block text-indigo-300 text-sm">${ref.title}</span>
           </cite>
-          <div class=”mt-8”>
-            <a href=”${ref.url}” target=”_blank” rel=”noopener noreferrer” class=”bg-gray-700 text-white font-bold py-2 px-5 rounded-full hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 inline-block”>
+          <div class="mt-8">
+            <a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="bg-gray-700 text-white font-bold py-2 px-5 rounded-full hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 inline-block">
               View Referral
             </a>
           </div>
@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (referralItems.length > 0) {
       referralItems.forEach(item => {
         const content = item.querySelector('.text-center');
-        if (content.scrollHeight > maxHeight) maxHeight = content.scrollHeight;
+        if (content && content.scrollHeight > maxHeight) maxHeight = content.scrollHeight;
       });
       if (maxHeight > 0) carouselContainer.style.height = `${maxHeight + 40}px`;
     }

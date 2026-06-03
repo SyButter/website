@@ -129,9 +129,33 @@ export default function initModal() {
         }
     };
 
+    const modalContent = document.getElementById('project-modal-content');
+    let lastFocusedElement = null;
+
+    function getFocusable() {
+        return Array.from(
+            modalContent.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+        );
+    }
+
+    function trapFocus(e) {
+        if (e.key !== 'Tab') return;
+        const focusable = getFocusable();
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+            if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        } else {
+            if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+    }
+
     function openModal(projectName) {
         const details = projectDetails[projectName];
         if (!details) return;
+
+        lastFocusedElement = document.activeElement;
 
         modalTitle.textContent = details.title;
         modalDescription.textContent = details.description;
@@ -165,11 +189,22 @@ export default function initModal() {
 
         document.body.classList.add('modal-open');
         modalBackdrop.classList.remove('hidden');
+
+        // Move focus into modal and enable trap
+        requestAnimationFrame(() => modalCloseButton.focus());
+        modalBackdrop.addEventListener('keydown', trapFocus);
     }
 
     function closeModal() {
         document.body.classList.remove('modal-open');
         modalBackdrop.classList.add('hidden');
+        modalBackdrop.removeEventListener('keydown', trapFocus);
+
+        // Return focus to the element that triggered the modal
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+            lastFocusedElement = null;
+        }
     }
 
     modalCloseButton.addEventListener('click', closeModal);

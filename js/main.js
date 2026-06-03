@@ -1,7 +1,6 @@
-import initThreeScene from "./three-scene.js";
 import initModal from "./modal.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // --- Typing Effect ---
   const nameElement = document.getElementById("name-heading");
   if (nameElement) {
@@ -19,9 +18,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }
 
-  // init
+  // Hide animate-on-scroll elements immediately so the observer can reveal them
+  // (fallback: if JS never runs, extra.css keeps them visible by default)
+  document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+    el.classList.add("js-hidden");
+  });
+
+  // init modal (no external deps — always safe)
   const openModal = initModal();
-  const threeSceneControls = initThreeScene(openModal);
+
+  // Load Three.js scene dynamically so a CDN failure can't crash the whole page
+  let threeSceneControls = null;
+  try {
+    const { default: initThreeScene } = await import("./three-scene.js");
+    threeSceneControls = initThreeScene(openModal);
+  } catch (e) {
+    console.warn("3D scene unavailable:", e);
+  }
 
   const viewWorkButton = document.getElementById("view-work-button");
   const heroContent = document.querySelector("#home .relative.z-10");
@@ -49,6 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
           .scrollIntoView({ behavior: "smooth" });
       });
     }
+    // Replace hover-centric hint text with tap-friendly wording
+    document.querySelectorAll(".project-card-front .text-indigo-400.font-semibold").forEach(el => {
+      el.innerHTML = "Tap to open &rarr;";
+    });
   } else {
     // desktop logic
     let isProjectViewActive = false;
@@ -134,6 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileMenu = document.getElementById("mobile-menu");
   mobileMenuButton.addEventListener("click", () => {
     mobileMenu.classList.toggle("hidden");
+    const expanded = !mobileMenu.classList.contains("hidden");
+    mobileMenuButton.setAttribute("aria-expanded", String(expanded));
   });
 
   // --- Referrals Carousel ---
@@ -173,28 +192,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const carouselContainer = document.getElementById('referral-carousel');
   if (carouselContainer) {
     let currentReferralIndex = 0;
+    let carouselInterval;
 
     // Populate the carousel with referral data
     referralsData.forEach((ref, index) => {
       const referralEl = document.createElement('div');
-      // Set up the element structure and classes.
       referralEl.className = 'referral-item absolute inset-0 flex items-center justify-center p-4';
-
-      // The first item is marked as active to be visible initially.
-      if (index === 0) {
-        referralEl.classList.add('is-active');
-      }
-
-      // Inner div holds the actual content.
+      if (index === 0) referralEl.classList.add('is-active');
       referralEl.innerHTML = `
-        <div class="text-center">
-          <blockquote class="text-xl md:text-2xl text-gray-300 italic">“${ref.quote}”</blockquote>
-          <cite class="block not-italic mt-6">
-            <span class="font-bold text-white text-lg">${ref.author}</span>
-            <span class="block text-indigo-300 text-sm">${ref.title}</span>
+        <div class=”text-center”>
+          <blockquote class=”text-xl md:text-2xl text-gray-300 italic”>”${ref.quote}”</blockquote>
+          <cite class=”block not-italic mt-6”>
+            <span class=”font-bold text-white text-lg”>${ref.author}</span>
+            <span class=”block text-indigo-300 text-sm”>${ref.title}</span>
           </cite>
-          <div class="mt-8">
-            <a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="bg-gray-700 text-white font-bold py-2 px-5 rounded-full hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 inline-block">
+          <div class=”mt-8”>
+            <a href=”${ref.url}” target=”_blank” rel=”noopener noreferrer” class=”bg-gray-700 text-white font-bold py-2 px-5 rounded-full hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 inline-block”>
               View Referral
             </a>
           </div>
@@ -206,32 +219,60 @@ document.addEventListener("DOMContentLoaded", () => {
     const referralItems = carouselContainer.querySelectorAll('.referral-item');
     let maxHeight = 0;
 
-    // Calculate the height of the tallest referral content
     if (referralItems.length > 0) {
       referralItems.forEach(item => {
         const content = item.querySelector('.text-center');
-        if (content.scrollHeight > maxHeight) {
-          maxHeight = content.scrollHeight;
-        }
+        if (content.scrollHeight > maxHeight) maxHeight = content.scrollHeight;
       });
-
-      // Set the container's height to the max height found, plus some vertical padding.
-      if (maxHeight > 0) {
-        carouselContainer.style.height = `${maxHeight + 40}px`;
-      }
+      if (maxHeight > 0) carouselContainer.style.height = `${maxHeight + 40}px`;
     }
 
+    // Navigation dots
+    const dotsWrapper = document.createElement('div');
+    dotsWrapper.className = 'flex justify-center gap-3 mt-8';
+    dotsWrapper.setAttribute('role', 'tablist');
+    dotsWrapper.setAttribute('aria-label', 'Referral navigation');
+    const dots = [];
+    referralsData.forEach((ref, i) => {
+      const dot = document.createElement('button');
+      dot.className = `referral-dot w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-indigo-400 scale-125' : 'bg-gray-600 hover:bg-gray-400'}`;
+      dot.setAttribute('aria-label', `View referral from ${ref.author}`);
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      dot.addEventListener('click', () => goToReferral(i));
+      dots.push(dot);
+      dotsWrapper.appendChild(dot);
+    });
+    carouselContainer.parentElement.appendChild(dotsWrapper);
 
-    // Start the cycling interval
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        const active = i === currentReferralIndex;
+        dot.className = `referral-dot w-2 h-2 rounded-full transition-all duration-300 ${active ? 'bg-indigo-400 scale-125' : 'bg-gray-600 hover:bg-gray-400'}`;
+        dot.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+
+    function goToReferral(index) {
+      referralItems[currentReferralIndex].classList.remove('is-active');
+      currentReferralIndex = index;
+      referralItems[currentReferralIndex].classList.add('is-active');
+      updateDots();
+    }
+
+    function startCarousel() {
+      carouselInterval = setInterval(() => {
+        goToReferral((currentReferralIndex + 1) % referralItems.length);
+      }, 7000);
+    }
+
     if (referralItems.length > 1) {
-        setInterval(() => {
-            // Deactivate the current item to fade it out
-            referralItems[currentReferralIndex].classList.remove('is-active');
-            // Move to the next item
-            currentReferralIndex = (currentReferralIndex + 1) % referralItems.length;
-            // Activate the new item to fade it in
-            referralItems[currentReferralIndex].classList.add('is-active');
-        }, 7000); // Change referral every 7 seconds
+      // Pause on hover / focus so users can read at their own pace
+      carouselContainer.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+      carouselContainer.addEventListener('mouseleave', startCarousel);
+      carouselContainer.addEventListener('focusin', () => clearInterval(carouselInterval));
+      carouselContainer.addEventListener('focusout', startCarousel);
+      startCarousel();
     }
   }
 
@@ -266,13 +307,8 @@ document.addEventListener("DOMContentLoaded", () => {
       cursorDot.style.top = `${posY}px`;
     }
     if (cursorOutline) {
-      cursorOutline.animate(
-        {
-          left: `${posX}px`,
-          top: `${posY}px`,
-        },
-        { duration: 500, fill: "forwards" }
-      );
+      cursorOutline.style.left = `${posX}px`;
+      cursorOutline.style.top = `${posY}px`;
     }
   });
 
@@ -292,7 +328,9 @@ document.addEventListener("DOMContentLoaded", () => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          entry.target.classList.remove("js-hidden");
           entry.target.classList.add("is-visible");
+          animateObserver.unobserve(entry.target);
         }
       });
     },

@@ -18,10 +18,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 100);
   }
 
-  // Hide animate-on-scroll elements immediately so the observer can reveal them
-  // (fallback: if JS never runs, extra.css keeps them visible by default)
+  // Elements already in the viewport (e.g. the hero) are shown immediately so
+  // they never flash hidden. Only off-screen elements get hidden, to be
+  // revealed on scroll by the observer below.
+  // (fallback: if JS never runs, extra.css keeps everything visible by default)
+  const vh = window.innerHeight || document.documentElement.clientHeight;
   document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-    el.classList.add("js-hidden");
+    const rect = el.getBoundingClientRect();
+    if (rect.top < vh && rect.bottom > 0) {
+      el.classList.add("is-visible");
+    } else {
+      el.classList.add("js-hidden");
+    }
   });
 
   // Reveal fallback — registered immediately so a later error can't prevent it
@@ -30,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       el.classList.remove("js-hidden");
       el.classList.add("is-visible");
     });
-  }, 800);
+  }, 1500);
 
   // init modal (no external deps — always safe)
   const openModal = initModal();

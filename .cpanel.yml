@@ -2,6 +2,7 @@ deployment:
   tasks:
   - export  DEPLOYPATH=/home/sbadvtmr/public_html
   - /bin/cp style.css $DEPLOYPATH
+  - /bin/cp extra.css $DEPLOYPATH
   - /bin/cp -r js $DEPLOYPATH
   - /bin/cp -r dist $DEPLOYPATH
   - /bin/cp -r images $DEPLOYPATH

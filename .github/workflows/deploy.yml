@@ -23,9 +23,9 @@ jobs:
           # Encrypted FTP (explicit TLS over port 21) — the account password
           # is the cPanel password, so don't send it in cleartext.
           protocol: ftps
-          # Path on the server to deploy into. For most Namecheap accounts
-          # this is public_html/ (adjust if your domain uses a subfolder).
-          server-dir: public_html/
+          # The deploy@sbadar.com FTP account is homed at public_html, so it
+          # logs in directly at the web root — deploy into the home itself.
+          server-dir: ./
           # Only ship what the site actually needs. node_modules, git
           # metadata, and local cruft are excluded.
           exclude: |

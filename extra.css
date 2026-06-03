@@ -337,6 +337,9 @@ footer {
     cursor: pointer;
     border-radius: 0.5rem;
     overflow: hidden;
+    /* Safari: overflow:hidden doesn't clip transformed children without this */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .project-card-inner {

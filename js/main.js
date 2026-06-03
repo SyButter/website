@@ -27,14 +27,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // init modal (no external deps — always safe)
   const openModal = initModal();
 
-  // Load Three.js scene dynamically so a CDN failure can't crash the whole page
+  // Load Three.js scene asynchronously — does NOT block the rest of the page
   let threeSceneControls = null;
-  try {
-    const { default: initThreeScene } = await import("./three-scene.js");
+  import("./three-scene.js").then(({ default: initThreeScene }) => {
     threeSceneControls = initThreeScene(openModal);
-  } catch (e) {
-    console.warn("3D scene unavailable:", e);
-  }
+  }).catch((e) => console.warn("3D scene unavailable:", e));
 
   const viewWorkButton = document.getElementById("view-work-button");
   const heroContent = document.querySelector("#home .relative.z-10");

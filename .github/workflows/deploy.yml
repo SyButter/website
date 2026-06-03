@@ -1,0 +1,39 @@
+name: Deploy to Namecheap
+
+# Auto-deploys the site to Namecheap shared hosting over FTP on every
+# push to main. Mirrors the files listed in .cpanel.yml.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {} # allows manual "Run workflow" from the Actions tab
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Path on the server to deploy into. For most Namecheap accounts
+          # this is public_html/ (adjust if your domain uses a subfolder).
+          server-dir: public_html/
+          # Only ship what the site actually needs. node_modules, git
+          # metadata, and local cruft are excluded.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.DS_Store
+            package.json
+            package-lock.json
+            tailwind.config.js
+            style.css
+            .cpanel.yml
+            .github/**
+            .htaccess

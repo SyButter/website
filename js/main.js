@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
     // Replace hover-centric hint text with tap-friendly wording
-    document.querySelectorAll(".project-card-front .text-indigo-400.font-semibold").forEach(el => {
+    document.querySelectorAll(".project-card-front .link-accent.font-semibold").forEach(el => {
       el.innerHTML = "Tap to open &rarr;";
     });
   } else {
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <blockquote class="text-xl md:text-2xl text-gray-300 italic">"${ref.quote}"</blockquote>
           <cite class="block not-italic mt-6">
             <span class="font-bold text-white text-lg">${ref.author}</span>
-            <span class="block text-indigo-300 text-sm">${ref.title}</span>
+            <span class="block text-muted-warm text-sm">${ref.title}</span>
           </cite>
           <div class="mt-8">
             <a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="bg-gray-700 text-white font-bold py-2 px-5 rounded-full hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 inline-block">
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const dots = [];
     referralsData.forEach((ref, i) => {
       const dot = document.createElement('button');
-      dot.className = `referral-dot w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-indigo-400 scale-125' : 'bg-gray-600 hover:bg-gray-400'}`;
+      dot.className = `referral-dot w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-[var(--accent)] scale-125' : 'bg-gray-600 hover:bg-gray-400'}`;
       dot.setAttribute('aria-label', `View referral from ${ref.author}`);
       dot.setAttribute('role', 'tab');
       dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function updateDots() {
       dots.forEach((dot, i) => {
         const active = i === currentReferralIndex;
-        dot.className = `referral-dot w-2 h-2 rounded-full transition-all duration-300 ${active ? 'bg-indigo-400 scale-125' : 'bg-gray-600 hover:bg-gray-400'}`;
+        dot.className = `referral-dot w-2 h-2 rounded-full transition-all duration-300 ${active ? 'bg-[var(--accent)] scale-125' : 'bg-gray-600 hover:bg-gray-400'}`;
         dot.setAttribute('aria-selected', active ? 'true' : 'false');
       });
     }
@@ -307,34 +307,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       }
     });
-  });
-
-  // custom cursor
-  const cursorDot = document.querySelector(".cursor-dot");
-  const cursorOutline = document.querySelector(".cursor-outline");
-  window.addEventListener("mousemove", (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
-    if (cursorDot) {
-      cursorDot.style.left = `${posX}px`;
-      cursorDot.style.top = `${posY}px`;
-    }
-    if (cursorOutline) {
-      cursorOutline.style.left = `${posX}px`;
-      cursorOutline.style.top = `${posY}px`;
-    }
-  });
-
-  const interactiveElements = document.querySelectorAll(
-    "a, button, .project-card-wrapper, .project-card, .skill-tag-3d"
-  );
-  interactiveElements.forEach((el) => {
-    el.addEventListener("mouseover", () =>
-      cursorOutline?.classList.add("hover")
-    );
-    el.addEventListener("mouseleave", () =>
-      cursorOutline?.classList.remove("hover")
-    );
   });
 
   const animateObserver = new IntersectionObserver(

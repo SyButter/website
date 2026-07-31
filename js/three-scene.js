@@ -48,7 +48,7 @@ export default function initThreeScene(onProjectClick) {
     const particlesGeometry = new THREE.BufferGeometry();
     particlesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     const particlesMaterial = new THREE.PointsMaterial({
-        color: 0x818CF8, size: 2, transparent: true, blending: THREE.AdditiveBlending,
+        color: 0xEDE9E3, size: 2, transparent: true, blending: THREE.AdditiveBlending,
     });
     particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
@@ -71,13 +71,13 @@ export default function initThreeScene(onProjectClick) {
     }
     const lineGeometry = new THREE.BufferGeometry();
     lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x818CF8, transparent: true, opacity: 0.05 });
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xEDE9E3, transparent: true, opacity: 0.05 });
     lines = new THREE.LineSegments(lineGeometry, lineMaterial);
     scene.add(lines);
 
     // ── Comet System ───────────────────────────────────────────────────────
     const COMET_COUNT = 6;
-    const cometColor  = new THREE.Color(0xA5B4FC);
+    const cometColor  = new THREE.Color(0xFFA85C);
     const comets      = [];
 
     function spawnComet() {
@@ -120,9 +120,9 @@ export default function initThreeScene(onProjectClick) {
     // ── Project Orbs ───────────────────────────────────────────────────────
     const labelsContainer = document.getElementById('project-labels');
 
-    // Per-project accent colours
-    const orbColors  = [0x6366f1, 0xEC4899, 0xF59E0B, 0x14B8A6, 0x10B981];
-    const cssColors  = ['#6366f1','#EC4899','#F59E0B','#14B8A6','#10B981'];
+    // Per-project accent colours — a coherent warm instrument-panel family
+    const orbColors  = [0xFF8A33, 0xFFC145, 0xE2664B, 0xC99A4A, 0xF2A65A];
+    const cssColors  = ['#FF8A33','#FFC145','#E2664B','#C99A4A','#F2A65A'];
 
     projectsData.forEach((proj, index) => {
         const col  = orbColors[index % orbColors.length];
@@ -296,7 +296,30 @@ export default function initThreeScene(onProjectClick) {
     window.addEventListener('resize', onWindowResize);
 
     // ── Render Loop ────────────────────────────────────────────────────────
-    function animate() { requestAnimationFrame(animate); render(); }
+    // Only render while the canvas is actually on screen and the tab is
+    // visible — this scene would otherwise burn GPU/battery forever.
+    let rafId = null;
+    let isInViewport = true;
+    let isPageVisible = !document.hidden;
+
+    function shouldRender() { return isInViewport && isPageVisible; }
+
+    function animate() { rafId = requestAnimationFrame(animate); render(); }
+
+    function startLoop() { if (rafId === null) animate(); }
+    function stopLoop() {
+        if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    }
+
+    new IntersectionObserver((entries) => {
+        isInViewport = entries[entries.length - 1].isIntersecting;
+        shouldRender() ? startLoop() : stopLoop();
+    }, { threshold: 0 }).observe(canvas);
+
+    document.addEventListener('visibilitychange', () => {
+        isPageVisible = !document.hidden;
+        shouldRender() ? startLoop() : stopLoop();
+    });
 
     function render() {
         const time      = Date.now() * 0.0005;
@@ -427,7 +450,7 @@ export default function initThreeScene(onProjectClick) {
         renderer.render(scene, camera);
     }
 
-    animate();
+    startLoop();
 
     return { transitionToProjects, resetView, updateScrollParallax };
 }

@@ -7,12 +7,14 @@
   <title>Syed Badrudduja - Developer Portfolio</title>
   <link rel="icon" type="image/png" href="images/favicon1.png">
   <link href="dist/output.css" rel="stylesheet" />
-  <link href="extra.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <!-- extra.css loads after the Swiper CDN stylesheet so its --swiper-theme-color
+       override always wins regardless of Swiper's own .swiper defaults. -->
+  <link href="extra.css" rel="stylesheet" />
   
   <style>
     .referral-item {
@@ -27,21 +29,19 @@
 
 <body class="antialiased">
   <a href="#about" class="skip-link">Skip to main content</a>
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-outline" aria-hidden="true"></div>
 
   <header class="bg-gray-900/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
     <div class="container mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <a href="#" class="text-2xl font-bold text-white">SB.</a>
         <nav class="hidden md:flex space-x-8" aria-label="Main navigation">
-          <a href="#about" class="nav-link text-gray-300 hover:text-indigo-400 transition-colors duration-300">About</a>
+          <a href="#about" class="nav-link text-gray-300">About</a>
           <a href="#projects"
-            class="nav-link text-gray-300 hover:text-indigo-400 transition-colors duration-300">Projects</a>
+            class="nav-link text-gray-300">Projects</a>
           <a href="#contact"
-            class="nav-link text-gray-300 hover:text-indigo-400 transition-colors duration-300">Contact</a>
+            class="nav-link text-gray-300">Contact</a>
         </nav>
-        <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none p-3 -mr-3" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
           </svg>
@@ -57,32 +57,27 @@
 
   <section id="home" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
     <canvas id="three-canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
-    <div class="hero-aurora"></div>
     <div id="project-labels"></div>
     <div class="relative z-10 container mx-auto px-6">
 <h1 class="mb-4 text-center animate-on-scroll">
-        <span id="name-heading" class="text-5xl md:text-7xl font-black hero-gradient-name leading-normal"></span><span
+        <span id="name-heading" class="text-5xl md:text-7xl font-black hero-name leading-normal"></span><span
           class="typing-cursor"></span>
       </h1>
-      <p class="text-xl md:text-2xl text-indigo-300 mb-8 animate-on-scroll" style="--delay: 0.2s">
+      <p class="text-xl md:text-2xl text-muted-warm mb-6 animate-on-scroll" style="--delay: 0.2s">
         A Forward AI Deployment Engineer specializing in automation,
         CI/CD, and intelligent systems that scale.
       </p>
+      <p class="hero-meta mb-8 animate-on-scroll" style="--delay: 0.3s">
+        <span class="num">8</span> shipped projects<span class="sep">&middot;</span><span class="num">5+</span> years in AI deployment &amp; QA automation
+      </p>
       <a href="#projects" id="view-work-button"
-        class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-110 inline-block animate-on-scroll"
+        class="btn-primary animate-on-scroll"
         style="--delay: 0.4s">
         View My Work
       </a>
-      <div class="mt-8 flex justify-center gap-6 animate-on-scroll" style="--delay: 0.55s">
-        <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Projects</span></div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat"><span class="hero-stat-num">5+</span><span class="hero-stat-label">Years</span></div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat"><span class="hero-stat-num">AI</span><span class="hero-stat-label">× QA</span></div>
-      </div>
       <div class="mt-8 flex justify-center space-x-6 animate-on-scroll" style="--delay: 0.6s">
         <a href="https://github.com/SyButter" target="_blank" rel="noopener noreferrer" aria-label="Visit Syed's GitHub profile"
-          class="nav-link text-gray-400 hover:text-indigo-400 transition-colors duration-300">
+          class="nav-link text-gray-400">
           <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path fill-rule="evenodd"
               d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z"
@@ -90,7 +85,7 @@
           </svg>
         </a>
         <a href="https://linkedin.com/in/sbadrudduja" target="_blank" rel="noopener noreferrer" aria-label="Visit Syed's LinkedIn profile"
-          class="nav-link text-gray-400 hover:text-indigo-400 transition-colors duration-300">
+          class="nav-link text-gray-400">
           <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path fill-rule="evenodd"
               d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.206v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H6.328C3.965 1 2 2.985 2 5.355v13.29C2 21.015 3.965 23 6.328 23h11.34C20.035 23 22 21.015 22 18.645V5.355C22 2.985 20.035 1 17.668 1z"
@@ -121,7 +116,7 @@
           </p>
           <div class="mt-4 flex flex-col sm:flex-row gap-4">
             <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
-              class="bg-indigo-600 text-white text-center font-bold py-3 px-6 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-105 inline-block">
+              class="btn-primary text-center">
               View My Resume
             </a>
           </div>
@@ -129,27 +124,49 @@
       </div>
 
       <div class="mt-4">
-        <h3 class="text-2xl font-bold text-white mb-4">My Skills</h3>
-        <div class="flex flex-wrap gap-x-2 gap-y-5">
-          <span class="skill-badge">JavaScript</span>
-          <span class="skill-badge">Python</span>
-          <span class="skill-badge">C#</span>
-          <span class="skill-badge">Java</span>
-          <span class="skill-badge">SQL</span>
-          <span class="skill-badge">Cypress</span>
-          <span class="skill-badge">Selenium</span>
-          <span class="skill-badge">Playwright</span>
-          <span class="skill-badge">Jenkins</span>
-          <span class="skill-badge">Docker</span>
-          <span class="skill-badge">Git</span>
-          <span class="skill-badge">AWS</span>
-          <span class="skill-badge">Prophet</span>
-          <span class="skill-badge">OpenAI</span>
-          <span class="skill-badge">Pandas</span>
-          <span class="skill-badge">NumPy</span>
-          <span class="skill-badge">scikit-learn</span>
-          <span class="skill-badge">PyTorch</span>
-          <span class="skill-badge">n8n</span>
+        <h3 class="text-2xl font-bold text-white mb-6">My Skills</h3>
+
+        <div class="skill-group">
+          <div class="skill-group-label">Languages</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge">JavaScript</span>
+            <span class="skill-badge">Python</span>
+            <span class="skill-badge">C#</span>
+            <span class="skill-badge">Java</span>
+            <span class="skill-badge">SQL</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-label">QA &amp; Automation</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge">Cypress</span>
+            <span class="skill-badge">Selenium</span>
+            <span class="skill-badge">Playwright</span>
+            <span class="skill-badge">Jenkins</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-label">AI &amp; ML</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge">Prophet</span>
+            <span class="skill-badge">OpenAI</span>
+            <span class="skill-badge">Pandas</span>
+            <span class="skill-badge">NumPy</span>
+            <span class="skill-badge">scikit-learn</span>
+            <span class="skill-badge">PyTorch</span>
+            <span class="skill-badge">n8n</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-label">Infra &amp; Tools</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge">Docker</span>
+            <span class="skill-badge">Git</span>
+            <span class="skill-badge">AWS</span>
+          </div>
         </div>
       </div>
     </div>
@@ -173,14 +190,14 @@
             <div class="project-card-wrapper" data-project-name="openGBW">
               <div class="project-card-inner">
                 <div class="project-card-front">
-                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=openGBW" alt="openGBW Project" class="w-full h-56 object-cover" />
+                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2270%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%224%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22200%22%20x2%3D%22300%22%20y2%3D%22145%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22200%22%20x2%3D%22338%22%20y2%3D%22217%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22128%22%20x2%3D%22300%22%20y2%3D%22116%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%2F%3E%0A%3Cline%20x1%3D%22372%22%20y1%3D%22200%22%20x2%3D%22384%22%20y2%3D%22200%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22272%22%20x2%3D%22300%22%20y2%3D%22284%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%2F%3E%0A%3Cline%20x1%3D%22228%22%20y1%3D%22200%22%20x2%3D%22216%22%20y2%3D%22200%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%2F%3E%0A%3C%2Fsvg%3E" alt="openGBW Project" class="w-full h-56 object-cover" />
                   <div class="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <span class="project-category-badge">Hardware</span>
                       <h3 class="text-2xl font-bold text-white mb-2">openGBW - Grind by Weight</h3>
                       <p class="text-gray-400 text-sm">An open-source 3D printed base turning a timed coffee grinder into a precision weight-based grinder with ESP32.</p>
                     </div>
-                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
                   </div>
                 </div>
                 <div class="project-card-back">
@@ -192,7 +209,7 @@
                     <span class="tech-badge">PlatformIO</span>
                     <span class="tech-badge">3D Printing</span>
                   </div>
-                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
                 </div>
               </div>
             </div>
@@ -209,7 +226,7 @@
                       <h3 class="text-2xl font-bold text-white mb-2">Enrollment Forecasting App</h3>
                       <p class="text-gray-400 text-sm">A full-stack web app forecasting student enrollment for public schools with Python, Flask, Prophet, and Chart.js.</p>
                     </div>
-                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
                   </div>
                 </div>
                 <div class="project-card-back">
@@ -221,7 +238,7 @@
                     <span class="tech-badge">Prophet</span>
                     <span class="tech-badge">Chart.js</span>
                   </div>
-                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
                 </div>
               </div>
             </div>
@@ -231,14 +248,14 @@
             <div class="project-card-wrapper" data-project-name="RasPi Adhan">
               <div class="project-card-inner">
                 <div class="project-card-front">
-                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=RasPi+Adhan" alt="Raspberry Pi Adhan Player" class="w-full h-56 object-cover" />
+                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Ccircle%20cx%3D%22255%22%20cy%3D%22235%22%20r%3D%226%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3Cpath%20d%3D%22M%20278%20235%20A%2038%2038%200%200%201%20278%20197%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Cpath%20d%3D%22M%20296%20250%20A%2062%2062%200%200%201%20296%20182%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.65%22%2F%3E%0A%3Cpath%20d%3D%22M%20314%20265%20A%2086%2086%200%200%201%20314%20167%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.4%22%2F%3E%0A%3C%2Fsvg%3E" alt="Raspberry Pi Adhan Player" class="w-full h-56 object-cover" />
                   <div class="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <span class="project-category-badge">Automation</span>
                       <h3 class="text-2xl font-bold text-white mb-2">Raspberry Pi Adhan Player</h3>
                       <p class="text-gray-400 text-sm">A Raspberry Pi system that auto-plays the Adhan by fetching daily prayer times from an API via Python script.</p>
                     </div>
-                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
                   </div>
                 </div>
                 <div class="project-card-back">
@@ -250,7 +267,7 @@
                     <span class="tech-badge">Systemd</span>
                     <span class="tech-badge">REST APIs</span>
                   </div>
-                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
                 </div>
               </div>
             </div>
@@ -260,14 +277,14 @@
             <div class="project-card-wrapper" data-project-name="AVAT">
               <div class="project-card-inner">
                 <div class="project-card-front">
-                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=A.V.A.T" alt="Automated Vulnerability Assessment Tool" class="w-full h-56 object-cover" />
+                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2275%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%20fill%3D%22none%22%20opacity%3D%220.45%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%20fill%3D%22none%22%20opacity%3D%220.65%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2225%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%20fill%3D%22none%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22200%22%20x2%3D%22300%22%20y2%3D%22125%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22344%22%20cy%3D%22158%22%20r%3D%224%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3Ccircle%20cx%3D%22248%22%20cy%3D%22228%22%20r%3D%224%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E" alt="Automated Vulnerability Assessment Tool" class="w-full h-56 object-cover" />
                   <div class="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <span class="project-category-badge">Security</span>
                       <h3 class="text-2xl font-bold text-white mb-2">Automated Vulnerability Assessment Tool</h3>
                       <p class="text-gray-400 text-sm">A Python security scanner orchestrating Nmap and OpenVAS for nightly checks with real-time Slack alerts.</p>
                     </div>
-                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
                   </div>
                 </div>
                 <div class="project-card-back">
@@ -279,7 +296,7 @@
                     <span class="tech-badge">OpenVAS</span>
                     <span class="tech-badge">Slack API</span>
                   </div>
-                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
                 </div>
               </div>
             </div>
@@ -289,14 +306,14 @@
             <div class="project-card-wrapper" data-project-name="FIT">
               <div class="project-card-inner">
                 <div class="project-card-front">
-                  <img src="https://placehold.co/600x400/1f2937/ffffff?text=F.I.T" alt="Blockchain-Based File Integrity Tracker" class="w-full h-56 object-cover" />
+                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Crect%20x%3D%22248%22%20y%3D%22174%22%20width%3D%2262%22%20height%3D%2252%22%20rx%3D%2226%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%224%22%20fill%3D%22none%22%2F%3E%0A%3Crect%20x%3D%22300%22%20y%3D%22174%22%20width%3D%2262%22%20height%3D%2252%22%20rx%3D%2226%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%224%22%20fill%3D%22none%22%2F%3E%0A%3C%2Fsvg%3E" alt="Blockchain-Based File Integrity Tracker" class="w-full h-56 object-cover" />
                   <div class="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <span class="project-category-badge">Web3</span>
                       <h3 class="text-2xl font-bold text-white mb-2">Blockchain-Based File Integrity Tracker</h3>
                       <p class="text-gray-400 text-sm">A Solidity smart contract and React/Web3.js UI to log and verify file integrity on the Ethereum testnet.</p>
                     </div>
-                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
                   </div>
                 </div>
                 <div class="project-card-back">
@@ -308,7 +325,7 @@
                     <span class="tech-badge">Web3.js</span>
                     <span class="tech-badge">Ethereum</span>
                   </div>
-                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
                 </div>
               </div>
             </div>
@@ -318,14 +335,14 @@
             <div class="project-card-wrapper" data-project-name="AI Forecast Pipeline">
               <div class="project-card-inner">
                 <div class="project-card-front">
-                  <img src="https://placehold.co/600x400/312e81/a5b4fc?text=AI+Forecast+Pipeline" alt="AI Forecast Intelligence Pipeline" class="w-full h-56 object-cover" />
+                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22228%2C252%20264%2C222%20300%2C236%20336%2C190%20372%2C206%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3Cpolyline%20points%3D%22372%2C206%20406%2C168%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%207%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22372%22%20cy%3D%22206%22%20r%3D%224.5%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E" alt="AI Forecast Intelligence Pipeline" class="w-full h-56 object-cover" />
                   <div class="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <span class="project-category-badge ai">AI / ML</span>
                       <h3 class="text-2xl font-bold text-white mb-2">AI Forecast Intelligence Pipeline</h3>
                       <p class="text-gray-400 text-sm">An end-to-end pipeline combining Prophet time-series forecasting with OpenAI to generate human-readable decision recommendations.</p>
                     </div>
-                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
                   </div>
                 </div>
                 <div class="project-card-back">
@@ -338,7 +355,7 @@
                     <span class="tech-badge">Pandas</span>
                     <span class="tech-badge">Flask</span>
                   </div>
-                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
                 </div>
               </div>
             </div>
@@ -348,14 +365,14 @@
             <div class="project-card-wrapper" data-project-name="n8n AI Engine">
               <div class="project-card-inner">
                 <div class="project-card-front">
-                  <img src="https://placehold.co/600x400/312e81/a5b4fc?text=n8n+AI+Engine" alt="n8n AI Automation Engine" class="w-full h-56 object-cover" />
+                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22228%2C252%20264%2C222%20300%2C236%20336%2C190%20372%2C206%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3Cpolyline%20points%3D%22372%2C206%20406%2C168%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%207%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22372%22%20cy%3D%22206%22%20r%3D%224.5%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E" alt="n8n AI Automation Engine" class="w-full h-56 object-cover" />
                   <div class="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <span class="project-category-badge ai">AI Automation</span>
                       <h3 class="text-2xl font-bold text-white mb-2">n8n AI Automation Engine</h3>
                       <p class="text-gray-400 text-sm">A low-code automation platform wiring data sources, ML inference, and LLM summarisation into zero-touch reporting workflows.</p>
                     </div>
-                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
                   </div>
                 </div>
                 <div class="project-card-back">
@@ -368,7 +385,7 @@
                     <span class="tech-badge">REST APIs</span>
                     <span class="tech-badge">Slack API</span>
                   </div>
-                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
                 </div>
               </div>
             </div>
@@ -378,14 +395,14 @@
             <div class="project-card-wrapper" data-project-name="Healthcare Forecaster">
               <div class="project-card-inner">
                 <div class="project-card-front">
-                  <img src="https://placehold.co/600x400/312e81/a5b4fc?text=Healthcare+Forecaster" alt="Healthcare Demand Forecaster" class="w-full h-56 object-cover" />
+                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22228%2C252%20264%2C222%20300%2C236%20336%2C190%20372%2C206%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3Cpolyline%20points%3D%22372%2C206%20406%2C168%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%207%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22372%22%20cy%3D%22206%22%20r%3D%224.5%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E" alt="Healthcare Demand Forecaster" class="w-full h-56 object-cover" />
                   <div class="p-6 flex flex-col flex-grow justify-between">
                     <div>
                       <span class="project-category-badge ai">AI / ML</span>
                       <h3 class="text-2xl font-bold text-white mb-2">Healthcare Demand Forecaster</h3>
                       <p class="text-gray-400 text-sm">A scikit-learn + Prophet model predicting healthcare resource demand, with OpenAI generating plain-language allocation recommendations.</p>
                     </div>
-                    <span class="text-indigo-400 font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
+                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
                   </div>
                 </div>
                 <div class="project-card-back">
@@ -398,7 +415,7 @@
                     <span class="tech-badge">OpenAI API</span>
                     <span class="tech-badge">Pandas</span>
                   </div>
-                  <span class="text-indigo-400 font-semibold text-sm">Click to view details &rarr;</span>
+                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
                 </div>
               </div>
             </div>
@@ -421,7 +438,7 @@
         Have a project in mind or want to connect? Let's talk.
       </p>
       <a href="mailto:syed.badrudduja@protonmail.com"
-        class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-500 transition-all duration-300 transform hover:scale-105 inline-block mb-12">
+        class="btn-primary mb-12">
         Say Hello &rarr;
       </a>
       <div class="flex justify-center gap-4 mt-4 flex-wrap">
@@ -465,7 +482,7 @@
         <h4 class="text-xl font-bold text-white mb-2">Project Challenges</h4>
         <p id="modal-challenges" class="text-gray-400 italic"></p>
     </div>
-    <div class="mt-8"> <a id="modal-link" href="#" target="_blank" class="modal-button">
+    <div class="mt-8"> <a id="modal-link" href="#" target="_blank" class="btn-primary">
         View on GitHub &rarr;
       </a>
     </div>

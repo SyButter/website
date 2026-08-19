@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // --- Typing Effect ---
   const nameElement = document.getElementById("name-heading");
   if (nameElement) {
-    const text = "Hi, I'm Syed Badrudduja";
+    const text = "Hi, I'm Syed Badr";
     let i = 0;
     nameElement.innerHTML = "";
     const typingInterval = setInterval(() => {

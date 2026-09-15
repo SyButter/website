@@ -81,11 +81,11 @@ export default function initModal() {
                 'Interactive dashboard visualises historical trends alongside future projections.',
                 'Configurable horizon windows for short, medium, and long-range planning.'
             ],
-            challenges: 'The core challenge was prompt-engineering the OpenAI layer to produce consistently structured, domain-appropriate recommendations rather than generic summaries. Ensuring the LLM output remained grounded in the actual forecast numbers — without hallucinating trends — required careful context injection and output validation logic.'
+            challenges: 'The core challenge was prompt-engineering the OpenAI layer to produce consistently structured, domain-appropriate recommendations rather than generic summaries. Ensuring the LLM output remained grounded in the actual forecast numbers (without hallucinating trends) required careful context injection and output validation logic.'
         },
         'n8n AI Engine': {
             title: 'n8n AI Automation Engine',
-            description: 'A production-grade, low-code automation platform built on n8n that wires together data ingestion from APIs and spreadsheets, Python-based ML inference, and OpenAI summarisation — delivering fully automated, AI-written reports to Slack or email with zero manual intervention.',
+            description: 'A production-grade, low-code automation platform built on n8n that wires together data ingestion from APIs and spreadsheets, Python-based ML inference, and OpenAI summarisation, delivering fully automated, AI-written reports to Slack or email with zero manual intervention.',
             image: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22228%2C252%20264%2C222%20300%2C236%20336%2C190%20372%2C206%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3Cpolyline%20points%3D%22372%2C206%20406%2C168%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%207%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22372%22%20cy%3D%22206%22%20r%3D%224.5%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E',
             link: '#',
             techStack: ['n8n', 'OpenAI API', 'Python', 'REST APIs', 'Slack API', 'SQL'],
@@ -96,7 +96,7 @@ export default function initModal() {
                 'Delivers formatted reports to Slack channels and email recipients automatically.',
                 'Error-handling branches with alerting to ensure zero silent failures.'
             ],
-            challenges: 'Keeping ML inference fast enough to fit within workflow timeouts required pre-loading models into a persistent Python service rather than cold-starting per run. Designing reliable error-handling branches that surface failures clearly — without spamming alerts — was equally critical for a production-ready setup.'
+            challenges: 'Keeping ML inference fast enough to fit within workflow timeouts required pre-loading models into a persistent Python service rather than cold-starting per run. Designing reliable error-handling branches that surface failures clearly (without spamming alerts) was equally critical for a production-ready setup.'
         },
         'Healthcare Forecaster': {
             title: 'Healthcare Demand Forecaster',

@@ -48,7 +48,7 @@ export default function initThreeScene(onProjectClick) {
     const particlesGeometry = new THREE.BufferGeometry();
     particlesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     const particlesMaterial = new THREE.PointsMaterial({
-        color: 0xEDE9E3, size: 2, transparent: true, blending: THREE.AdditiveBlending,
+        color: 0xEDE9E3, size: 2, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending,
     });
     particles = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particles);
@@ -206,7 +206,7 @@ export default function initThreeScene(onProjectClick) {
         isZoomed = true;
         const targetZ = window.innerWidth / window.innerHeight > 1.2 ? 700 : 900;
         gsap.to(camera.position, { z: targetZ, duration: 2.5, ease: 'power3.inOut' });
-        gsap.to(particles.material, { opacity: 0.15, duration: 2 });
+        gsap.to(particles.material, { opacity: 0.1, duration: 2 });
         gsap.to(lines.material,     { opacity: 0.15, duration: 2 });
 
         projectObjects.forEach(p => {
@@ -225,7 +225,7 @@ export default function initThreeScene(onProjectClick) {
         hoveredIdx = -1;
         canvas.style.cursor = 'default';
         gsap.to(camera.position,    { z: 1000, duration: 2.5, ease: 'power3.inOut' });
-        gsap.to(particles.material, { opacity: 1.0, duration: 2 });
+        gsap.to(particles.material, { opacity: 0.55, duration: 2 });
         gsap.to(lines.material,     { opacity: 0.05, duration: 2 });
 
         projectObjects.forEach(p => {

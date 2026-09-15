@@ -5,9 +5,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Syed Badr - Developer Portfolio</title>
+  <meta name="description" content="Syed Badr is a Forward Deployed Engineer specializing in AI/ML pipeline deployment, automation, and QA engineering." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Syed Badr - Developer Portfolio" />
+  <meta property="og:description" content="Forward Deployed Engineer specializing in automation, CI/CD, and intelligent systems that scale." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Syed Badr - Developer Portfolio" />
+  <meta name="twitter:description" content="Forward Deployed Engineer specializing in automation, CI/CD, and intelligent systems that scale." />
   <link rel="icon" type="image/png" href="images/favicon1.png">
   <link href="dist/output.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <!-- Lenis: buttery momentum smooth-scroll. UMD build exposes window.Lenis -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -18,11 +28,19 @@
   
   <style>
     .referral-item {
-      transition: opacity 0.7s ease-in-out;
+      transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
       opacity: 0;
+      transform: perspective(900px) translateZ(-40px) scale(0.97);
     }
     .referral-item.is-active {
       opacity: 1;
+      transform: perspective(900px) translateZ(0) scale(1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .referral-item {
+        transition: opacity 0.4s ease-in-out !important;
+        transform: none !important;
+      }
     }
   </style>
 </head>
@@ -63,19 +81,16 @@
         <span id="name-heading" class="text-5xl md:text-7xl font-black hero-name leading-normal"></span><span
           class="typing-cursor"></span>
       </h1>
-      <p class="text-xl md:text-2xl text-muted-warm mb-6 animate-on-scroll" style="--delay: 0.2s">
-        A Forward AI Deployment Engineer specializing in automation,
+      <p class="text-xl md:text-2xl text-muted-warm mb-8 animate-on-scroll" style="--delay: 0.2s">
+        A Forward Deployed Engineer specializing in automation,
         CI/CD, and intelligent systems that scale.
-      </p>
-      <p class="hero-meta mb-8 animate-on-scroll" style="--delay: 0.3s">
-        <span class="num">8</span> shipped projects<span class="sep">&middot;</span><span class="num">5+</span> years in AI deployment &amp; QA automation
       </p>
       <a href="#projects" id="view-work-button"
         class="btn-primary animate-on-scroll"
-        style="--delay: 0.4s">
+        style="--delay: 0.3s">
         View My Work
       </a>
-      <div class="mt-8 flex justify-center space-x-6 animate-on-scroll" style="--delay: 0.6s">
+      <div class="mt-8 flex justify-center space-x-6 animate-on-scroll" style="--delay: 0.5s">
         <a href="https://github.com/SyButter" target="_blank" rel="noopener noreferrer" aria-label="Visit Syed's GitHub profile"
           class="nav-link text-gray-400">
           <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -98,21 +113,28 @@
 
   <section id="about" tabindex="-1" class="py-20 animate-on-scroll">
     <div class="container mx-auto px-6">
-      <h2 class="section-title">About Me</h2>
+      <h2 class="section-title">About me</h2>
       <div class="flex flex-col md:flex-row items-center gap-12 mb-12">
         <div class="text-lg text-gray-300">
           <p class="mb-4">
-            Hello! I’m Syed, a Forward AI Deployment Engineer and Software Development Engineer in Test with hands-on experience
-            in automation, forecasting, and data-driven intelligence. I build and ship AI-powered systems end-to-end — from
-            designing machine learning pipelines and forecasting models to deploying them into production environments that
-            deliver real business impact. I specialize in AI deployment using tools like Prophet, OpenAI, Python, and n8n
-            to solve real-world challenges in education, healthcare, and resource allocation.
+            Hello! I’m Syed, a Forward Deployed Engineer building full-stack systems directly alongside client teams. At
+            the Port Authority of NY &amp; NJ and Edgeline Analytics, I take software from architecture to production —
+            live GIS monitoring tools managing 1,000+ facility feeds, and AI-driven forecasting platforms built with
+            Python, Flask, and ChatGPT — shipping code that holds up under real operational pressure.
+          </p>
+          <p class="mb-4">
+            With a strong foundation in QA automation (Cypress, Selenium, Playwright) and AI/ML expertise (Prophet,
+            OpenAI, PyTorch, scikit-learn), I bridge the gap between intelligent systems and production-ready software,
+            engineering scalable, elegant solutions that make a measurable impact.
           </p>
           <p class="mb-6">
-            With a strong foundation in QA automation (Cypress, Selenium, Playwright, AWS-based testing) and deep expertise
-            in AI/ML frameworks (pandas, NumPy, scikit-learn, PyTorch), I bridge the gap between intelligent systems and
-            production-ready software. I thrive at the intersection of automation, machine learning, and forward-thinking
-            AI deployment — engineering scalable, elegant solutions that make a measurable impact.
+            I also bring a background in Computer Science and Cybersecurity: I've built a machine-learning intrusion
+            detection system that classifies phishing, brute-force, and DDoS traffic with 90%+ accuracy, and an
+            automated Nmap/OpenVAS scanner that simulates SOC/SIEM alerting. I hold CompTIA Security+ and AWS Cloud
+            Practitioner certifications.
+          </p>
+          <p class="stat-line mb-6">
+            <span class="num">8</span> shipped projects<span class="sep">&middot;</span><span class="num">5+</span> years in AI deployment &amp; QA automation
           </p>
           <div class="mt-4 flex flex-col sm:flex-row gap-4">
             <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
@@ -124,48 +146,62 @@
       </div>
 
       <div class="mt-4">
-        <h3 class="text-2xl font-bold text-white mb-6">My Skills</h3>
+        <h3 class="text-2xl font-bold text-white mb-6">My skills</h3>
 
-        <div class="skill-group">
-          <div class="skill-group-label">Languages</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-badge">JavaScript</span>
-            <span class="skill-badge">Python</span>
-            <span class="skill-badge">C#</span>
-            <span class="skill-badge">Java</span>
-            <span class="skill-badge">SQL</span>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="skill-group-label">Languages</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge">JavaScript</span>
+              <span class="skill-badge">Python</span>
+              <span class="skill-badge">C#</span>
+              <span class="skill-badge">Java</span>
+              <span class="skill-badge">SQL</span>
+            </div>
           </div>
-        </div>
 
-        <div class="skill-group">
-          <div class="skill-group-label">QA &amp; Automation</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-badge">Cypress</span>
-            <span class="skill-badge">Selenium</span>
-            <span class="skill-badge">Playwright</span>
-            <span class="skill-badge">Jenkins</span>
+          <div class="skill-group">
+            <div class="skill-group-label">QA &amp; Automation</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge">Cypress</span>
+              <span class="skill-badge">Selenium</span>
+              <span class="skill-badge">Playwright</span>
+              <span class="skill-badge">Jenkins</span>
+            </div>
           </div>
-        </div>
 
-        <div class="skill-group">
-          <div class="skill-group-label">AI &amp; ML</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-badge">Prophet</span>
-            <span class="skill-badge">OpenAI</span>
-            <span class="skill-badge">Pandas</span>
-            <span class="skill-badge">NumPy</span>
-            <span class="skill-badge">scikit-learn</span>
-            <span class="skill-badge">PyTorch</span>
-            <span class="skill-badge">n8n</span>
+          <div class="skill-group">
+            <div class="skill-group-label">AI &amp; ML</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge">Prophet</span>
+              <span class="skill-badge">OpenAI</span>
+              <span class="skill-badge">Pandas</span>
+              <span class="skill-badge">NumPy</span>
+              <span class="skill-badge">scikit-learn</span>
+              <span class="skill-badge">PyTorch</span>
+              <span class="skill-badge">n8n</span>
+            </div>
           </div>
-        </div>
 
-        <div class="skill-group">
-          <div class="skill-group-label">Infra &amp; Tools</div>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-badge">Docker</span>
-            <span class="skill-badge">Git</span>
-            <span class="skill-badge">AWS</span>
+          <div class="skill-group">
+            <div class="skill-group-label">Infra &amp; Tools</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge">Docker</span>
+              <span class="skill-badge">Git</span>
+              <span class="skill-badge">AWS</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-label">Security &amp; Certifications</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge">Nmap</span>
+              <span class="skill-badge">OpenVAS</span>
+              <span class="skill-badge">Intrusion Detection</span>
+              <span class="skill-badge">SOC / SIEM</span>
+              <span class="skill-badge">CompTIA Security+</span>
+              <span class="skill-badge">AWS Cloud Practitioner</span>
+            </div>
           </div>
         </div>
       </div>
@@ -182,7 +218,7 @@
 
   <section id="projects" class="py-20 bg-gray-900 opacity-0 animate-on-scroll">
     <div class="container mx-auto px-6">
-      <h2 class="section-title">My Projects</h2>
+      <h2 class="section-title">My projects</h2>
 
       <div class="swiper project-swiper">
         <div class="swiper-wrapper">
@@ -347,7 +383,7 @@
                 </div>
                 <div class="project-card-back">
                   <h3 class="text-xl font-bold text-white mb-3">AI Forecast Intelligence Pipeline</h3>
-                  <p class="text-gray-400 text-sm mb-5">Raw data in, actionable AI-generated insights out — bridging ML forecasts and natural language reporting.</p>
+                  <p class="text-gray-400 text-sm mb-5">Raw data in, actionable AI-generated insights out: bridging ML forecasts and natural language reporting.</p>
                   <div class="flex flex-wrap gap-2 mb-6">
                     <span class="tech-badge">Python</span>
                     <span class="tech-badge">Prophet</span>
@@ -377,7 +413,7 @@
                 </div>
                 <div class="project-card-back">
                   <h3 class="text-xl font-bold text-white mb-3">n8n AI Automation Engine</h3>
-                  <p class="text-gray-400 text-sm mb-5">Ingests data from APIs and spreadsheets, runs ML models, and delivers AI-written summaries to Slack or email — fully automated.</p>
+                  <p class="text-gray-400 text-sm mb-5">Ingests data from APIs and spreadsheets, runs ML models, and delivers AI-written summaries to Slack or email, fully automated.</p>
                   <div class="flex flex-wrap gap-2 mb-6">
                     <span class="tech-badge">n8n</span>
                     <span class="tech-badge">OpenAI API</span>
@@ -432,9 +468,9 @@
 
   <section id="contact" class="py-16 animate-on-scroll">
     <div class="container mx-auto px-6 text-center">
-      <h2 class="section-title">Get In Touch</h2>
+      <h2 class="section-title">Get in touch</h2>
       <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
-        I'm currently available for new opportunities — whether it's AI deployment, automation pipelines, or QA engineering.
+        I'm currently available for new opportunities, whether it's AI deployment, automation pipelines, or QA engineering.
         Have a project in mind or want to connect? Let's talk.
       </p>
       <a href="mailto:syed.badrudduja@protonmail.com"
@@ -469,17 +505,17 @@
     <p id="modal-description"></p>
 
     <div class="mt-6">
-      <h4 class="text-xl font-bold text-white mb-2">Technology Stack</h4>
+      <h4 class="text-xl font-bold text-white mb-2">Technology stack</h4>
       <div id="modal-tech-stack" class="flex flex-wrap gap-2">
         </div>
     </div>
     <div class="mt-6">
-      <h4 class="text-xl font-bold text-white mb-2">Key Features</h4>
+      <h4 class="text-xl font-bold text-white mb-2">Key features</h4>
       <ul id="modal-features" class="list-disc list-inside space-y-2 text-gray-300">
         </ul>
     </div>
     <div class="mt-6">
-        <h4 class="text-xl font-bold text-white mb-2">Project Challenges</h4>
+        <h4 class="text-xl font-bold text-white mb-2">Project challenges</h4>
         <p id="modal-challenges" class="text-gray-400 italic"></p>
     </div>
     <div class="mt-8"> <a id="modal-link" href="#" target="_blank" class="btn-primary">

@@ -5,5 +5,8 @@
       "Read(//Users/sbadar/.claude/plugins/cache/impeccable/impeccable/4.0.4/skills/impeccable/reference/**)",
       "Bash(node /Users/sbadar/.claude/plugins/cache/impeccable/impeccable/4.0.4/skills/impeccable/scripts/critique-storage.mjs slug \"index.html\")"
     ]
+  },
+  "enabledPlugins": {
+    "taste-skill@taste-skill": true
   }
 }

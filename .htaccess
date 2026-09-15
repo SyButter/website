@@ -1,1 +1,2 @@
 AddType application/javascript .js
+ErrorDocument 404 /404.html

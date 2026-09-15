@@ -40,13 +40,13 @@ body {
 /* Animate on Scroll */
 .animate-on-scroll {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: perspective(1000px) translateZ(-320px) translateY(32px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     transition-delay: var(--delay, 0s);
 }
 .animate-on-scroll.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: perspective(1000px) translateZ(0) translateY(0);
 }
 
 /* Typing Effect */
@@ -123,7 +123,7 @@ body {
     width: 90%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -12px rgba(8, 10, 20, 0.6);
     position: relative;
     display: flex;
     flex-direction: column;

@@ -18,6 +18,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 100);
   }
 
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // --- Lenis smooth scroll + GSAP ScrollTrigger wiring ---
+  // Lenis gives the whole page buttery momentum scrolling; we drive it from
+  // GSAP's ticker and forward its scroll events to ScrollTrigger so any
+  // scroll-driven animation stays perfectly in sync. Disabled entirely under
+  // reduced-motion so we never fight the user's accessibility preference.
+  let lenis = null;
+  const hasScrollTrigger = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
+  if (hasScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+  if (!prefersReducedMotion && typeof window.Lenis !== "undefined") {
+    lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo-out
+      smoothWheel: true,
+      touchMultiplier: 1.6,
+    });
+
+    if (hasScrollTrigger) {
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add((t) => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
+      requestAnimationFrame(raf);
+    }
+  }
+
+  // Smooth in-page navigation helper — routes through Lenis when available,
+  // falls back to native smooth scroll otherwise.
+  const smoothScrollTo = (target) => {
+    if (lenis) lenis.scrollTo(target, { offset: -70, duration: 1.2 });
+    else target.scrollIntoView({ behavior: "smooth" });
+  };
+
   // Elements already in the viewport (e.g. the hero) are shown immediately so
   // they never flash hidden. Only off-screen elements get hidden, to be
   // revealed on scroll by the observer below.
@@ -32,12 +68,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
+  // Projects section: cards "deal in" with a 3D rotate once the section is
+  // actually scrolled to, rather than all popping in at once with the section.
+  // Skipped if the section is already on-screen (nothing to reveal) or the
+  // user prefers reduced motion.
+  const projectsSection = document.getElementById("projects");
+  if (projectsSection && !prefersReducedMotion) {
+    const projectsRect = projectsSection.getBoundingClientRect();
+    if (!(projectsRect.top < vh && projectsRect.bottom > 0)) {
+      document.querySelectorAll("#projects .project-card-wrapper").forEach((card, i) => {
+        card.style.setProperty("--delay", `${i * 0.07}s`);
+        card.classList.add("card-pending");
+      });
+    }
+  }
+
+  function revealPendingProjectCards() {
+    document.querySelectorAll(".project-card-wrapper.card-pending").forEach((card) => {
+      card.classList.remove("card-pending");
+      card.classList.add("card-visible");
+    });
+  }
+
   // Reveal fallback — registered immediately so a later error can't prevent it
   setTimeout(() => {
     document.querySelectorAll(".animate-on-scroll.js-hidden").forEach((el) => {
       el.classList.remove("js-hidden");
       el.classList.add("is-visible");
     });
+    revealPendingProjectCards();
   }, 1500);
 
   // init modal (no external deps — always safe)
@@ -70,9 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (viewWorkButton) {
       viewWorkButton.addEventListener("click", (e) => {
         e.preventDefault();
-        document
-          .getElementById("projects")
-          .scrollIntoView({ behavior: "smooth" });
+        smoothScrollTo(document.getElementById("projects"));
       });
     }
     // Replace hover-centric hint text with tap-friendly wording
@@ -82,6 +139,38 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     // desktop logic
     let isProjectViewActive = false;
+
+    // --- subtle cursor-tracked 3D tilt on the hero content itself ---
+    if (!prefersReducedMotion && heroContent) {
+      const HERO_TILT_MAX_DEG = 4;
+      window.addEventListener("mousemove", (e) => {
+        if (isProjectViewActive) return;
+        const nx = e.clientX / window.innerWidth - 0.5;
+        const ny = e.clientY / window.innerHeight - 0.5;
+        heroContent.style.setProperty("--heroTiltY", `${nx * HERO_TILT_MAX_DEG * 2}deg`);
+        heroContent.style.setProperty("--heroTiltX", `${-ny * HERO_TILT_MAX_DEG * 2}deg`);
+      });
+    }
+
+    // --- 3D tilt on project cards, tracks cursor position over each card ---
+    if (!prefersReducedMotion) {
+      const TILT_MAX_DEG = 8;
+      projectCards.forEach((card) => {
+        const inner = card.querySelector(".project-card-inner");
+        if (!inner) return;
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width;
+          const y = (e.clientY - rect.top) / rect.height;
+          inner.style.setProperty("--tiltY", `${(x - 0.5) * TILT_MAX_DEG * 2}deg`);
+          inner.style.setProperty("--tiltX", `${(0.5 - y) * TILT_MAX_DEG * 2}deg`);
+        });
+        card.addEventListener("mouseleave", () => {
+          inner.style.setProperty("--tiltX", "0deg");
+          inner.style.setProperty("--tiltY", "0deg");
+        });
+      });
+    }
 
     // 3d transition
     if (viewWorkButton) {
@@ -189,7 +278,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       url: "https://www.linkedin.com/in/sbadrudduja/details/recommendations/"
     },
     {
-      quote: "Syed showed strong technical skills from day one, jumping into a variety of projects across different languages. He's a great team member—curious, reliable, and always thorough in his work, seeing projects through to the finish line.",
+      quote: "Syed showed strong technical skills from day one, jumping into a variety of projects across different languages. He's a great team member: curious, reliable, and always thorough in his work, seeing projects through to the finish line.",
       author: "Patrick McDonough",
       title: "Software Engineer",
       url: "https://www.linkedin.com/in/sbadrudduja/details/recommendations/"
@@ -301,9 +390,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         const targetElement = document.querySelector(this.getAttribute("href"));
         if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: "smooth",
-          });
+          smoothScrollTo(targetElement);
         }
       }
     });
@@ -316,11 +403,15 @@ document.addEventListener("DOMContentLoaded", async () => {
           entry.target.classList.remove("js-hidden");
           entry.target.classList.add("is-visible");
           animateObserver.unobserve(entry.target);
+          revealPendingProjectCards();
         }
       });
     },
     {
-      threshold: 0.1,
+      // Fires once ~30% of the section is on-screen (not just a 10% sliver at
+      // the bottom edge), so the depth/swivel transition actually plays out
+      // where the user is looking, not off past the fold.
+      threshold: 0.3,
     }
   );
 
@@ -337,6 +428,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         el.classList.remove("js-hidden");
         el.classList.add("is-visible");
         animateObserver.unobserve(el);
+        revealPendingProjectCards();
       }
     });
   }
@@ -350,7 +442,44 @@ document.addEventListener("DOMContentLoaded", async () => {
       el.classList.remove("js-hidden");
       el.classList.add("is-visible");
     });
+    revealPendingProjectCards();
   }, 1000);
+
+  // --- ScrollTrigger depth flourishes (additive to the reveal system) ---
+  // Section titles drift slightly slower than the page and the hero content
+  // sinks away as you scroll past it, giving a parallax sense of depth without
+  // touching the existing animate-on-scroll reveals.
+  if (hasScrollTrigger && !prefersReducedMotion) {
+    document.querySelectorAll(".section-title").forEach((title) => {
+      gsap.fromTo(
+        title,
+        { y: 40 },
+        {
+          y: -20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: title,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    });
+
+    // Skill badges cascade in as the About section arrives
+    gsap.from("#about .skill-badge", {
+      opacity: 0,
+      y: 18,
+      duration: 0.5,
+      stagger: 0.03,
+      ease: "power2.out",
+      scrollTrigger: { trigger: "#about .skill-group", start: "top 75%" },
+    });
+
+    // Keep ScrollTrigger measurements correct once everything has loaded
+    window.addEventListener("load", () => ScrollTrigger.refresh());
+  }
 
   // swiper
   const swiper = new Swiper(".project-swiper", {

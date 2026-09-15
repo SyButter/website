@@ -7,4 +7,6 @@ deployment:
   - /bin/cp -r dist $DEPLOYPATH
   - /bin/cp -r images $DEPLOYPATH
   - /bin/cp index.html $DEPLOYPATH
+  - /bin/cp 404.html $DEPLOYPATH
+  - /bin/cp .htaccess $DEPLOYPATH
   - /bin/ls -la

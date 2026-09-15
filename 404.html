@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found - Syed Badr</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="images/favicon1.png">
+  <link href="dist/output.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="extra.css" rel="stylesheet" />
+  <style>
+    .error-page {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .error-code {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Confused face ─────────────────────────────────────────────── */
+    .confused-face {
+      width: 150px;
+      height: 165px;
+      margin-bottom: 1.5rem;
+      animation: face-tilt 3.2s ease-in-out infinite;
+      transform-origin: 50% 65%;
+      outline: none;
+    }
+    .confused-face:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 6px;
+      border-radius: 50%;
+    }
+    .confused-face .cf-eye-l,
+    .confused-face .cf-eye-r {
+      animation: eye-dart 3.2s ease-in-out infinite;
+    }
+    .confused-face .cf-eye-r { animation-delay: -0.15s; }
+    .confused-face .cf-brow-l { animation: brow-raise 3.2s ease-in-out infinite; transform-origin: 62px 55px; }
+    .confused-face .cf-mark {
+      animation: mark-float 2.4s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes face-tilt {
+      0%, 100% { transform: rotate(-6deg); }
+      50%      { transform: rotate(7deg); }
+    }
+    @keyframes eye-dart {
+      0%, 100% { transform: translateX(0); }
+      20%      { transform: translateX(-3px); }
+      45%      { transform: translateX(4px); }
+      70%      { transform: translateX(-2px); }
+    }
+    @keyframes brow-raise {
+      0%, 40%, 100% { transform: translateY(0) rotate(0deg); }
+      55%           { transform: translateY(-4px) rotate(-8deg); }
+    }
+    @keyframes mark-float {
+      0%, 100% { transform: translateY(0) rotate(-8deg); opacity: 0.85; }
+      50%      { transform: translateY(-8px) rotate(8deg); opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .confused-face,
+      .confused-face .cf-eye-l,
+      .confused-face .cf-eye-r,
+      .confused-face .cf-brow-l,
+      .confused-face .cf-mark {
+        animation: none !important;
+      }
+    }
+
+    /* ── Click me → poof into a wizard ────────────────────────────────── */
+    .confused-face { cursor: pointer; }
+    .cf-hint {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted-warm);
+      opacity: 0.6;
+      margin-bottom: 1.5rem;
+      margin-top: -1rem;
+    }
+
+    /* Wizard bits: hidden until triggered */
+    .cf-wizard { opacity: 0; transform: translateY(-30px) scale(0.4); transform-origin: 60px 4px; }
+    .cf-mouth-shock { opacity: 0; transform-origin: center; }
+    .confused-face.is-wizard .cf-mouth-normal { opacity: 0; }
+    .confused-face.is-wizard .cf-mouth-shock  { opacity: 1; }
+    .confused-face.is-wizard .cf-eye-l,
+    .confused-face.is-wizard .cf-eye-r {
+      animation: none;
+      transform: scale(1.6);
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+    .confused-face.is-wizard .cf-brow-l { animation: none; }
+    .confused-face.is-wizard .cf-mark { animation: none; opacity: 0; transition: opacity 0.2s ease; }
+    .confused-face.is-wizard .cf-wizard {
+      animation: hat-drop 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .confused-face.is-wizard { animation: face-tilt 0.35s ease-in-out 2; }
+
+    @keyframes hat-drop {
+      0%   { opacity: 0; transform: translateY(-34px) rotate(-18deg) scale(0.3); }
+      40%  { opacity: 1; }
+      100% { opacity: 1; transform: translateY(0) rotate(-4deg) scale(1); }
+    }
+
+    /* ── Page-wide "poof" explosion ───────────────────────────────────── */
+    body.boom-shake { animation: page-shake 0.5s ease-in-out; }
+    @keyframes page-shake {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20%      { transform: translate(-7px, 4px) rotate(-0.6deg); }
+      40%      { transform: translate(7px, -5px) rotate(0.6deg); }
+      60%      { transform: translate(-5px, 3px) rotate(-0.4deg); }
+      80%      { transform: translate(5px, -3px) rotate(0.4deg); }
+    }
+
+    .boom-flash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(circle at 50% 40%, rgba(255, 138, 51, 0.85), rgba(255, 138, 51, 0) 62%);
+    }
+    .boom-flash.active { animation: flash-pop 0.7s ease-out forwards; }
+    @keyframes flash-pop {
+      0%   { opacity: 0;   transform: scale(0.2); }
+      25%  { opacity: 0.9; transform: scale(1.3); }
+      100% { opacity: 0;   transform: scale(2.4); }
+    }
+
+    .boom-particle {
+      position: fixed;
+      left: 50%;
+      top: 40%;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      z-index: 9998;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      animation: particle-burst 0.9s ease-out forwards;
+    }
+    @keyframes particle-burst {
+      0%   { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body.boom-shake,
+      .boom-flash.active,
+      .boom-particle,
+      .confused-face.is-wizard,
+      .confused-face.is-wizard .cf-wizard {
+        animation: none !important;
+      }
+      .confused-face.is-wizard .cf-wizard { opacity: 1; transform: none; }
+    }
+
+    /* ── Text blows apart and piles up at the bottom in the blast ─────── */
+    .tumble-char {
+      display: inline-block;
+      pointer-events: none;
+    }
+    /* Detached from its parent's flow and driven by the physics loop below */
+    .tumble-char.is-loose {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 40;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    /* ── "Back to home" hangs by one corner, swings when nudged ──────── */
+    .hang-wrap {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding-top: 14px;
+    }
+    .hang-btn {
+      position: relative;
+      display: inline-block;
+      transform-origin: 14px 0px;
+      will-change: transform;
+    }
+    .hang-btn::before {
+      content: '';
+      position: absolute;
+      top: -4.5px;
+      left: 10px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .hang-btn.is-hanging::before {
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tumble-char { transition: none !important; }
+      .hang-btn { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+  <main class="error-page">
+    <svg class="confused-face" id="confused-face" viewBox="0 -22 120 142" fill="none" xmlns="http://www.w3.org/2000/svg" role="button" tabindex="0" aria-label="A confused cartoon face. Click it to see what happens.">
+      <!-- wizard hat + sparkle, hidden until triggered — brim rests right on the hairline -->
+      <g class="cf-wizard">
+        <path d="M60 -20 L85 20 L35 20 Z" fill="#2B2340" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" />
+        <ellipse cx="60" cy="20" rx="29" ry="6" fill="#2B2340" stroke="var(--accent)" stroke-width="2.5" />
+        <path d="M53 -2 l3 -3 l3 3 l-3 3 z" fill="var(--accent)" />
+        <path d="M68 8 l2 -2 l2 2 l-2 2 z" fill="var(--accent)" />
+      </g>
+      <circle cx="60" cy="62" r="46" fill="rgba(255,255,255,0.04)" stroke="var(--accent)" stroke-width="3" />
+      <!-- eyebrows -->
+      <line class="cf-brow-l" x1="34" y1="50" x2="50" y2="46" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" />
+      <line x1="70" y1="46" x2="86" y2="52" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" />
+      <!-- eyes -->
+      <circle class="cf-eye-l" cx="45" cy="60" r="4.5" fill="var(--accent)" />
+      <circle class="cf-eye-r" cx="78" cy="62" r="4.5" fill="var(--accent)" />
+      <!-- squiggly confused mouth -->
+      <path class="cf-mouth-normal" d="M40 82 Q48 74 56 82 T72 82 T88 76" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" fill="none" />
+      <!-- shocked "oh no" mouth, shown once transformed -->
+      <ellipse class="cf-mouth-shock" cx="60" cy="84" rx="9" ry="11" fill="#161822" stroke="var(--accent)" stroke-width="3" />
+      <!-- floating question mark -->
+      <text class="cf-mark" x="88" y="30" font-size="22" font-weight="800" fill="var(--accent)" font-family="var(--font-mono)">?</text>
+    </svg>
+    <p class="cf-hint">(psst — click the face)</p>
+    <p class="error-code tumble-text">404</p>
+    <h1 class="text-3xl md:text-5xl font-black hero-name mb-4 tumble-text">How did you even get here?</h1>
+    <p class="text-lg text-gray-400 max-w-md mb-8 tumble-text">
+      You're a wizard cause I have 0 clue how you got here. But don't worry, you can always go back to the homepage and start over.
+    </p>
+    <div class="hang-wrap">
+      <a href="/" class="btn-primary hang-btn" id="home-btn">Back to home</a>
+    </div>
+  </main>
+
+  <div class="boom-flash" id="boom-flash"></div>
+
+  <script>
+    (function () {
+      const face = document.getElementById('confused-face');
+      const flash = document.getElementById('boom-flash');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function spawnParticles() {
+        const count = reduceMotion ? 0 : 18;
+        for (let i = 0; i < count; i++) {
+          const angle = (Math.PI * 2 * i) / count + Math.random() * 0.3;
+          const dist = 90 + Math.random() * 110;
+          const p = document.createElement('span');
+          p.className = 'boom-particle';
+          p.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
+          p.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
+          p.style.background = i % 3 === 0 ? '#F3F1EC' : 'var(--accent)';
+          document.body.appendChild(p);
+          p.addEventListener('animationend', () => p.remove());
+        }
+      }
+
+      // Letters blow apart and pile up at the bottom, still interactive
+      const tumbleChars = [];
+      document.querySelectorAll('.tumble-text').forEach((el) => {
+        const text = el.textContent;
+        el.setAttribute('aria-label', text.trim());
+        el.textContent = '';
+        [...text].forEach((ch) => {
+          const span = document.createElement('span');
+          span.className = 'tumble-char';
+          span.setAttribute('aria-hidden', 'true');
+          span.textContent = ch === ' ' ? '\u00A0' : ch;
+          el.appendChild(span);
+          tumbleChars.push(span);
+        });
+      });
+
+      let mouseX = -9999, mouseY = -9999;
+      window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+      let letterBodies = [];
+      let physicsStarted = false;
+      let lastPhysTime = null;
+
+      function explodeLetters() {
+        if (reduceMotion) return;
+        letterBodies = tumbleChars.map((el) => {
+          const rect = el.getBoundingClientRect();
+          // Lock in the letter's current look before it leaves its parent's
+          // cascade (h1/paragraph font size, weight, color) — otherwise it'd
+          // pick up the body's default text styling once it lands loose.
+          const cs = getComputedStyle(el);
+          el.style.fontSize = cs.fontSize;
+          el.style.fontFamily = cs.fontFamily;
+          el.style.fontWeight = cs.fontWeight;
+          el.style.color = cs.color;
+          el.style.letterSpacing = cs.letterSpacing;
+          document.body.appendChild(el);
+          el.classList.add('is-loose');
+          const body = {
+            el,
+            x: rect.left,
+            y: rect.top,
+            w: rect.width || 8,
+            h: rect.height || 16,
+            vx: (Math.random() - 0.5) * 480,
+            vy: -(180 + Math.random() * 260),
+            angle: 0,
+            angVel: (Math.random() - 0.5) * 480,
+          };
+          el.style.transform = `translate(${body.x}px, ${body.y}px)`;
+          return body;
+        });
+        if (!physicsStarted) {
+          physicsStarted = true;
+          requestAnimationFrame(runLetterPhysics);
+        }
+      }
+
+      function runLetterPhysics(now) {
+        if (!lastPhysTime) lastPhysTime = now;
+        const dt = Math.min((now - lastPhysTime) / 1000, 0.032);
+        lastPhysTime = now;
+
+        const GRAVITY = 1700;
+        const FLOOR_PAD = 10;
+        const REPEL_RADIUS = 170;
+        const REPEL_FORCE = 5200;
+
+        letterBodies.forEach((b) => {
+          b.vy += GRAVITY * dt;
+
+          const cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+          const dx = cx - mouseX, dy = cy - mouseY;
+          const dist = Math.hypot(dx, dy);
+          if (dist < REPEL_RADIUS && dist > 0.01) {
+            const push = Math.pow(1 - dist / REPEL_RADIUS, 1.5) * REPEL_FORCE;
+            b.vx += (dx / dist) * push * dt;
+            b.vy += (dy / dist) * push * dt;
+            b.angVel += (Math.random() - 0.5) * 220;
+          }
+          const speed = Math.hypot(b.vx, b.vy);
+          const MAX_SPEED = 2400;
+          if (speed > MAX_SPEED) {
+            b.vx = (b.vx / speed) * MAX_SPEED;
+            b.vy = (b.vy / speed) * MAX_SPEED;
+          }
+
+          b.x += b.vx * dt;
+          b.y += b.vy * dt;
+          b.angle += b.angVel * dt;
+          b.angVel *= 0.96;
+
+          const floor = window.innerHeight - b.h - FLOOR_PAD;
+          if (b.y > floor) {
+            b.y = floor;
+            b.vy = Math.abs(b.vy) > 40 ? b.vy * -0.32 : 0;
+            b.vx *= 0.82;
+          }
+          const rightEdge = window.innerWidth - b.w;
+          if (b.x < 0) { b.x = 0; b.vx *= -0.5; }
+          if (b.x > rightEdge) { b.x = rightEdge; b.vx *= -0.5; }
+
+          b.el.style.transform = `translate(${b.x}px, ${b.y}px) rotate(${b.angle}deg)`;
+        });
+
+        requestAnimationFrame(runLetterPhysics);
+      }
+
+      function castSpell() {
+        face.classList.add('is-wizard');
+
+        // let the hat land, then blow it up — nothing here auto-reverts, the
+        // scattered letters and swinging button stay that way for good
+        setTimeout(() => {
+          document.body.classList.add('boom-shake');
+          flash.classList.add('active');
+          spawnParticles();
+          explodeLetters();
+          startHangPhysics();
+          setTimeout(() => document.body.classList.remove('boom-shake'), 520);
+          setTimeout(() => flash.classList.remove('active'), 720);
+        }, reduceMotion ? 0 : 550);
+      }
+
+      face.addEventListener('click', castSpell);
+      face.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          castSpell();
+        }
+      });
+
+      // "Back to home" sits flat until the blast, then drops onto a corner
+      // pin and swings there for good — the cursor can bump it any time after.
+      const homeBtn = document.getElementById('home-btn');
+      let hangStarted = false;
+
+      function startHangPhysics() {
+        if (hangStarted || !homeBtn) return;
+        hangStarted = true;
+        homeBtn.classList.add('is-hanging');
+
+        // Positive = clockwise, which swings the far (right) side of the
+        // button DOWN and away from the pin — that's the droop we want.
+        const REST_ANGLE = 16 * (Math.PI / 180);
+        if (reduceMotion) {
+          homeBtn.style.transform = `rotate(${REST_ANGLE}rad)`;
+          return;
+        }
+
+        // Pivot = the pin's screen position. Measured once while the button
+        // is still flat (angle 0) so it stays correct however far it swings —
+        // rotation moves the button around this fixed point, not the point
+        // itself. Matches the CSS transform-origin: 14px 0px.
+        const btnRect = homeBtn.getBoundingClientRect();
+        const pivotX = btnRect.left + 14;
+        const pivotY = btnRect.top;
+
+        let angle = 0; // starts flat, gravity pulls it down into the hung tilt
+        let angVel = 0;
+        const STIFFNESS = 6;
+        const DAMPING = 1.3;
+        const RADIUS = 170;
+        let lastMouse = null;
+
+        window.addEventListener('mousemove', (e) => {
+          const rx = e.clientX - pivotX;
+          const ry = e.clientY - pivotY;
+          const dist = Math.hypot(rx, ry);
+          const now = performance.now();
+          if (dist < RADIUS && dist > 4 && lastMouse) {
+            const dt = Math.max((now - lastMouse.t) / 1000, 0.001);
+            const mvx = (e.clientX - lastMouse.x) / dt;
+            const mvy = (e.clientY - lastMouse.y) / dt;
+            // Angular rate the cursor is sweeping around the pin (cross
+            // product of the pin->cursor arm with the cursor's velocity) —
+            // this is what makes it feel like the cursor is actually
+            // swatting a sign hanging from a nail, from any direction.
+            const angularRate = (rx * mvy - ry * mvx) / (dist * dist);
+            const proximity = Math.pow(1 - dist / RADIUS, 1.5);
+            angVel += angularRate * proximity * 0.75;
+            angVel = Math.max(-14, Math.min(14, angVel));
+          }
+          lastMouse = { x: e.clientX, y: e.clientY, t: now };
+        });
+
+        let lastTime = performance.now();
+        function swing(now) {
+          const dt = Math.min((now - lastTime) / 1000, 0.05);
+          lastTime = now;
+          const accel = -STIFFNESS * (angle - REST_ANGLE) - DAMPING * angVel;
+          angVel += accel * dt;
+          angle += angVel * dt;
+          homeBtn.style.transform = `rotate(${angle}rad)`;
+          requestAnimationFrame(swing);
+        }
+        requestAnimationFrame(swing);
+      }
+    })();
+  </script>
+</body>
+
+</html>

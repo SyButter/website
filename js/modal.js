@@ -40,19 +40,19 @@ export default function initModal() {
             ],
             challenges: 'The main challenge was ensuring reliability. This involved writing a robust Python script with error handling for API failures and using Linux services like cron and systemd to guarantee the schedule updates and plays daily without any manual intervention.'
         },
-        'AVAT': {
-            title: 'Automated Vulnerability Assessment Tool',
-            description: 'A Python-driven security scanner that orchestrates Nmap and OpenVAS to perform nightly vulnerability checks and send real-time Slack alerts.',
-            image: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2275%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%20fill%3D%22none%22%20opacity%3D%220.45%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%20fill%3D%22none%22%20opacity%3D%220.65%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2225%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%20fill%3D%22none%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22200%22%20x2%3D%22300%22%20y2%3D%22125%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22344%22%20cy%3D%22158%22%20r%3D%224%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3Ccircle%20cx%3D%22248%22%20cy%3D%22228%22%20r%3D%224%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E',
-            link: '#', // Private repository
-            techStack: ['Python', 'Nmap', 'OpenVAS API', 'Slack API', 'Cron Jobs', 'Shell Scripting'],
+        'OpenMasjidSolutions': {
+            title: 'OpenMasjidSolutions - OpenMasjidOS',
+            description: 'An open-source platform (OpenMasjidOS) building community-driven software and hardware for masjid operations. Contributed as a developer, a cyber security auditor, and a 3D part designer for the team.',
+            image: 'images/openmasjid.svg',
+            link: 'https://github.com/OpenMasjid-Solutions/OpenMasjidOS',
+            techStack: ['Open Source', 'Cyber Security Audit', '3D Printing (CAD)', 'Full-Stack Dev'],
             features: [
-                'Orchestrates multiple industry-standard security tools into a single workflow.',
-                'Automates regularly scheduled (nightly) network and vulnerability scans.',
-                'Parses complex XML scan results into a concise, human-readable format.',
-                'Delivers instant, actionable security alerts to a dedicated Slack channel.'
+                'Contributed to the open-source codebase as a full-stack developer.',
+                'Performed a cyber security audit of the platform to help harden it for real-world masjid deployments.',
+                'Designed 3D-printed hardware parts for on-site devices.',
+                'Collaborated with a distributed community team building tools for masjids worldwide.'
             ],
-            challenges: 'A key challenge was parsing the inconsistent and verbose XML output from different scanning tools. Creating a unified data structure and writing a reliable error-handling system to manage long-running scans without failure were critical to the project\'s success.'
+            challenges: 'Balancing security hardening with the practical constraints of low-cost hardware deployed in masjids, while keeping the platform approachable for a volunteer-driven open-source community.'
         },
         'FIT': {
             title: 'Blockchain-Based File Integrity Tracker',

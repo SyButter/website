@@ -8,7 +8,7 @@ const LIGHT_MAX_INTENSITY = 1.4;
 const projectsData = [
     { name: 'openGBW',        position: new THREE.Vector3( 250,      0,    150) },
     { name: 'RasPi Adhan',    position: new THREE.Vector3(  77.25, 237.75, 120) },
-    { name: 'AVAT',           position: new THREE.Vector3(-202.25, 147,    100) },
+    { name: 'OpenMasjidSolutions', position: new THREE.Vector3(-202.25, 147,    100) },
     { name: 'FIT',            position: new THREE.Vector3(-202.25,-147,     80) },
     { name: 'Enrollment App', position: new THREE.Vector3(  77.25,-237.75,  90) },
 ];

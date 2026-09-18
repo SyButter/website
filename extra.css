@@ -1,8 +1,8 @@
 :root {
-    --accent: #FF8A33;
-    --accent-strong: #FFA85C;
-    --accent-dim: rgba(255, 138, 51, 0.14);
-    --accent-border: rgba(255, 138, 51, 0.4);
+    --accent: #E8B400;
+    --accent-strong: #FFD34D;
+    --accent-dim: rgba(232, 180, 0, 0.14);
+    --accent-border: rgba(232, 180, 0, 0.4);
     --on-accent: #17130E;
     --text-muted-warm: #ACA79E;
     --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, monospace;

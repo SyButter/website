@@ -1,7 +1,7 @@
 export default function initModal() {
     const modalBackdrop = document.getElementById('project-modal-backdrop');
     const modalCloseButton = document.getElementById('modal-close-button');
-    const modalImage = document.getElementById('modal-image');
+    const modalPreview = document.getElementById('modal-preview');
     const modalTitle = document.getElementById('modal-title');
     const modalDescription = document.getElementById('modal-description');
     const modalLink = document.getElementById('modal-link');
@@ -159,8 +159,19 @@ export default function initModal() {
 
         modalTitle.textContent = details.title;
         modalDescription.textContent = details.description;
-        modalImage.src = details.image;
-        modalImage.alt = details.title;
+        const card = Array.from(document.querySelectorAll('.project-card')).find(
+            element => element.querySelector('[data-project-name]')?.dataset.projectName === projectName
+        );
+        const preview = card?.querySelector('.project-visual');
+        modalPreview.replaceChildren();
+        if (preview) {
+            modalPreview.appendChild(preview.cloneNode(true));
+        } else {
+            const image = document.createElement('img');
+            image.src = details.image;
+            image.alt = details.title;
+            modalPreview.appendChild(image);
+        }
         modalLink.href = details.link;
         modalTechStack.innerHTML = '';
         modalFeatures.innerHTML = '';

@@ -135,7 +135,7 @@ export default function initModal() {
     function getFocusable() {
         return Array.from(
             modalContent.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
-        );
+        ).filter(element => element.getClientRects().length > 0);
     }
 
     function trapFocus(e) {
@@ -160,6 +160,7 @@ export default function initModal() {
         modalTitle.textContent = details.title;
         modalDescription.textContent = details.description;
         modalImage.src = details.image;
+        modalImage.alt = details.title;
         modalLink.href = details.link;
         modalTechStack.innerHTML = '';
         modalFeatures.innerHTML = '';
@@ -187,6 +188,7 @@ export default function initModal() {
             modalLink.style.display = 'inline-block';
         }
 
+        document.querySelectorAll('header, main, footer').forEach(element => { element.inert = true; });
         document.body.classList.add('modal-open');
         modalBackdrop.classList.remove('hidden');
 
@@ -196,6 +198,7 @@ export default function initModal() {
     }
 
     function closeModal() {
+        document.querySelectorAll('header, main, footer').forEach(element => { element.inert = false; });
         document.body.classList.remove('modal-open');
         modalBackdrop.classList.add('hidden');
         modalBackdrop.removeEventListener('keydown', trapFocus);

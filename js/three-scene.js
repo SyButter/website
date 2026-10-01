@@ -14,7 +14,7 @@ const projectsData = [
 ];
 let projectObjects = [];
 
-export default function initThreeScene(onProjectClick) {
+export default function initThreeScene(onProjectClick, { backgroundOnly = false } = {}) {
     const canvas = document.getElementById('three-canvas');
     if (!canvas) return;
 
@@ -26,11 +26,11 @@ export default function initThreeScene(onProjectClick) {
 
     // ── Scene ──────────────────────────────────────────────────────────────
     scene  = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 2, 2000);
+    camera = new THREE.PerspectiveCamera(55, canvas.clientWidth / canvas.clientHeight, 2, 2000);
     camera.position.z = 1000;
 
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
 
@@ -41,7 +41,7 @@ export default function initThreeScene(onProjectClick) {
     scene.add(dirLight);
 
     // ── Background Particles ───────────────────────────────────────────────
-    const particleCount = 5000;
+    const particleCount = backgroundOnly ? 2200 : 5000;
     const positions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount * 3; i++) positions[i] = Math.random() * 2000 - 1000;
 
@@ -117,6 +117,33 @@ export default function initThreeScene(onProjectClick) {
         comets.push(c);
     }
 
+    // Use dark ink in light mode instead of inverting a faint white scene.
+    function applySceneTheme() {
+        const light = document.documentElement.dataset.theme === 'light';
+        particlesMaterial.color.setHex(light ? 0x365775 : 0xEDE9E3);
+        particlesMaterial.opacity = light ? 0.9 : 0.55;
+        particlesMaterial.size = light ? 2.6 : 2;
+        particlesMaterial.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+        particlesMaterial.needsUpdate = true;
+        lineMaterial.color.setHex(light ? 0x527a99 : 0xEDE9E3);
+        lineMaterial.opacity = light ? 0.2 : 0.05;
+        cometColor.setHex(light ? 0x9b512e : 0xFFA85C);
+        comets.forEach(comet => {
+            comet.material.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+            comet.material.needsUpdate = true;
+            const colors = comet.geometry.attributes.color;
+            for (let i = 0; i < colors.count; i++) {
+                const strength = 1 - i / colors.count;
+                colors.setXYZ(i, cometColor.r * strength, cometColor.g * strength, cometColor.b * strength);
+            }
+            colors.needsUpdate = true;
+        });
+    }
+    applySceneTheme();
+    new MutationObserver(applySceneTheme).observe(document.documentElement, {
+        attributes: true, attributeFilter: ['data-theme'],
+    });
+
     // ── Project Orbs ───────────────────────────────────────────────────────
     const labelsContainer = document.getElementById('project-labels');
 
@@ -124,7 +151,7 @@ export default function initThreeScene(onProjectClick) {
     const orbColors  = [0xFF8A33, 0xFFC145, 0xE2664B, 0xC99A4A, 0xF2A65A];
     const cssColors  = ['#FF8A33','#FFC145','#E2664B','#C99A4A','#F2A65A'];
 
-    projectsData.forEach((proj, index) => {
+    (backgroundOnly ? [] : projectsData).forEach((proj, index) => {
         const col  = orbColors[index % orbColors.length];
         const css  = cssColors[index % cssColors.length];
 
@@ -280,17 +307,18 @@ export default function initThreeScene(onProjectClick) {
     }
 
     function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
         if (isZoomed) {
             gsap.to(camera.position, { z: camera.aspect > 1.2 ? 700 : 900, duration: 1 });
         }
     }
 
     document.addEventListener('mousemove', e => {
-        mouseX = e.clientX - window.innerWidth  / 2;
-        mouseY = e.clientY - window.innerHeight / 2;
+        const bounds = canvas.getBoundingClientRect();
+        mouseX = (e.clientX - bounds.left - bounds.width / 2) * (backgroundOnly ? 0.35 : 1);
+        mouseY = (e.clientY - bounds.top - bounds.height / 2) * (backgroundOnly ? 0.35 : 1);
     });
     canvas.addEventListener('click', onCanvasClick);
     window.addEventListener('resize', onWindowResize);
@@ -301,20 +329,25 @@ export default function initThreeScene(onProjectClick) {
     let rafId = null;
     let isInViewport = true;
     let isPageVisible = !document.hidden;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    function shouldRender() { return isInViewport && isPageVisible; }
+    function shouldRender() { return isInViewport && isPageVisible && !reducedMotion.matches; }
 
     function animate() { rafId = requestAnimationFrame(animate); render(); }
 
-    function startLoop() { if (rafId === null) animate(); }
+    function startLoop() { if (rafId === null && shouldRender()) animate(); }
     function stopLoop() {
         if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
     }
 
+    reducedMotion.addEventListener('change', () => {
+        shouldRender() ? startLoop() : stopLoop();
+    });
+
     new IntersectionObserver((entries) => {
         isInViewport = entries[entries.length - 1].isIntersecting;
         shouldRender() ? startLoop() : stopLoop();
-    }, { threshold: 0 }).observe(canvas);
+    }, { threshold: 0 }).observe(canvas.closest('.space-hero') || canvas);
 
     document.addEventListener('visibilitychange', () => {
         isPageVisible = !document.hidden;

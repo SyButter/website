@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" data-theme="dark">
 
 <head>
   <meta charset="UTF-8" />
@@ -13,522 +13,56 @@
   <meta name="twitter:title" content="Syed Badr - Developer Portfolio" />
   <meta name="twitter:description" content="Forward Deployed Engineer specializing in automation, CI/CD, and intelligent systems that scale." />
   <link rel="icon" type="image/png" href="images/favicon1.png">
-  <link href="dist/output.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-  <!-- Lenis: buttery momentum smooth-scroll. UMD build exposes window.Lenis -->
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;700;800&display=swap" rel="stylesheet" />
-  <!-- extra.css loads after the Swiper CDN stylesheet so its --swiper-theme-color
-       override always wins regardless of Swiper's own .swiper defaults. -->
-  <link href="extra.css" rel="stylesheet" />
-  
-  <style>
-    .referral-item {
-      transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
-      opacity: 0;
-      transform: perspective(900px) translateZ(-40px) scale(0.97);
-    }
-    .referral-item.is-active {
-      opacity: 1;
-      transform: perspective(900px) translateZ(0) scale(1);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .referral-item {
-        transition: opacity 0.4s ease-in-out !important;
-        transform: none !important;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+  <script src="/js/theme.js"></script>
+  <link href="portfolio.css" rel="stylesheet" />
 </head>
+<body>
+<div class="space-background" aria-hidden="true"><canvas id="three-canvas"></canvas><div class="space-glow"></div></div>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header"><div class="container header-inner">
+  <a class="wordmark" href="#home" aria-label="Syed Badr home">syed badr<span>.</span></a>
+  <nav id="main-nav" aria-label="Main navigation"><a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#referrals">Referrals</a><a class="nav-contact" href="#contact">Contact <span aria-hidden="true">↗</span></a></nav>
+  <div class="header-controls"><button class="theme-toggle" type="button" aria-label="Switch to light mode"><span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Light</span></button>
+  <button id="mobile-menu-button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">Menu <span aria-hidden="true">☰</span></button></div>
+</div></header>
+<main id="main">
+<div class="space-hero">
 
-<body class="antialiased">
-  <a href="#about" class="skip-link">Skip to main content</a>
+<section class="hero container" id="home">
+  <div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span> FORWARD DEPLOYED ENGINEER</p>
+  <h1 class="name-heading" aria-label="Syed Badr"><span aria-hidden="true"><span class="name-letter" style="--letter:0">S</span><span class="name-letter" style="--letter:1">y</span><span class="name-letter" style="--letter:2">e</span><span class="name-letter" style="--letter:3">d</span><span class="name-space"> </span><span class="name-letter" style="--letter:5">B</span><span class="name-letter" style="--letter:6">a</span><span class="name-letter" style="--letter:7">d</span><span class="name-letter" style="--letter:8">r</span><span class="name-cursor">_</span></span></h1>
+  <p class="hero-description">I build forecasting tools, automation pipelines, and full-stack applications. My work spans Python, AI deployment, and the hardware on my desk.</p>
+  <div class="hero-actions"><a class="button" href="#projects">View projects <span aria-hidden="true">↘</span></a><a class="text-link" href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer">View résumé <span aria-hidden="true">↗</span></a></div>
+  <div class="hero-note"><span class="small-line"></span> Python / JavaScript / AI / Automation</div></div>
 
-  <header class="bg-gray-900/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <a href="#" class="text-2xl font-bold text-white">SB.</a>
-        <nav class="hidden md:flex space-x-8" aria-label="Main navigation">
-          <a href="#about" class="nav-link text-gray-300">About</a>
-          <a href="#projects"
-            class="nav-link text-gray-300">Projects</a>
-          <a href="#contact"
-            class="nav-link text-gray-300">Contact</a>
-        </nav>
-        <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none p-3 -mr-3" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden">
-      <a href="#about" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">About</a>
-      <a href="#projects" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Projects</a>
-      <a href="#contact" class="nav-link block py-2 px-4 text-sm text-gray-300 hover:bg-gray-700">Contact</a>
-    </div>
-  </header>
-
-  <section id="home" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-    <canvas id="three-canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
-    <div id="project-labels"></div>
-    <div class="relative z-10 container mx-auto px-6">
-<h1 class="mb-4 text-center animate-on-scroll">
-        <span id="name-heading" class="text-5xl md:text-7xl font-black hero-name leading-normal"></span><span
-          class="typing-cursor"></span>
-      </h1>
-      <p class="text-xl md:text-2xl text-muted-warm mb-8 animate-on-scroll" style="--delay: 0.2s">
-        A Forward Deployed Engineer specializing in automation,
-        CI/CD, and intelligent systems that scale.
-      </p>
-      <a href="#projects" id="view-work-button"
-        class="btn-primary animate-on-scroll"
-        style="--delay: 0.3s">
-        View My Work
-      </a>
-      <div class="mt-8 flex justify-center space-x-6 animate-on-scroll" style="--delay: 0.5s">
-        <a href="https://github.com/SyButter" target="_blank" rel="noopener noreferrer" aria-label="Visit Syed's GitHub profile"
-          class="nav-link text-gray-400">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill-rule="evenodd"
-              d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z"
-              clip-rule="evenodd" />
-          </svg>
-        </a>
-        <a href="https://linkedin.com/in/sbadrudduja" target="_blank" rel="noopener noreferrer" aria-label="Visit Syed's LinkedIn profile"
-          class="nav-link text-gray-400">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill-rule="evenodd"
-              d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.206v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H6.328C3.965 1 2 2.985 2 5.355v13.29C2 21.015 3.965 23 6.328 23h11.34C20.035 23 22 21.015 22 18.645V5.355C22 2.985 20.035 1 17.668 1z"
-              clip-rule="evenodd" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="about" tabindex="-1" class="py-20 animate-on-scroll">
-    <div class="container mx-auto px-6">
-      <h2 class="section-title">About me</h2>
-      <div class="flex flex-col md:flex-row items-center gap-12 mb-12">
-        <div class="text-lg text-gray-300">
-          <p class="mb-4">
-            Hello! I’m Syed, a Forward Deployed Engineer building full-stack systems directly alongside client teams. At
-            the Port Authority of NY &amp; NJ and Edgeline Analytics, I take software from architecture to production —
-            live GIS monitoring tools managing 1,000+ facility feeds, and AI-driven forecasting platforms built with
-            Python, Flask, and ChatGPT — shipping code that holds up under real operational pressure.
-          </p>
-          <p class="mb-4">
-            With a strong foundation in QA automation (Cypress, Selenium, Playwright) and AI/ML expertise (Prophet,
-            OpenAI, PyTorch, scikit-learn), I bridge the gap between intelligent systems and production-ready software,
-            engineering scalable, elegant solutions that make a measurable impact.
-          </p>
-          <p class="mb-6">
-            I also bring a background in Computer Science and Cybersecurity: I've built a machine-learning intrusion
-            detection system that classifies phishing, brute-force, and DDoS traffic with 90%+ accuracy, and an
-            automated Nmap/OpenVAS scanner that simulates SOC/SIEM alerting. I hold CompTIA Security+ and AWS Cloud
-            Practitioner certifications.
-          </p>
-          <p class="stat-line mb-6">
-            <span class="num">8</span> shipped projects<span class="sep">&middot;</span><span class="num">5+</span> years in AI deployment &amp; QA automation
-          </p>
-          <div class="mt-4 flex flex-col sm:flex-row gap-4">
-            <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
-              class="btn-primary text-center">
-              View My Resume
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-4">
-        <h3 class="text-2xl font-bold text-white mb-6">My skills</h3>
-
-        <div class="skills-grid">
-          <div class="skill-group">
-            <div class="skill-group-label">Languages</div>
-            <div class="flex flex-wrap gap-2">
-              <span class="skill-badge">JavaScript</span>
-              <span class="skill-badge">Python</span>
-              <span class="skill-badge">C#</span>
-              <span class="skill-badge">Java</span>
-              <span class="skill-badge">SQL</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">QA &amp; Automation</div>
-            <div class="flex flex-wrap gap-2">
-              <span class="skill-badge">Cypress</span>
-              <span class="skill-badge">Selenium</span>
-              <span class="skill-badge">Playwright</span>
-              <span class="skill-badge">Jenkins</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">AI &amp; ML</div>
-            <div class="flex flex-wrap gap-2">
-              <span class="skill-badge">Prophet</span>
-              <span class="skill-badge">OpenAI</span>
-              <span class="skill-badge">Pandas</span>
-              <span class="skill-badge">NumPy</span>
-              <span class="skill-badge">scikit-learn</span>
-              <span class="skill-badge">PyTorch</span>
-              <span class="skill-badge">n8n</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">Infra &amp; Tools</div>
-            <div class="flex flex-wrap gap-2">
-              <span class="skill-badge">Docker</span>
-              <span class="skill-badge">Git</span>
-              <span class="skill-badge">AWS</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">Security &amp; Certifications</div>
-            <div class="flex flex-wrap gap-2">
-              <span class="skill-badge">Nmap</span>
-              <span class="skill-badge">OpenVAS</span>
-              <span class="skill-badge">Intrusion Detection</span>
-              <span class="skill-badge">SOC / SIEM</span>
-              <span class="skill-badge">CompTIA Security+</span>
-              <span class="skill-badge">AWS Cloud Practitioner</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="referrals" class="py-16 animate-on-scroll">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="section-title">Referrals</h2>
-        <div id="referral-carousel" class="relative max-w-3xl mx-auto min-h-[350px]" aria-live="polite" aria-atomic="true">
-            </div>
-    </div>
-  </section>
-
-  <section id="projects" class="py-20 bg-gray-900 opacity-0 animate-on-scroll">
-    <div class="container mx-auto px-6">
-      <h2 class="section-title">My projects</h2>
-
-      <div class="swiper project-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="project-card-wrapper" data-project-name="openGBW">
-              <div class="project-card-inner">
-                <div class="project-card-front">
-                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2270%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%2F%3E%0A%3Ccircle%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%224%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22200%22%20x2%3D%22300%22%20y2%3D%22145%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22200%22%20x2%3D%22338%22%20y2%3D%22217%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22128%22%20x2%3D%22300%22%20y2%3D%22116%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%2F%3E%0A%3Cline%20x1%3D%22372%22%20y1%3D%22200%22%20x2%3D%22384%22%20y2%3D%22200%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%2F%3E%0A%3Cline%20x1%3D%22300%22%20y1%3D%22272%22%20x2%3D%22300%22%20y2%3D%22284%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%2F%3E%0A%3Cline%20x1%3D%22228%22%20y1%3D%22200%22%20x2%3D%22216%22%20y2%3D%22200%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%222%22%2F%3E%0A%3C%2Fsvg%3E" alt="openGBW Project" class="w-full h-56 object-cover" />
-                  <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <span class="project-category-badge">Hardware</span>
-                      <h3 class="text-2xl font-bold text-white mb-2">openGBW - Grind by Weight</h3>
-                      <p class="text-gray-400 text-sm">An open-source 3D printed base turning a timed coffee grinder into a precision weight-based grinder with ESP32.</p>
-                    </div>
-                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
-                  </div>
-                </div>
-                <div class="project-card-back">
-                  <h3 class="text-xl font-bold text-white mb-3">openGBW</h3>
-                  <p class="text-gray-400 text-sm mb-5">Precision weight-based coffee grinding with a custom ESP32 microcontroller and open-source 3D-printed hardware.</p>
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="tech-badge">C++</span>
-                    <span class="tech-badge">ESP32</span>
-                    <span class="tech-badge">PlatformIO</span>
-                    <span class="tech-badge">3D Printing</span>
-                  </div>
-                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="project-card-wrapper" data-project-name="Enrollment App">
-              <div class="project-card-inner">
-                <div class="project-card-front">
-                  <img src="images/enrollmentapp.png" alt="Enrollment Forecasting App" loading="lazy" class="w-full h-56 object-cover" />
-                  <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <span class="project-category-badge ai">AI / ML</span>
-                      <h3 class="text-2xl font-bold text-white mb-2">Enrollment Forecasting App</h3>
-                      <p class="text-gray-400 text-sm">A full-stack web app forecasting student enrollment for public schools with Python, Flask, Prophet, and Chart.js.</p>
-                    </div>
-                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
-                  </div>
-                </div>
-                <div class="project-card-back">
-                  <h3 class="text-xl font-bold text-white mb-3">Enrollment Forecasting App</h3>
-                  <p class="text-gray-400 text-sm mb-5">ML-powered time-series forecasting of school enrollment with interactive visualizations and a REST API backend.</p>
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Flask</span>
-                    <span class="tech-badge">Prophet</span>
-                    <span class="tech-badge">Chart.js</span>
-                  </div>
-                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="project-card-wrapper" data-project-name="RasPi Adhan">
-              <div class="project-card-inner">
-                <div class="project-card-front">
-                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Ccircle%20cx%3D%22255%22%20cy%3D%22235%22%20r%3D%226%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3Cpath%20d%3D%22M%20278%20235%20A%2038%2038%200%200%201%20278%20197%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Cpath%20d%3D%22M%20296%20250%20A%2062%2062%200%200%201%20296%20182%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.65%22%2F%3E%0A%3Cpath%20d%3D%22M%20314%20265%20A%2086%2086%200%200%201%20314%20167%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.4%22%2F%3E%0A%3C%2Fsvg%3E" alt="Raspberry Pi Adhan Player" class="w-full h-56 object-cover" />
-                  <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <span class="project-category-badge">Automation</span>
-                      <h3 class="text-2xl font-bold text-white mb-2">Raspberry Pi Adhan Player</h3>
-                      <p class="text-gray-400 text-sm">A Raspberry Pi system that auto-plays the Adhan by fetching daily prayer times from an API via Python script.</p>
-                    </div>
-                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
-                  </div>
-                </div>
-                <div class="project-card-back">
-                  <h3 class="text-xl font-bold text-white mb-3">RasPi Adhan Player</h3>
-                  <p class="text-gray-400 text-sm mb-5">Reliable set-and-forget Adhan scheduler using systemd and cron for homes and community spaces.</p>
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Raspberry Pi</span>
-                    <span class="tech-badge">Systemd</span>
-                    <span class="tech-badge">REST APIs</span>
-                  </div>
-                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="project-card-wrapper" data-project-name="OpenMasjidSolutions">
-              <div class="project-card-inner">
-                <div class="project-card-front">
-                  <img src="images/openmasjid.svg" alt="OpenMasjidSolutions / OpenMasjidOS" loading="lazy" class="w-full h-56 object-cover" />
-                  <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <span class="project-category-badge">Open Source</span>
-                      <h3 class="text-2xl font-bold text-white mb-2">OpenMasjidSolutions</h3>
-                      <p class="text-gray-400 text-sm">Open-source masjid management platform (OpenMasjidOS) — contributed as developer, cyber security auditor, and 3D part designer.</p>
-                    </div>
-                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
-                  </div>
-                </div>
-                <div class="project-card-back">
-                  <h3 class="text-xl font-bold text-white mb-3">OpenMasjidSolutions</h3>
-                  <p class="text-gray-400 text-sm mb-5">Community-driven, open-source software and hardware for masjid operations. Worked across the stack as a developer, performed a cyber security audit of the platform, and designed 3D-printed hardware parts for deployment.</p>
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="tech-badge">Open Source</span>
-                    <span class="tech-badge">Cyber Security Audit</span>
-                    <span class="tech-badge">3D Printing (CAD)</span>
-                    <span class="tech-badge">Full-Stack Dev</span>
-                  </div>
-                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="project-card-wrapper" data-project-name="FIT">
-              <div class="project-card-inner">
-                <div class="project-card-front">
-                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Crect%20x%3D%22248%22%20y%3D%22174%22%20width%3D%2262%22%20height%3D%2252%22%20rx%3D%2226%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%224%22%20fill%3D%22none%22%2F%3E%0A%3Crect%20x%3D%22300%22%20y%3D%22174%22%20width%3D%2262%22%20height%3D%2252%22%20rx%3D%2226%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%224%22%20fill%3D%22none%22%2F%3E%0A%3C%2Fsvg%3E" alt="Blockchain-Based File Integrity Tracker" class="w-full h-56 object-cover" />
-                  <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <span class="project-category-badge">Web3</span>
-                      <h3 class="text-2xl font-bold text-white mb-2">Blockchain-Based File Integrity Tracker</h3>
-                      <p class="text-gray-400 text-sm">A Solidity smart contract and React/Web3.js UI to log and verify file integrity on the Ethereum testnet.</p>
-                    </div>
-                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
-                  </div>
-                </div>
-                <div class="project-card-back">
-                  <h3 class="text-xl font-bold text-white mb-3">F.I.T</h3>
-                  <p class="text-gray-400 text-sm mb-5">Tamper-proof, decentralized file integrity verification on Ethereum with a React/Web3 frontend.</p>
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="tech-badge">Solidity</span>
-                    <span class="tech-badge">React</span>
-                    <span class="tech-badge">Web3.js</span>
-                    <span class="tech-badge">Ethereum</span>
-                  </div>
-                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="project-card-wrapper" data-project-name="AI Forecast Pipeline">
-              <div class="project-card-inner">
-                <div class="project-card-front">
-                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22228%2C252%20264%2C222%20300%2C236%20336%2C190%20372%2C206%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3Cpolyline%20points%3D%22372%2C206%20406%2C168%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%207%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22372%22%20cy%3D%22206%22%20r%3D%224.5%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E" alt="AI Forecast Intelligence Pipeline" class="w-full h-56 object-cover" />
-                  <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <span class="project-category-badge ai">AI / ML</span>
-                      <h3 class="text-2xl font-bold text-white mb-2">AI Forecast Intelligence Pipeline</h3>
-                      <p class="text-gray-400 text-sm">An end-to-end pipeline combining Prophet time-series forecasting with OpenAI to generate human-readable decision recommendations.</p>
-                    </div>
-                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
-                  </div>
-                </div>
-                <div class="project-card-back">
-                  <h3 class="text-xl font-bold text-white mb-3">AI Forecast Intelligence Pipeline</h3>
-                  <p class="text-gray-400 text-sm mb-5">Raw data in, actionable AI-generated insights out: bridging ML forecasts and natural language reporting.</p>
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Prophet</span>
-                    <span class="tech-badge">OpenAI API</span>
-                    <span class="tech-badge">Pandas</span>
-                    <span class="tech-badge">Flask</span>
-                  </div>
-                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="project-card-wrapper" data-project-name="n8n AI Engine">
-              <div class="project-card-inner">
-                <div class="project-card-front">
-                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22228%2C252%20264%2C222%20300%2C236%20336%2C190%20372%2C206%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3Cpolyline%20points%3D%22372%2C206%20406%2C168%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%207%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22372%22%20cy%3D%22206%22%20r%3D%224.5%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E" alt="n8n AI Automation Engine" class="w-full h-56 object-cover" />
-                  <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <span class="project-category-badge ai">AI Automation</span>
-                      <h3 class="text-2xl font-bold text-white mb-2">n8n AI Automation Engine</h3>
-                      <p class="text-gray-400 text-sm">A low-code automation platform wiring data sources, ML inference, and LLM summarisation into zero-touch reporting workflows.</p>
-                    </div>
-                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
-                  </div>
-                </div>
-                <div class="project-card-back">
-                  <h3 class="text-xl font-bold text-white mb-3">n8n AI Automation Engine</h3>
-                  <p class="text-gray-400 text-sm mb-5">Ingests data from APIs and spreadsheets, runs ML models, and delivers AI-written summaries to Slack or email, fully automated.</p>
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="tech-badge">n8n</span>
-                    <span class="tech-badge">OpenAI API</span>
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">REST APIs</span>
-                    <span class="tech-badge">Slack API</span>
-                  </div>
-                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="project-card-wrapper" data-project-name="Healthcare Forecaster">
-              <div class="project-card-inner">
-                <div class="project-card-front">
-                  <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22400%22%20viewBox%3D%220%200%20600%20400%22%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23161820%22%2F%3E%0A%3Cdefs%3E%3Cpattern%20id%3D%22dots%22%20width%3D%2228%22%20height%3D%2228%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Ccircle%20cx%3D%222%22%20cy%3D%222%22%20r%3D%221.4%22%20fill%3D%22%23FF8A33%22%20opacity%3D%220.16%22%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%0A%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22url(%23dots)%22%2F%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%22599%22%20height%3D%22399%22%20fill%3D%22none%22%20stroke%3D%22%23FF8A33%22%20stroke-opacity%3D%220.3%22%20stroke-width%3D%221%22%2F%3E%0A%3Cpolyline%20points%3D%22228%2C252%20264%2C222%20300%2C236%20336%2C190%20372%2C206%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3Cpolyline%20points%3D%22372%2C206%20406%2C168%22%20stroke%3D%22%23FF8A33%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%207%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3Ccircle%20cx%3D%22372%22%20cy%3D%22206%22%20r%3D%224.5%22%20fill%3D%22%23FF8A33%22%2F%3E%0A%3C%2Fsvg%3E" alt="Healthcare Demand Forecaster" class="w-full h-56 object-cover" />
-                  <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                      <span class="project-category-badge ai">AI / ML</span>
-                      <h3 class="text-2xl font-bold text-white mb-2">Healthcare Demand Forecaster</h3>
-                      <p class="text-gray-400 text-sm">A scikit-learn + Prophet model predicting healthcare resource demand, with OpenAI generating plain-language allocation recommendations.</p>
-                    </div>
-                    <span class="link-accent font-semibold text-sm mt-4">Hover for tech &bull; Click to open &rarr;</span>
-                  </div>
-                </div>
-                <div class="project-card-back">
-                  <h3 class="text-xl font-bold text-white mb-3">Healthcare Demand Forecaster</h3>
-                  <p class="text-gray-400 text-sm mb-5">Predicts patient volume and resource needs weeks ahead, then converts model output into clear, actionable guidance for staff.</p>
-                  <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">scikit-learn</span>
-                    <span class="tech-badge">Prophet</span>
-                    <span class="tech-badge">OpenAI API</span>
-                    <span class="tech-badge">Pandas</span>
-                  </div>
-                  <span class="link-accent font-semibold text-sm">Click to view details &rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="swiper-pagination"></div>
-
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="py-16 animate-on-scroll">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="section-title">Get in touch</h2>
-      <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
-        I'm currently available for new opportunities, whether it's AI deployment, automation pipelines, or QA engineering.
-        Have a project in mind or want to connect? Let's talk.
-      </p>
-      <a href="mailto:syed.badrudduja@protonmail.com"
-        class="btn-primary mb-12">
-        Say Hello &rarr;
-      </a>
-      <div class="flex justify-center gap-4 mt-4 flex-wrap">
-        <a href="https://github.com/SyButter" target="_blank"
-          class="nav-link contact-pill">GitHub</a>
-        <a href="https://linkedin.com/in/sbadrudduja" target="_blank"
-          class="nav-link contact-pill">LinkedIn</a>
-        <a href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer"
-          class="nav-link contact-pill">Resume</a>
-      </div>
-    </div>
-  </section>
-
-  <footer class="bg-gray-900 text-center py-6">
-    <div class="container mx-auto px-6">
-      <p class="text-gray-500">
-        &copy; 2026 Syed Badr. All Rights Reserved.
-      </p>
-    </div>
-  </footer>
-
-  <div id="project-modal-backdrop" class="hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div id="project-modal-content" data-lenis-prevent>
-  <button id="modal-close-button" class="close-button" aria-label="Close project details">&times;</button>
-  <img id="modal-image" src="" alt="Project Image" />
-  <div class="modal-text-content">
-    <h3 id="modal-title"></h3>
-    <p id="modal-description"></p>
-
-    <div class="mt-6">
-      <h4 class="text-xl font-bold text-white mb-2">Technology stack</h4>
-      <div id="modal-tech-stack" class="flex flex-wrap gap-2">
-        </div>
-    </div>
-    <div class="mt-6">
-      <h4 class="text-xl font-bold text-white mb-2">Key features</h4>
-      <ul id="modal-features" class="list-disc list-inside space-y-2 text-gray-300">
-        </ul>
-    </div>
-    <div class="mt-6">
-        <h4 class="text-xl font-bold text-white mb-2">Project challenges</h4>
-        <p id="modal-challenges" class="text-gray-400 italic"></p>
-    </div>
-    <div class="mt-8"> <a id="modal-link" href="#" target="_blank" class="btn-primary">
-        View on GitHub &rarr;
-      </a>
-    </div>
-
-  </div>
+</section>
 </div>
-  </div>
-
-  <script type="module" src="js/main.js?v=3"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-</body>
-
-</html>
+<div class="container credibility"><span>TEAMS I’VE WORKED WITH</span><div>Port Authority of NY &amp; NJ</div><div>Edgeline Analytics</div><div>Billtrust</div></div>
+<section class="about-section" id="about"><div class="container about-grid"><div><p class="eyebrow">01 / ABOUT</p><h2>About me</h2></div><div class="about-copy"><p class="lead">I work directly with the teams who use the software.</p><p>I’m Syed Badr, a Forward Deployed Engineer working alongside client teams to take software from architecture to production. My work spans live GIS monitoring, AI forecasting, and the automation that keeps complex systems running.</p><p>My background is in Computer Science, Cybersecurity, and QA automation. I also contribute to open-source projects, design 3D-printed parts, and build hardware for coffee grinders and community spaces.</p><a class="text-link" href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer">View my résumé ↗</a><div class="certifications"><span>CompTIA Security+</span><span>AWS Cloud Practitioner</span></div></div></div></section>
+<section class="section container" id="experience"><div class="section-heading"><div><p class="eyebrow">02 / EXPERIENCE</p><h2>Experience</h2></div><p>Engineering, deployment, and QA automation.</p></div><div class="experience-list">
+<article><span class="experience-index">01</span><div><h3>Port Authority of NY &amp; NJ</h3><p>Operational systems &amp; full-stack engineering</p></div><p>Building live GIS monitoring tools that help operations teams track facilities and respond to issues.</p></article>
+<article><span class="experience-index">02</span><div><h3>Edgeline Analytics</h3><p>AI-driven forecasting &amp; deployment</p></div><p>Taking forecasting platforms from architecture to production with Python, Flask, and AI-powered insights.</p></article>
+<article><span class="experience-index">03</span><div><h3>Billtrust</h3><p>QA automation &amp; engineering</p></div><p>Automating regression testing with Cypress and supporting reliable delivery through Jenkins pipelines.</p></article></div>
+<div class="skills-section"><h3 class="eyebrow">TECHNICAL SKILLS</h3><div class="skills-grid"><div class="skill-group"><h4>Languages</h4><div><span class="skill-badge">Python</span><span class="skill-badge">JavaScript</span><span class="skill-badge">C#</span><span class="skill-badge">Java</span><span class="skill-badge">SQL</span></div></div><div class="skill-group"><h4>AI &amp; ML</h4><div><span class="skill-badge">OpenAI</span><span class="skill-badge">Prophet</span><span class="skill-badge">PyTorch</span><span class="skill-badge">scikit-learn</span><span class="skill-badge">Pandas</span><span class="skill-badge">NumPy</span><span class="skill-badge">n8n</span></div></div><div class="skill-group"><h4>QA &amp; Automation</h4><div><span class="skill-badge">Cypress</span><span class="skill-badge">Selenium</span><span class="skill-badge">Playwright</span><span class="skill-badge">Jenkins</span></div></div><div class="skill-group"><h4>Web &amp; Infrastructure</h4><div><span class="skill-badge">React</span><span class="skill-badge">Flask</span><span class="skill-badge">REST APIs</span><span class="skill-badge">Docker</span><span class="skill-badge">Git</span><span class="skill-badge">AWS</span></div></div><div class="skill-group"><h4>Security</h4><div><span class="skill-badge">Nmap</span><span class="skill-badge">OpenVAS</span><span class="skill-badge">Intrusion Detection</span><span class="skill-badge">SOC / SIEM</span></div></div></div></div>
+</section>
+<section class="section container" id="projects">
+  <div class="section-heading"><div><p class="eyebrow">03 / SELECTED WORK</p><h2>Selected projects</h2></div><p>Software, hardware, and open-source contributions.</p></div>
+  <div class="filters" role="group" aria-label="Filter projects"><button class="active" data-filter="all" aria-pressed="true">All work</button><button data-filter="ai" aria-pressed="false">AI &amp; data</button><button data-filter="hardware" aria-pressed="false">Hardware &amp; automation</button><button data-filter="community" aria-pressed="false">Open source &amp; security</button></div>
+  <div class="projects-grid">
+<article class="project-card " data-category="ai"><div class="project-visual enrollment"><div class="preview-top"><span class="preview-dot"></span><span class="preview-dot"></span><span class="preview-dot"></span><span>Enrollment Forecasting</span></div><img src="images/enrollmentapp.png" alt="Enrollment forecasting application interface" loading="lazy"></div><div class="project-copy"><div class="project-kicker">AI & DATA<span>01</span></div><h3><button class="project-open" data-project-name="Enrollment App" aria-haspopup="dialog">Enrollment Forecasting<span aria-hidden="true">↗</span></button></h3><p>Helping schools plan for what’s next with time-series forecasts and interactive data exploration.</p><div class="project-tech">Python · Flask · Prophet</div></div></article>
+<article class="project-card " data-category="hardware"><div class="project-visual coffee" aria-hidden="true"><span class="visual-label">ESP32 / LOAD CELL / CUSTOM ENCLOSURE</span><div class="grinder"><div class="hopper"></div><div class="grinder-body"><span>openGBW</span><i></i></div><div class="grinder-base"><span>18.0<small> g</small></span><b>●</b></div></div><span class="visual-caption">Weight-based coffee grinding</span></div><div class="project-copy"><div class="project-kicker">HARDWARE & OPEN SOURCE<span>02</span></div><h3><button class="project-open" data-project-name="openGBW" aria-haspopup="dialog">openGBW<span aria-hidden="true">↗</span></button></h3><p>Turning a timed coffee grinder into a precision weight-based system with custom hardware.</p><div class="project-tech">ESP32 · C++ · 3D printing</div></div></article>
+<article class="project-card " data-category="ai"><div class="project-visual pipeline" aria-hidden="true"><span class="visual-label">FORECASTING PIPELINE</span><div class="pipeline-flow"><span><b>≋</b>Raw data</span><i>→</i><span><b>⌁</b>Forecast</span><i>→</i><span><b>✳</b>Insight</span></div><div class="pipeline-caption">Data → forecast → recommendation</div></div><div class="project-copy"><div class="project-kicker">AI & AUTOMATION<span>03</span></div><h3><button class="project-open" data-project-name="AI Forecast Pipeline" aria-haspopup="dialog">AI Forecast Pipeline<span aria-hidden="true">↗</span></button></h3><p>Connecting time-series forecasting with clear, AI-generated recommendations people can act on.</p><div class="project-tech">Python · Prophet · OpenAI</div></div></article>
+<article class="project-card " data-category="community"><div class="project-visual community"><img src="images/openmasjid.svg" alt="OpenMasjidSolutions project illustration" loading="lazy"></div><div class="project-copy"><div class="project-kicker">OPEN SOURCE<span>04</span></div><h3><button class="project-open" data-project-name="OpenMasjidSolutions" aria-haspopup="dialog">OpenMasjidSolutions<span aria-hidden="true">↗</span></button></h3><p>Contributing software, security audits, and hardware designs to an open masjid management platform.</p><div class="project-tech">Full-stack · Security · CAD</div></div></article>
+<article class="project-card compact" data-category="ai"><div class="project-copy"><div class="project-kicker">AI & AUTOMATION<span>05</span></div><h3><button class="project-open" data-project-name="n8n AI Engine" aria-haspopup="dialog">n8n AI Automation Engine<span aria-hidden="true">↗</span></button></h3><p>Connecting data sources, ML inference, and LLM summaries in automated reporting workflows.</p><div class="project-tech">n8n · Python · OpenAI</div></div></article>
+<article class="project-card compact" data-category="ai"><div class="project-copy"><div class="project-kicker">AI & DATA<span>06</span></div><h3><button class="project-open" data-project-name="Healthcare Forecaster" aria-haspopup="dialog">Healthcare Demand Forecaster<span aria-hidden="true">↗</span></button></h3><p>Forecasting patient volume and resource demand, with plain-language allocation guidance.</p><div class="project-tech">scikit-learn · Prophet · Pandas</div></div></article>
+<article class="project-card compact" data-category="hardware"><div class="project-copy"><div class="project-kicker">HARDWARE & AUTOMATION<span>07</span></div><h3><button class="project-open" data-project-name="RasPi Adhan" aria-haspopup="dialog">Raspberry Pi Adhan Player<span aria-hidden="true">↗</span></button></h3><p>A reliable daily prayer-time player built around Python, a Raspberry Pi, and a little automation.</p><div class="project-tech">Python · Raspberry Pi · REST APIs</div></div></article>
+<article class="project-card compact" data-category="community"><div class="project-copy"><div class="project-kicker">SECURITY & WEB3<span>08</span></div><h3><button class="project-open" data-project-name="FIT" aria-haspopup="dialog">File Integrity Tracker<span aria-hidden="true">↗</span></button></h3><p>Verifying file integrity on the Ethereum testnet with a decentralized, tamper-proof record.</p><div class="project-tech">Solidity · React · Web3.js</div></div></article>
+</div><div class="work-footer"><span id="project-count" class="sr-only" role="status" aria-live="polite"></span><a class="text-link" href="https://github.com/SyButter" target="_blank" rel="noopener noreferrer">More on GitHub ↗</a></div></section>
+<section class="section container" id="referrals"><div class="section-heading"><div><p class="eyebrow">04 / REFERRALS</p><h2>From people I’ve worked with</h2></div></div><div class="referrals-carousel" aria-label="Professional referrals" aria-roledescription="carousel"><figure class="testimonial"><span class="quote-mark" aria-hidden="true">“</span><blockquote>Syed stands out as an exceptional engineering talent. He made a tremendous impact by automating our test cases with Cypress, reducing our regression cycle from 2 weeks to just 2 hours and bringing measurable cost savings to our QA operations.</blockquote><figcaption><span class="avatar">GK</span><div><strong>George Kuriakose</strong><span>Senior Director, Engineering · Billtrust</span></div><a class="text-link" href="https://www.linkedin.com/in/sbadrudduja/details/recommendations/" target="_blank" rel="noopener noreferrer">View recommendation ↗</a></figcaption></figure><figure class="testimonial"><blockquote>Syed's strong technical abilities in Cypress automation and troubleshooting Jenkins pipelines were impressive. His proactive attitude and commitment to quality were evident in every project, making him a valuable asset to our team.</blockquote><figcaption><span class="avatar">VM</span><div><strong>Vernon McLaurin Jr</strong><span>Test Automation Engineer, Billtrust</span></div><a class="text-link" href="https://www.linkedin.com/in/sbadrudduja/details/recommendations/" target="_blank" rel="noopener noreferrer">View recommendation ↗</a></figcaption></figure><figure class="testimonial"><blockquote>From the very beginning, Syed impressed me with his technical skills and eagerness to learn. He consistently delivered high-quality work, often taking the initiative and approaching every task with a strong sense of responsibility. He would be a valuable addition to any team.</blockquote><figcaption><span class="avatar">JD</span><div><strong>Joe Dinicola</strong><span>High-Performing QA Automation Leader</span></div><a class="text-link" href="https://www.linkedin.com/in/sbadrudduja/details/recommendations/" target="_blank" rel="noopener noreferrer">View recommendation ↗</a></figcaption></figure><figure class="testimonial"><blockquote>Syed showed strong technical skills from day one, jumping into a variety of projects across different languages. He's a great team member: curious, reliable, and always thorough in his work, seeing projects through to the finish line.</blockquote><figcaption><span class="avatar">PM</span><div><strong>Patrick McDonough</strong><span>Software Engineer</span></div><a class="text-link" href="https://www.linkedin.com/in/sbadrudduja/details/recommendations/" target="_blank" rel="noopener noreferrer">View recommendation ↗</a></figcaption></figure><figure class="testimonial"><blockquote>Syed's ability to quickly absorb new concepts and apply them effectively stood out immediately. He's a great collaborator who approaches challenges with a positive, solutions-oriented mindset. Any team would be lucky to have someone with his drive, curiosity, and professionalism.</blockquote><figcaption><span class="avatar">AE</span><div><strong>Alex Erazo</strong><span>QA Test Automation Lead</span></div><a class="text-link" href="https://www.linkedin.com/in/sbadrudduja/details/recommendations/" target="_blank" rel="noopener noreferrer">View recommendation ↗</a></figcaption></figure></div><div class="referral-controls" hidden><div class="referral-dots" role="group" aria-label="Choose a referral"></div><button class="referral-pause" type="button">Pause rotation</button></div><p id="referral-status" class="sr-only" role="status"></p></section>
+<section class="contact-section" id="contact"><div class="container contact-inner"><p class="eyebrow"><span class="status-dot"></span> OPEN TO NEW OPPORTUNITIES</p><h2>Get in touch</h2><p>Contact me about engineering roles, project work, or open-source collaboration.</p><a class="button" href="mailto:hello@sbadar.com">Say hello <span aria-hidden="true">↗</span></a><a class="email-link" href="mailto:hello@sbadar.com">hello@sbadar.com</a></div></section>
+</main><footer class="container"><a class="wordmark" href="#home">syed badr<span>.</span></a><p>© 2026 Syed Badr</p><div><a href="https://github.com/SyButter" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://linkedin.com/in/sbadrudduja" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="#home">Back to top ↑</a></div></footer>
+<div id="project-modal-backdrop" class="hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div id="project-modal-content"><button id="modal-close-button" class="close-button" aria-label="Close project details">×</button><img id="modal-image" alt="Project preview"><div class="modal-text-content"><p class="eyebrow">PROJECT NOTES</p><h2 id="modal-title"></h2><p id="modal-description"></p><h3>Technology stack</h3><div id="modal-tech-stack"></div><h3>Key features</h3><ul id="modal-features"></ul><h3>Project challenges</h3><p id="modal-challenges"></p><a id="modal-link" class="button" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div></div></div>
+<script type="module" src="js/main.js"></script></body></html>

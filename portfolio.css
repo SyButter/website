@@ -177,6 +177,7 @@ h1 {
 
 .hero-actions {
   display:flex;
+  flex-wrap:wrap;
   align-items:center;
   gap:27px;
   margin-top:30px;

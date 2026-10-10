@@ -1,4 +1,4 @@
-import initModal from './modal.js';
+import initModal from './modal.js?v=20261010-4';
 
 const openModal = initModal();
 const menuButton = document.getElementById('mobile-menu-button');
@@ -31,7 +31,7 @@ document.querySelectorAll('[data-filter]').forEach(button => {
       filter.setAttribute('aria-pressed', String(selected));
     });
     document.querySelectorAll('[data-category]').forEach(project => {
-      project.hidden = button.dataset.filter !== 'all' && project.dataset.category !== button.dataset.filter;
+      project.hidden = button.dataset.filter !== 'all' && !project.dataset.category.split(' ').includes(button.dataset.filter);
     });
     const count = document.querySelectorAll('[data-category]:not([hidden])').length;
     document.getElementById('project-count').textContent = button.dataset.filter === 'all'
@@ -40,6 +40,7 @@ document.querySelectorAll('[data-filter]').forEach(button => {
   });
 });
 
-import './space-background.js';
+import './space-background.js?v=20261010-4';
 
 import './referrals.js';
+import './motion.js?v=20261010-4';

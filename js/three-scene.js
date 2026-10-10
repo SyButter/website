@@ -77,7 +77,7 @@ export default function initThreeScene(onProjectClick, { backgroundOnly = false 
 
     // ── Comet System ───────────────────────────────────────────────────────
     const COMET_COUNT = 6;
-    const cometColor  = new THREE.Color(0xFFA85C);
+    const cometColor  = new THREE.Color(0xB7D1E5);
     const comets      = [];
 
     function spawnComet() {
@@ -127,7 +127,7 @@ export default function initThreeScene(onProjectClick, { backgroundOnly = false 
         particlesMaterial.needsUpdate = true;
         lineMaterial.color.setHex(light ? 0x527a99 : 0xEDE9E3);
         lineMaterial.opacity = light ? 0.2 : 0.05;
-        cometColor.setHex(light ? 0x9b512e : 0xFFA85C);
+        cometColor.setHex(light ? 0x365e7d : 0xB7D1E5);
         comets.forEach(comet => {
             comet.material.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
             comet.material.needsUpdate = true;

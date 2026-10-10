@@ -1,3 +1,5 @@
+import { renderProjectStory } from './project-stories.js?v=20261010-4';
+
 export default function initModal() {
     const modalBackdrop = document.getElementById('project-modal-backdrop');
     const modalCloseButton = document.getElementById('modal-close-button');
@@ -10,6 +12,34 @@ export default function initModal() {
     const modalChallenges = document.getElementById('modal-challenges');
 
     const projectDetails = {
+        'Prompt Injection Lab': {
+            title: 'Prompt Injection Test Lab',
+            concept: true,
+            description: 'A planned evaluation tool for testing how an AI assistant handles untrusted documents and attempts to override its instructions. This project has not been built yet.',
+            link: '#',
+            techStack: ['Python', 'FastAPI', 'LLM APIs', 'SQLite', 'React'],
+            features: [
+                'A versioned library of synthetic prompt-injection test cases.',
+                'Repeatable evaluations against a configurable assistant and policy.',
+                'Evidence traces showing the input, model response, and evaluation decision.',
+                'Before-and-after comparison of changes to prompts and input handling.'
+            ],
+            challenges: 'Define clear success criteria, distinguish legitimate quoted instructions from attempted overrides, and keep test documents and tool access isolated. Evaluation results should describe tested cases rather than promise complete protection.'
+        },
+        'SOC Alert Triage': {
+            title: 'SOC Alert Triage Assistant',
+            concept: true,
+            description: 'A planned analyst workspace that groups related security alerts and drafts evidence-linked incident summaries for human review. This project has not been built yet.',
+            link: '#',
+            techStack: ['Python', 'FastAPI', 'LLM APIs', 'PostgreSQL', 'React'],
+            features: [
+                'Normalize synthetic or sanitized security events into a shared schema.',
+                'Group related alerts by host, user, and time window.',
+                'Draft incident summaries linked to the underlying event records.',
+                'Let an analyst review, edit, and prioritize every proposed incident.'
+            ],
+            challenges: 'Handle incomplete events, avoid merging unrelated activity, and keep generated explanations traceable to evidence. Logs are treated as untrusted input, with no automatic containment or account changes.'
+        },
         'openGBW': {
             title: 'openGBW - Open-Source Grind by Weight',
             description: 'An open-source 3d printed base which turns a timed coffee grinder into a weight-based grinder using an ESP32 microcontroller, providing precision and consistency for coffee enthusiasts.',
@@ -159,18 +189,19 @@ export default function initModal() {
 
         modalTitle.textContent = details.title;
         modalDescription.textContent = details.description;
+        modalContent.querySelector('.eyebrow').textContent = details.concept ? 'PROJECT CONCEPT / PLANNED' : 'PROJECT CASE STUDY';
+        document.getElementById('modal-tech-heading').textContent = details.concept ? 'Proposed stack' : 'Technology stack';
+        document.getElementById('modal-features-heading').textContent = details.concept ? 'Planned capabilities' : 'Key features';
+        document.getElementById('modal-challenges-heading').textContent = details.concept ? 'Design considerations' : 'Project challenges';
+        renderProjectStory(projectName);
         const card = Array.from(document.querySelectorAll('.project-card')).find(
             element => element.querySelector('[data-project-name]')?.dataset.projectName === projectName
         );
-        const preview = card?.querySelector('.project-visual');
+        const preview = card?.querySelector('.project-visual:has(img)');
         modalPreview.replaceChildren();
+        modalPreview.hidden = !preview;
         if (preview) {
             modalPreview.appendChild(preview.cloneNode(true));
-        } else {
-            const image = document.createElement('img');
-            image.src = details.image;
-            image.alt = details.title;
-            modalPreview.appendChild(image);
         }
         modalLink.href = details.link;
         modalTechStack.innerHTML = '';
@@ -202,6 +233,7 @@ export default function initModal() {
         document.querySelectorAll('header, main, footer').forEach(element => { element.inert = true; });
         document.body.classList.add('modal-open');
         modalBackdrop.classList.remove('hidden');
+        modalContent.scrollTop = 0;
 
         // Move focus into modal and enable trap
         requestAnimationFrame(() => modalCloseButton.focus());

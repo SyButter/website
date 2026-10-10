@@ -2,7 +2,7 @@
 // Respect reduced motion without making the page depend on WebGL or the CDN.
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 if (!motionPreference.matches) {
-  import('./three-scene.js').then(({ default: initThreeScene }) => {
+  import('./three-scene.js?v=20261010-2').then(({ default: initThreeScene }) => {
     const scene = initThreeScene(() => {}, { backgroundOnly: true });
     if (!scene) return;
     const updateDepth = () => {

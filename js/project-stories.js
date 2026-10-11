@@ -117,10 +117,10 @@ export const projectStories = {
   }
 };
 
-export function renderProjectStory(projectName) {
+export function renderProjectStory(projectName, targets = {}) {
   const story = projectStories[projectName];
-  const container = document.getElementById('modal-case-study');
-  const architecture = document.getElementById('modal-architecture');
+  const container = targets.container || document.getElementById('modal-case-study');
+  const architecture = targets.architecture || document.getElementById('modal-architecture');
   container.replaceChildren();
   architecture.replaceChildren();
   if (!story) return;
@@ -146,7 +146,7 @@ export function renderProjectStory(projectName) {
   steps.setAttribute('aria-label', heading.textContent);
   const detail = document.createElement('div');
   detail.className = 'architecture-detail';
-  detail.id = 'architecture-detail';
+  detail.id = targets.detailId || 'architecture-detail';
   detail.setAttribute('aria-live', 'polite');
   detail.setAttribute('aria-atomic', 'true');
   const title = document.createElement('h4');

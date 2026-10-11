@@ -1,17 +1,6 @@
-import { renderProjectStory } from './project-stories.js?v=20261010-4';
+import { renderProjectStory } from './project-stories.js?v=20261011-9';
 
-export default function initModal() {
-    const modalBackdrop = document.getElementById('project-modal-backdrop');
-    const modalCloseButton = document.getElementById('modal-close-button');
-    const modalPreview = document.getElementById('modal-preview');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDescription = document.getElementById('modal-description');
-    const modalLink = document.getElementById('modal-link');
-    const modalTechStack = document.getElementById('modal-tech-stack');
-    const modalFeatures = document.getElementById('modal-features');
-    const modalChallenges = document.getElementById('modal-challenges');
-
-    const projectDetails = {
+export const projectDetails = {
         'Prompt Injection Lab': {
             title: 'Prompt Injection Test Lab',
             concept: true,
@@ -159,6 +148,18 @@ export default function initModal() {
         }
     };
 
+
+export default function initModal() {
+    const modalBackdrop = document.getElementById('project-modal-backdrop');
+    const modalCloseButton = document.getElementById('modal-close-button');
+    const modalPreview = document.getElementById('modal-preview');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalLink = document.getElementById('modal-link');
+    const modalTechStack = document.getElementById('modal-tech-stack');
+    const modalFeatures = document.getElementById('modal-features');
+    const modalChallenges = document.getElementById('modal-challenges');
+
     const modalContent = document.getElementById('project-modal-content');
     let lastFocusedElement = null;
 
@@ -197,7 +198,7 @@ export default function initModal() {
         const card = Array.from(document.querySelectorAll('.project-card')).find(
             element => element.querySelector('[data-project-name]')?.dataset.projectName === projectName
         );
-        const preview = card?.querySelector('.project-visual:has(img)');
+        const preview = card?.querySelector('.project-preview')?.content.querySelector('.project-visual');
         modalPreview.replaceChildren();
         modalPreview.hidden = !preview;
         if (preview) {

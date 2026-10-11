@@ -27,5 +27,9 @@ document.querySelectorAll('[data-project-name]').forEach(button => {
 });
 import './space-background.js?v=20261010-4';
 
-import './referrals.js';
+import './referrals.js?v=20261011-18';
 import './motion.js?v=20261010-4';
+
+import './section-figures.js?v=20261011-12';
+
+import './experience-terminal.js?v=20261011-18';

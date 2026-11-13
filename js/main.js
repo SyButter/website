@@ -25,11 +25,18 @@ window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
 document.querySelectorAll('[data-project-name]').forEach(button => {
   button.addEventListener('click', () => openModal(button.dataset.projectName));
 });
-import './space-background.js?v=20261010-4';
 
 import './referrals.js?v=20261011-18';
-import './motion.js?v=20261010-4';
+import './motion.js?v=20261113-1';
 
 import './section-figures.js?v=20261011-12';
 
-import './experience-terminal.js?v=20261011-18';
+import './experience-terminal.js?v=20261113-1';
+
+// The hero model is an enhancement: without WebGL or the CDN the hero is copy only.
+const bench = document.getElementById('bench');
+if (bench) {
+  import('./bench.js?v=20261113-1')
+    .then(({ default: initBench }) => initBench(bench))
+    .catch(() => bench.classList.add('is-unavailable'));
+}

@@ -22,21 +22,20 @@ if (timeline && 'IntersectionObserver' in window && !reducedMotion.matches) {
   });
 }
 
-if ('IntersectionObserver' in window) {
+// Headings are drawn in once, left to right, like a plotter laying down a line.
+if ('IntersectionObserver' in window && !reducedMotion.matches) {
   const observer = new IntersectionObserver(entries => {
-    const arriving = entries.filter(entry => entry.isIntersecting);
-    arriving.forEach((entry, index) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
       observer.unobserve(entry.target);
-      if (reducedMotion.matches || !entry.target.animate) return;
-      const animation = entry.target.animate([
-        { opacity: 0, translate: '0 24px' },
-        { opacity: 1, translate: '0 0' }
-      ], { duration: 650, delay: Math.min(index, 3) * 85, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
-      animations.add(animation);
-      animation.onfinish = animation.oncancel = () => animations.delete(animation);
+      entry.target.querySelector(':scope > h2').classList.add('is-plotted');
     });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.section-heading, .about-grid > div, .experience-list, .project-card, .contact-inner').forEach(element => observer.observe(element));
+  }, { threshold: 0.2 });
+  document.querySelectorAll('main h2').forEach(heading => {
+    // Watch the parent: the heading itself is fully clipped until it is drawn.
+    heading.classList.add('will-plot');
+    observer.observe(heading.parentElement);
+  });
 }
 
 const resetCards = [];

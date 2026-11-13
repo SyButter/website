@@ -1,13 +1,11 @@
 const tabs = [...document.querySelectorAll('.terminal-tabs [role="tab"]')];
 const panels = [...document.querySelectorAll('.experience-terminal .experience-list article')];
-const companies = ['port-authority', 'edgeline-analytics', 'billtrust'];
 function select(index) {
   tabs.forEach((tab, i) => {
     tab.setAttribute('aria-selected', String(i === index));
     tab.tabIndex = i === index ? 0 : -1;
     panels[i].hidden = i !== index;
   });
-  document.getElementById('experience-command').textContent = `--company ${companies[index]}`;
 }
 tabs.forEach((tab, index) => {
   panels[index].id = `experience-output-${index}`;

@@ -18,10 +18,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
   <script src="/js/theme.js"></script>
   <link href="portfolio.css?v=20261011-18" rel="stylesheet" />
-  <link href="blueprint.css?v=20261113-1" rel="stylesheet" />
+  <link href="blueprint.css?v=20261113-2" rel="stylesheet" />
 </head>
 <body>
-<div class="sheet-bg" aria-hidden="true"></div>
+<div class="sheet-bg" aria-hidden="true"><canvas id="plot"></canvas></div>
 <a class="skip-link" href="#main">Skip to main content</a>
 <header class="site-header"><div class="container header-inner">
   <a class="wordmark" href="#home" aria-label="Syed Badr home">syed badr<span>.</span></a>
@@ -35,16 +35,6 @@
   <h1 class="name-heading" aria-label="Syed Badr"><span aria-hidden="true"><span class="name-line"><span class="name-letter" style="--letter:0">S</span><span class="name-letter" style="--letter:1">y</span><span class="name-letter" style="--letter:2">e</span><span class="name-letter" style="--letter:3">d</span></span> <span class="name-line"><span class="name-letter" style="--letter:4">B</span><span class="name-letter" style="--letter:5">a</span><span class="name-letter" style="--letter:6">d</span><span class="name-letter" style="--letter:7">r</span></span></span></h1>
   <p class="hero-description">I build forecasting tools, automation pipelines, and full-stack applications. My work spans Python, AI deployment, and the hardware on my desk.</p>
   <div class="hero-actions"><a class="button" href="#projects">View projects <span aria-hidden="true">↘</span></a><a class="button quiet" href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer">View résumé <span aria-hidden="true">↗</span></a></div></div>
-  <figure class="bench" id="bench">
-    <div class="bench-stage">
-      <canvas aria-hidden="true"></canvas>
-      <svg class="bench-leaders" aria-hidden="true"><line/><line/><line/></svg>
-      <div class="bench-label bench-label-live" data-bench-label="controller" data-dx="34" data-dy="-62"><span>ESP32 and touchscreen</span><output data-bench-readout>0.0 g</output><span data-bench-state>Idle</span></div>
-      <div class="bench-label" data-bench-label="scale" data-dx="44" data-dy="24"><span>Load cell in a 3D-printed base</span></div>
-      <div class="bench-label" data-bench-label="hopper" data-dx="-44" data-dy="-36"><span>Timed coffee grinder</span></div>
-    </div>
-    <figcaption><p><strong>openGBW</strong> turns a timed coffee grinder into one that stops at a target weight. Drag the model to turn it.</p><div class="bench-actions"><button class="bench-grind" type="button" data-bench-grind>Grind 18 g <span aria-hidden="true">↓</span></button><button class="bench-more" type="button" data-project-name="openGBW" aria-haspopup="dialog">How it works</button></div></figcaption>
-  </figure>
 </section>
 <div class="container credibility"><span>Teams I’ve worked with</span><div>Port Authority of NY &amp; NJ</div><div>Edgeline Analytics</div><div>Billtrust</div></div>
 <section class="about-section" id="about"><div class="container about-grid"><div><h2>I work directly with the teams who use the software.</h2></div><div class="about-copy"><p>I’m Syed Badr, a Forward Deployed Engineer working alongside client teams to take software from architecture to production. My work spans live GIS monitoring, AI forecasting, and the automation that keeps complex systems running.</p><p>My background is in Computer Science, Cybersecurity, and QA automation. I also contribute to open-source projects, design 3D-printed parts, and build hardware for coffee grinders and community spaces.</p><a class="button" href="https://flowcv.com/resume/rfjse59hqb" target="_blank" rel="noopener noreferrer">View my résumé <span aria-hidden="true">↗</span></a><div class="certifications"><span>CompTIA Security+</span><span>AWS Cloud Practitioner</span></div></div></div></section>
@@ -136,4 +126,4 @@
 </main><footer class="container"><a class="wordmark" href="#home">syed badr<span>.</span></a><p>© 2026 Syed Badr</p><div><a href="https://github.com/SyButter" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://linkedin.com/in/sbadrudduja" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="#home">Back to top ↑</a></div></footer>
 <div id="project-modal-backdrop" class="hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div id="project-modal-content"><button id="modal-close-button" class="close-button" aria-label="Close project details">×</button><div id="modal-preview"></div><div class="modal-text-content"><p class="eyebrow">PROJECT CASE STUDY</p><h2 id="modal-title"></h2><p id="modal-description"></p><div id="modal-case-study" class="case-study"></div><section id="modal-architecture" class="project-architecture" aria-label="Project architecture"></section><h3 id="modal-tech-heading">Technology stack</h3><div id="modal-tech-stack"></div><h3 id="modal-features-heading">Key features</h3><ul id="modal-features"></ul><h3 id="modal-challenges-heading">Project challenges</h3><p id="modal-challenges"></p><a id="modal-link" class="button" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div></div></div>
 <script src="js/vendor/hairline-kernel.js?v=20261011-9"></script>
-<script type="module" src="js/main.js?v=20261113-1"></script></body></html>
+<script type="module" src="js/main.js?v=20261113-2"></script></body></html>

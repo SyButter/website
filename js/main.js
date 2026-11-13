@@ -33,10 +33,4 @@ import './section-figures.js?v=20261011-12';
 
 import './experience-terminal.js?v=20261113-1';
 
-// The hero model is an enhancement: without WebGL or the CDN the hero is copy only.
-const bench = document.getElementById('bench');
-if (bench) {
-  import('./bench.js?v=20261113-1')
-    .then(({ default: initBench }) => initBench(bench))
-    .catch(() => bench.classList.add('is-unavailable'));
-}
+import './plot.js?v=20261113-2';

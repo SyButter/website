@@ -27,10 +27,10 @@ document.querySelectorAll('[data-project-name]').forEach(button => {
 });
 
 import './referrals.js?v=20261011-18';
-import './motion.js?v=20261113-1';
+import './motion.js?v=20261114-1';
 
 import './section-figures.js?v=20261011-12';
 
 import './experience-terminal.js?v=20261113-1';
 
-import './plot.js?v=20261113-2';
+import './plot.js?v=20261114-1';

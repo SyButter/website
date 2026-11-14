@@ -71,8 +71,24 @@ h1, h2 { font-family: var(--display); font-weight: 600; font-stretch: 112%; lett
   from { opacity: 0; font-stretch: 62%; transform: translateY(.18em); }
   to { opacity: 1; font-stretch: 112%; transform: none; }
 }
+.name-letter.has-arrived { animation: none; transition: font-stretch .35s cubic-bezier(.2, .7, .2, 1); }
 .hero-description { max-width: 30em; font-size: 18px; line-height: 1.65; color: var(--muted); }
 .hero-actions { gap: 14px; margin-top: 32px; }
+
+/* Controls for the background figure. */
+.tuner { align-self: flex-end; display: grid; gap: 14px; width: 270px; margin: 0 0 4px auto; padding: 16px 18px 12px; border: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 90%, transparent); font: 400 12px/1.5 var(--mono); color: var(--muted); }
+.tuner p { font: 400 13px/1.55 var(--sans); }
+.tuner p output { color: var(--ink); }
+.tuner label { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; }
+.tuner label output { color: var(--signal); font-variant-numeric: tabular-nums; }
+.tuner input { grid-column: 1 / -1; width: 100%; height: 20px; margin: 0; background: transparent; cursor: ew-resize; -webkit-appearance: none; appearance: none; }
+.tuner input::-webkit-slider-runnable-track { height: 1px; background: var(--muted); }
+.tuner input::-moz-range-track { height: 1px; background: var(--muted); }
+.tuner input::-webkit-slider-thumb { -webkit-appearance: none; width: 9px; height: 17px; margin-top: -8px; border: 0; border-radius: 0; background: var(--signal); }
+.tuner input::-moz-range-thumb { width: 9px; height: 17px; border: 0; border-radius: 0; background: var(--signal); }
+.tuner input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.tuner button { justify-self: start; min-height: 32px; padding: 0; background: none; font: inherit; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 5px; }
+.tuner button:hover { text-decoration-color: var(--ink); }
 
 /* Buttons: one solid, one outlined. The glint still follows the pointer. */
 :root .button {
@@ -144,6 +160,7 @@ h1, h2 { font-family: var(--display); font-weight: 600; font-stretch: 112%; lett
   .hero h1 { font-size: clamp(64px, 12.5vw, 172px); }
 }
 @media (max-width: 760px) {
+  .tuner { display: none; }
   .hero { align-items: flex-start; min-height: min(640px, calc(100svh - 72px)); padding-block: 44px 48px; }
   .hero h1 { font-size: clamp(72px, 24vw, 132px); margin: 14px 0 24px; }
   .hero-description { font-size: 16px; }

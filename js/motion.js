@@ -104,3 +104,37 @@ reducedMotion.addEventListener('change', () => {
   resetDepth();
   if (reducedMotion.matches) animations.forEach(animation => animation.cancel());
 });
+
+// The name is set in a variable-width face: letters widen under the pointer
+// and the rest narrow to make room.
+const nameHeading = document.querySelector('.name-heading');
+if (nameHeading) {
+  const letters = [...nameHeading.querySelectorAll('.name-letter')];
+  // The arrival animation would otherwise keep overriding the width set here.
+  letters.forEach(letter => letter.addEventListener('animationend', () => letter.classList.add('has-arrived'), { once: true }));
+  let frame = 0, pointer = null;
+  const relax = () => {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    letters.forEach(letter => letter.style.removeProperty('font-stretch'));
+  };
+  nameHeading.addEventListener('pointermove', event => {
+    if (reducedMotion.matches || !finePointer.matches || event.pointerType === 'touch') return;
+    pointer = { x: event.clientX, y: event.clientY };
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      const reach = nameHeading.getBoundingClientRect().height * 0.55;
+      const centres = letters.map(letter => {
+        const box = letter.getBoundingClientRect();
+        return Math.hypot(pointer.x - (box.left + box.width / 2), pointer.y - (box.top + box.height / 2));
+      });
+      letters.forEach((letter, index) => {
+        const near = Math.exp(-((centres[index] / reach) ** 2));
+        letter.style.setProperty('font-stretch', `${Math.round(98 + 27 * near)}%`);
+      });
+    });
+  }, { passive: true });
+  nameHeading.addEventListener('pointerleave', relax);
+  reducedMotion.addEventListener('change', relax);
+}
